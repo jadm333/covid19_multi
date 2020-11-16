@@ -2,7 +2,7 @@
 
 Instrucciones para commitear:
 
-1. Crear rama y cambiarse a ella. E.g. <nombre_rama> puede ser `dev/fix_modelo`:
+1. Crear rama y cambiarse a ella. E.g. `<nombre_rama>` puede ser `dev/fix_modelo`:
 
 ```bash
 git checkout -b <nombre_rama>
@@ -26,7 +26,7 @@ git commit -m "Mensaje para commit"
 git push origin <nombre_rama>
 ```
 
-5. Hacer pull request dentro de github.com a la rama master
+5. Hacer pull request dentro de github.com a la rama `master`
 
 6. Revisar conflictos y resolverlos
 
