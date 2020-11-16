@@ -21,10 +21,10 @@ git add .
 git commit -m "Mensaje para commit"
 ```
 
-4. Hacer push
-´´´bash
+4. Hacer push 
+```bash
 git push origin <nombre_rama>
-´´´
+```
 
 5. Hacer pull request dentro de github.com a la rama master
 
