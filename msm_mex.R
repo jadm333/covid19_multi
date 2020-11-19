@@ -11,7 +11,7 @@ library(bayesplot)
 color_scheme_set("viridis")
 
 
-df=read_csv("201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+df=read_csv("data/201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-11-04")
 
 
@@ -86,7 +86,7 @@ sin_jer=list(
 )
 
 mfit1<-stan(
-  file="ModeloQR.stan",
+  file="Stan/ModeloQR.stan",
   data=sin_jer,chains = 2,iter = 3000,init = inits1,
   control = list(adapt_delta = 0.8)
 )
@@ -122,7 +122,7 @@ inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
            list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
 mfit2<-stan(
-  file="ModeloJerQR.stan",
+  file="Stan/ModeloJerQR.stan",
   data=jer_1,chains = 2,iter = 3000,init = inits2,
   control = list(adapt_delta = 0.8)
 )
@@ -161,7 +161,7 @@ inits3=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
 mfit3<-stan(
-  file="ModeloJer2QR.stan",
+  file="Stan/ModeloJer2QR.stan",
   data=jer_2,chains = 2,iter = 3000,init = inits3,
   control = list(adapt_delta = 0.8)
 )
@@ -197,7 +197,7 @@ inits4=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
 mfit4<-stan(
-  file="ModeloJer2QR.stan",
+  file="Stan/ModeloJer2QR.stan",
   data=jer_2modi,chains = 2,iter = 3000,init = inits4,
   control = list(adapt_delta = 0.8)
 )
@@ -213,19 +213,3 @@ mcmc_intervals(
 
 
 pairs(mfit2,pars = c("mu_l_raw[1]","mu_l_raw[29]"))
-
-saveRDS(mfit1,"fixed.rds")
-saveRDS(mfit2,"random.rds")
-
-mon=monitor(mfit2)
-
-which_min_ess <- which.min(mon[1:534, 'Tail_ESS'])
-
-plot_local_ess(fit = fit_nom, par = which_min_ess, nalpha = 20)
-
-saveRDS(mfit1,"fixed.rds")
-saveRDS(mfit2,"random.rds")
-saveRDS(mfit3,"random2.rds")
-saveRDS(mfit4,"random2mod.rds")
-
-##### otro ######
