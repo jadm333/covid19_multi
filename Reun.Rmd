@@ -1,0 +1,172 @@
+---
+title: "COVID-19 multi estados"
+date: "11/17/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = FALSE,message = FALSE)
+mfit1=readRDS("fixed.rds")
+mfit2=readRDS("random.rds")
+mfit3=readRDS("random2.rds")
+mfit4=readRDS("random2mod.rds")
+library(bayesplot)
+```
+
+# Modelos
+
+## Sin efectos aleatorios
+Dimensión
+
+$$
+M_n \\
+H_n \\
+\mathbf{\eta}_n,\mathbf{\upsilon}_n \\
+\mathbf{\theta}_m,\mathbf{\vartheta}_m \\
+\mathbf{Q}^*_{nxm},\mathbf{Q}^{**}_{nxm} 
+$$
+Modelo
+
+$$
+\begin{aligned}
+ {M}  &\sim Weibull(\alpha,\mathbf{\eta})\\
+ {H}  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp(-\frac{\mu_m+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}) \\
+ \mathbf{\upsilon} &= \exp(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}) \\
+ \alpha&=\exp(\alpha_r*10) \\
+ \alpha_r&\sim N(0,1) \\
+ \mu_m,\mu_h &\sim N(0,3) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
+
+$\mathbf{x}\mathbf{\beta}=\mathbf{Q}^*\mathbf{R}^*\mathbf{\beta}$ y $\mathbf{\vartheta}=\mathbf{R}^*\mathbf{\beta}$
+
+## Un nivel
+
+$$
+\begin{aligned}
+ M   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp(-\frac{\mu_m+\mathbf{\mu}_j^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}),\space\space j=1,...,32\\
+ \mathbf{\upsilon} &= \exp(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}) \\
+ \mathbf{\mu}_j&=\sigma*\mathbf{\mu}_j^r \\
+ \alpha&=\exp(\alpha^r*10) \\
+ \alpha^r&\sim N(0,1) \\
+ \mu^r_j&\sim N(0,1) \\
+ \sigma&\sim t^+_3(0,1) \\
+ \mu_m,\mu_h &\sim N(0,3) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
+
+$\sigma$ reparametrizada con gamma.
+
+## Dos niveles
+
+$$
+\begin{aligned}
+ M   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp(-\frac{\mu_m+\mathbf{\mu}_j^r+\mathbf{\mu}_k^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}),\space\space j=1,...,32,\space k=1,...,5\\
+ \mathbf{\upsilon} &= \exp(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}) \\
+  \mathbf{\mu}_j&=\sigma_l*\mathbf{\mu}_j^r, \space\space l=1,2 \\
+ \mathbf{\mu}_k&=\sigma_l*\mathbf{\mu}_k^r \\
+ \alpha&=\exp(\alpha^r*10) \\
+ \alpha^r&\sim N(0,1) \\
+ \mu^r_j&\sim N(0,1) \\
+ \sigma_l&\sim t^+_3(0,1) \\
+ \mu_m,\mu_h &\sim N(0,3) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
+
+## Dos niveles contenidos
+
+$k=1,...,138$
+
+# Resultados
+
+## Sin efectos aleatorios
+
+```{r fig.align='center'}
+mcmc_areas(
+  mfit1,
+  regex_pars = c("beta"),
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)
+```
+
+
+```{r}
+mfit1
+```
+
+
+## Un nivel
+
+```{r}
+mfit2
+```
+
+```{r fig.align='center',fig.height=20}
+mcmc_intervals(
+  mfit2,
+  regex_pars = c("mu_l"),
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)
+```
+
+## Dos niveles
+
+```{r}
+mfit3
+```
+
+
+```{r fig.align='center',fig.height=20}
+mcmc_intervals(
+  mfit3,
+  regex_pars = c("mu_l"),
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)
+```
+
+
+## Dos niveles contenidos
+
+```{r}
+mfit4
+```
+
+```{r fig.align='center',fig.height=40}
+mcmc_intervals(
+  mfit4,
+  regex_pars = c("mu_l"),
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)
+```
+
+# Por hacer
+
+1. Artículo
+2. Stan
+- `loo` 
+- $\tilde{y}$
+3. Gráficas
+- Parámetros
+- Post Pred Checks
+- Otros
