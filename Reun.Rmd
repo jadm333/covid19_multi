@@ -11,10 +11,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,warning = FALSE,message = FALSE)
-mfit1=readRDS("fixed.rds")
-mfit2=readRDS("random.rds")
-mfit3=readRDS("random2.rds")
-mfit4=readRDS("random2mod.rds")
+mfit1=readRDS("Fit/fixed.rds")
+mfit2=readRDS("Fit/random.rds")
+mfit3=readRDS("Fit/random2.rds")
+mfit4=readRDS("Fit/random2mod.rds")
 library(bayesplot)
 ```
 
