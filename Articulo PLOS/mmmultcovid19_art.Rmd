@@ -57,6 +57,9 @@ hospitalizations in each state of the country and the different health instituti
 Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 # Tabla ejemplo
+
+hola mundo
+
 -
 
 # References {#references .unnumbered}
