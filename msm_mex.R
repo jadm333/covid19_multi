@@ -11,8 +11,8 @@ library(bayesplot)
 color_scheme_set("viridis")
 
 
-df=read_csv("data/201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-corte=ymd("2020-11-04")
+df=read_csv("201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+corte=ymd("2020-05-04")
 
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
@@ -84,6 +84,7 @@ sin_jer=list(
   x_hosp=x_hosp,
   M_hosp=ncol(x_hosp)
 )
+#library()
 
 mfit1<-stan(
   file="Stan/ModeloQR.stan",
@@ -101,6 +102,19 @@ mcmc_areas(
   point_est = "median"
 )
 
+loglik1 <- extract_log_lik(mfit1, merge_chains = FALSE)
+reff1 <- relative_eff(exp(loglik1))
+loo1 <- loo(loglik1, r_eff = NA)
+print(loo1)
+plot(loo1)
+
+yrep1 <- posterior_predict(mfit1)
+
+ppc_loo_pit_overlay(
+  y = as.numeric(muerte$tiempo_muerte),
+  yrep = yrep1,
+  lw = weights(loo1$psis_object)
+)
 ############################
 #Con jerarquia 1
 ############################
@@ -138,6 +152,20 @@ mcmc_intervals(
   point_est = "median"
 )
 
+
+loglik2 <- extract_log_lik(mfit2, merge_chains = FALSE)
+reff2 <- relative_eff(exp(loglik2))
+loo2 <- loo(loglik2, r_eff = NA)
+print(loo2)
+plot(loo2)
+
+yrep2<- posterior_predict(mfit2)
+
+ppc_loo_pit_overlay(
+  y = as.numeric(muerte$tiempo_muerte),
+  yrep = yrep2,
+  lw = weights(loo2$psis_object)
+)
 ############################
 #Con jerarquia 2
 ############################
@@ -172,6 +200,22 @@ mcmc_intervals(
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
+)
+
+
+
+loglik3 <- extract_log_lik(mfit3, merge_chains = FALSE)
+reff3 <- relative_eff(exp(loglik3))
+loo3 <- loo(loglik3, r_eff = NA)
+print(loo3)
+plot(loo3)
+
+yrep3<- posterior_predict(mfit3)
+
+ppc_loo_pit_overlay(
+  y = as.numeric(muerte$tiempo_muerte),
+  yrep = yrep3,
+  lw = weights(loo3$psis_object)
 )
 
 ############################
@@ -211,5 +255,20 @@ mcmc_intervals(
   point_est = "median"
 )
 
+loglik4 <- extract_log_lik(mfit4, merge_chains = FALSE)
+reff4 <- relative_eff(exp(loglik4))
+loo4 <- loo(loglik4, r_eff = NA)
+print(loo4)
+plot(loo4)
+
+yrep4<- posterior_predict(mfit4)
+
+ppc_loo_pit_overlay(
+  y = as.numeric(muerte$tiempo_muerte),
+  yrep = yrep4,
+  lw = weights(loo4$psis_object)
+)
 
 pairs(mfit2,pars = c("mu_l_raw[1]","mu_l_raw[29]"))
+
+
