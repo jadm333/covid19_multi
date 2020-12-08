@@ -60,12 +60,22 @@ model {
   target += weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort)/alpha));
   target += weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
 }
-
 generated quantities {
-  vector[M] beta;
-  vector[M_hosp] beta_h;
-  beta = R_ast_inverse * theta;
-  beta_h = R_ast_inverse_h * theta_h;// coefficients on x
+  //vector[M] beta;
+  //vector[M_hosp] beta_h;
+  //beta = R_ast_inverse * theta;
+  //beta_h = R_ast_inverse_h * theta_h;
+  
+  real log_lik[N];
+  for(i in 1:N){
+    log_lik[i]=weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort)/alpha))+
+    weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
+  }
+//generated quantities {
+//  vector[M] beta;
+//  vector[M_hosp] beta_h;
+//  beta = R_ast_inverse * theta;
+//  beta_h = R_ast_inverse_h * theta_h;// coefficients on x
 }
 // generated quantities {
 //   vector[N] log_lik;
