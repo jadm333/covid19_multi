@@ -58,8 +58,6 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 # Tabla ejemplo
 
-hola mundo
-
 -
 
 # References {#references .unnumbered}
