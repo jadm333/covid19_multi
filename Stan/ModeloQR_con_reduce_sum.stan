@@ -62,7 +62,7 @@ parameters {
 
 transformed parameters {
   //vector[N] linpred;
-  matrix[N,M] Q_mort;
+  //matrix[N,M] Q_mort;
   real alpha;
   
   //for(i in 1:M){

@@ -2,17 +2,19 @@ library(cmdstanr)
 
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
-df=read_csv("data/201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-11-04")
 
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
-  filter(CLASIFICACION_FINAL==3,TIPO_PACIENTE==2) %>%
+  filter(CLASIFICACION_FINAL==1 | CLASIFICACION_FINAL==2 | CLASIFICACION_FINAL==3,
+         TIPO_PACIENTE==2) %>%
   mutate(
     SECTOR = as.factor(case_when(
       SECTOR==4 | SECTOR==5 ~ "IMSS",
       SECTOR==6 ~ "ISSSTE",
       SECTOR==9 ~ "PRIVADA",
+      SECTOR==3 | SECTOR==7 ~ "ESTATAL",
       SECTOR==8 | SECTOR==10 | SECTOR==11 ~ "SE_MAR_PE",
       TRUE                      ~ "SSA_OTROS"
     )),evento= case_when(
@@ -78,5 +80,5 @@ fitQR <- modQR$sample(data=sin_jer,
                       chains = 2,
                       parallel_chains = 2,
                       threads_per_chain = 2,
-                      iter_warmup = 500,
-                      iter_sampling = 1500)
+                      iter_warmup = 1000,
+                      iter_sampling = 1000)

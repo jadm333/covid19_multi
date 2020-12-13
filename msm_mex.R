@@ -11,17 +11,19 @@ library(bayesplot)
 color_scheme_set("viridis")
 
 
-df=read_csv("201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-corte=ymd("2020-05-04")
+df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+corte=ymd("2020-12-12")
 
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
-  filter(CLASIFICACION_FINAL==3,TIPO_PACIENTE==2) %>%
+  filter(CLASIFICACION_FINAL==1 | CLASIFICACION_FINAL==2 | CLASIFICACION_FINAL==3,
+         TIPO_PACIENTE==2) %>%
   mutate(
     SECTOR = as.factor(case_when(
       SECTOR==4 | SECTOR==5 ~ "IMSS",
       SECTOR==6 ~ "ISSSTE",
       SECTOR==9 ~ "PRIVADA",
+      SECTOR==3 | SECTOR==7 ~ "ESTATAL",
       SECTOR==8 | SECTOR==10 | SECTOR==11 ~ "SE_MAR_PE",
       TRUE                      ~ "SSA_OTROS"
     )),evento= case_when(

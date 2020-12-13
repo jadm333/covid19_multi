@@ -2,7 +2,7 @@
 .Rhistory
 .Rapp.history
 *.DS_Store
-data/*.csv
+201212COVID19MEXICO.csv
 
 # Session Data files
 .RData
