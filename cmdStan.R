@@ -34,8 +34,7 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
-  filter(FECHA_INGRESO<="2020-07-01")
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% as.data.frame()
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
@@ -51,6 +50,7 @@ x_hosp=x_hosp[,-1]
 x2=x2[,-1]
 
 inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
+            list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01))
 
 
@@ -73,12 +73,13 @@ sin_jer=list(
 )
 
 
-modQR <- cmdstan_model(stan_file = "Stan/ModeloQR.stan",cpp_options=list(stan_threads=TRUE))
+modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_con_reduce_sum.stan",cpp_options=list(stan_threads=TRUE))
 
 fitQR <- modQR$sample(data=sin_jer,
                       init=inits1,
-                      chains = 2,
-                      parallel_chains = 2,
-                      threads_per_chain = 2,
+                      chains = 3,
+                      parallel_chains = 3,
+                      threads_per_chain = 3,
                       iter_warmup = 1000,
                       iter_sampling = 1000)
+
