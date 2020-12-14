@@ -1,4 +1,8 @@
 library(cmdstanr)
+library(tidyverse)
+library(bayesplot) 
+library(lubridate)
+library(posterior)
 
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
@@ -34,7 +38,8 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% as.data.frame()
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% filter(FECHA_DEF<"2020-04-25") %>%
+  as.data.frame()
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
@@ -73,9 +78,49 @@ sin_jer=list(
 )
 
 
-modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_con_reduce_sum.stan",cpp_options=list(stan_threads=TRUE))
+modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
 fitQR <- modQR$sample(data=sin_jer,
+                      init=inits1,
+                      chains = 3,
+                      parallel_chains = 3,
+                      threads_per_chain = 3,
+                      iter_warmup = 750,
+                      iter_sampling = 750)
+
+y_rep_hosp=fitQR$draws("y_hosp_tilde")
+y_rep_hosp=as_draws_matrix(y_rep_hosp)
+
+y_rep_mort=fitQR$draws("y_mort_tilde")
+y_rep_mort=as_draws_matrix(y_rep_mort)
+
+ppc_dens_overlay(sin_jer$y_hosp, y_rep_hosp[1:200, ])
+ppc_dens_overlay(sin_jer$y_mort, y_rep_mort[1:200, ])
+
+############################
+#Con jerarquia 1
+############################
+
+jer_1=list(
+  N=length(muerte$tiempo_muerte),
+  y_mort=as.numeric(muerte$tiempo_muerte),
+  N2=length(muerte$tiempo_hosp),
+  y_hosp=as.numeric(muerte$tiempo_hosp),
+  Gniv1=length(levels(muerte$ENTIDAD_UM)),
+  Niv1=as.numeric(muerte$ENTIDAD_UM),
+  x=x2,
+  M=ncol(x2),
+  x_hosp=x_hosp,
+  M_hosp=ncol(x_hosp)
+)
+
+inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
+            list(mu_raw_mort=-2.5,alpha_raw=0.01),
+            list(mu_raw_mort=-2.5,alpha_raw=0.01))
+
+modJerQR <- cmdstan_model(stan_file = "Stan/ModeloJerQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
+
+fitJerQR <- modQR$sample(data=sin_jer,
                       init=inits1,
                       chains = 3,
                       parallel_chains = 3,
