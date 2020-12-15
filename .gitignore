@@ -3,6 +3,7 @@
 .Rapp.history
 *.DS_Store
 data/*.csv
+*.rds
 
 # Session Data files
 .RData
