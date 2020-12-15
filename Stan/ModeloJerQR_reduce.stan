@@ -88,35 +88,20 @@ model {
   target += reduce_sum(partial_sum,y_hosp,grainsize,alpha,(Q_ast_h*theta_h +mu_raw_hosp)/alpha);
 }
 generated quantities {
-  //vector[M] beta;
-  //vector[M_hosp] beta_h;
-  //beta = R_ast_inverse * theta;
-  //beta_h = R_ast_inverse_h * theta_h;
-  
+  vector[M] beta;
+  vector[M_hosp] beta_h;
   real log_lik[N];
+  real<lower=0> y_mort_tilde[N];
+  real<lower=0> y_hosp_tilde[N];
+  
+  
+  beta = R_ast_inverse * theta;
+  beta_h = R_ast_inverse_h * theta_h;
+  
   for(i in 1:N){
-    log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1])/alpha))+
+    log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1[i]])/alpha))+
     weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+    y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1[i]])/alpha));
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
   }
-
-//generated quantities {
-//  vector[M] beta;
-//  vector[M_hosp] beta_h;
-//  beta = R_ast_inverse * theta;
-//  beta_h = R_ast_inverse_h * theta_h; // coefficients on x
-//}
-// generated quantities {
-//   vector[N] log_lik;
-//   for (i in 1:N) {
-//     if (event[i] == 0) {
-//       log_lik[i]=weibull_lpdf((y[i] )| alpha, exp(-(mu_raw+mu_l_raw[Niv1]+x*beta)/alpha));
-//       }else {
-//         if(event[i]==1){
-//           log_lik[i]=weibull_lccdf((y[i]) | alpha, exp(-(mu_raw+mu_l_raw[Niv1]+x*beta)/alpha));
-//           }else{
-//             log_lik[i]=weibull_lcdf((y[i]) | alpha, exp(-(mu_raw+mu_l_raw[Niv1]+x*beta)/alpha));
-//             }
-//         }
-//     }
-// }
 }

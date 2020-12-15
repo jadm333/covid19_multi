@@ -5,6 +5,8 @@
 201212COVID19MEXICO.csv
 201104COVID19MEXICO.csv
 
+*.rds
+
 # Session Data files
 .RData
 
