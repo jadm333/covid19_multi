@@ -7,6 +7,8 @@ library(posterior)
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
 df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+#No borrar lo de abajo - corresponde al database con el que trabajo
+#df=read_csv("Data/201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-11-04")
 
 
@@ -120,14 +122,13 @@ inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
 
 modJerQR <- cmdstan_model(stan_file = "Stan/ModeloJerQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
-fitJerQR <- modJerQR$sample(data=sin_jer1,
+fitJerQR <- modJerQR$sample(data=jer_1,
                       init=inits2,
                       chains = 3,
                       parallel_chains = 3,
                       threads_per_chain = 3,
                       iter_warmup = 1000,
                       iter_sampling = 1000)
-
 
 ############################
 #Con jerarquia 2
@@ -149,12 +150,13 @@ jer_2=list(
 )
 
 inits3=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
+            list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
 
 modJer2QR <- cmdstan_model(stan_file = "Stan/ModeloJer2QR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
-fitJer2QR <- modJer2QR$sample(data=sin_jer1,
+fitJer2QR <- modJer2QR$sample(data=jer_2,
                       init=inits2,
                       chains = 3,
                       parallel_chains = 3,
