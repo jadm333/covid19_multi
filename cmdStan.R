@@ -120,11 +120,44 @@ inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
 
 modJerQR <- cmdstan_model(stan_file = "Stan/ModeloJerQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
-fitJerQR <- modQR$sample(data=sin_jer,
-                      init=inits1,
+fitJerQR <- modJerQR$sample(data=sin_jer1,
+                      init=inits2,
                       chains = 3,
                       parallel_chains = 3,
                       threads_per_chain = 3,
                       iter_warmup = 1000,
                       iter_sampling = 1000)
 
+
+############################
+#Con jerarquia 2
+############################
+
+jer_2=list(
+  N=length(muerte$tiempo_muerte),
+  y_mort=as.numeric(muerte$tiempo_muerte),
+  N2=length(muerte$tiempo_hosp),
+  y_hosp=as.numeric(muerte$tiempo_hosp),
+  Gniv1=length(levels(muerte$ENTIDAD_UM)),
+  Gniv2=length(levels(muerte$SECTOR)),
+  Niv1=as.numeric(muerte$ENTIDAD_UM),
+  Niv2=as.numeric(muerte$SECTOR),
+  x=x,
+  M=ncol(x),
+  x_hosp=x_hosp,
+  M_hosp=ncol(x_hosp)
+)
+
+inits3=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
+            list(mu_raw_mort=-2.5,alpha_raw=0.01))
+
+
+modJer2QR <- cmdstan_model(stan_file = "Stan/ModeloJer2QR_reduce.stan",cpp_options=list(stan_threads=TRUE))
+
+fitJer2QR <- modJer2QR$sample(data=sin_jer1,
+                      init=inits2,
+                      chains = 3,
+                      parallel_chains = 3,
+                      threads_per_chain = 3,
+                      iter_warmup = 1000,
+                      iter_sampling = 1000)

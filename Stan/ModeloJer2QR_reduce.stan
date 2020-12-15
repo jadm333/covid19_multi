@@ -1,3 +1,11 @@
+functions {
+  real partial_sum(real[] y_slice,
+                   int start, int end,
+                   real alpha,
+                   vector Q) {
+    return weibull_lpdf(y_slice | alpha, exp(-Q[start:end]));
+  }
+}
 data {
   int N;
   int N2;
@@ -5,8 +13,10 @@ data {
   int<lower=1,upper=Gniv1> Niv1[N];
   int<lower=0> Gniv2;                  // num de grupos en niv1
   int<lower=1,upper=Gniv2> Niv2[N];
-  vector<lower=0>[N] y_mort; 
-  vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
+  //vector<lower=0>[N] y_mort; 
+  real<lower=0> y_mort[N];
+  //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
+  real<lower=0> y_hosp[N];
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
@@ -70,6 +80,7 @@ transformed parameters {
 
 }
 model {
+  int grainsize=1;
   target += normal_lpdf(alpha_raw | 0, 1);
   target += normal_lpdf(mu_raw_mort | 0, tau_mu);
   target += normal_lpdf(mu_raw_hosp | 0, tau_mu);
@@ -77,8 +88,10 @@ model {
   target += normal_lpdf(mu_l2_raw | 0, 1);
   target += gamma_lpdf(tau | 0.5*3, 0.5*3);
   target += normal_lpdf(stdnormal | 0, 1);
-  target += weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha));
-  target += weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
+  //target += weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha));
+  target += reduce_sum(partial_sum,y_mort,grainsize,alpha,(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha);
+  //target += weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
+  target += reduce_sum(partial_sum,y_hosp,grainsize,alpha,(Q_ast_h*theta_h +mu_raw_hosp)/alpha);
 }
 
 generated quantities {
