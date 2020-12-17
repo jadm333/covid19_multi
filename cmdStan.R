@@ -270,11 +270,10 @@ for(i in 1:32){
   
 }
 
-
-#y_mort_tilde inicia en 4259
-Jer2draws[,,4259]
-#y_hosp_tilde inicia en 7682
-Jer2draws[,,7682]
+#Aquí tenemos a la entrada correspondiente de y_hosp_tilde[1] en el array Jer2draws
+firstEntry_y_hosp_tilde <- which(dimnames(Jer2draws)[[3]] == "y_hosp_tilde[1]")
+#Aquí tenemos a la entrada correspondiente de y_mort_tilde[1] en el array Jer2draws
+firstEntry_y_mort_tilde <- which(dimnames(Jer2draws)[[3]] == "y_mort_tilde[1]")
 
 #Esta librería es para permutar las muestras por estado
 library(gtools)
@@ -283,9 +282,9 @@ y_hosp_tilde_porEstado <- list()
 
 for(j in 1:32){
   #Esto es para filtrar por entradas a "y_mort_tilde"
-  y_mort_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + 4259 - 1]))
+  y_mort_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + firstEntry_y_mort_tilde - 1]))
   #Esto es para filtrar por entradas a "y_hosp_tilde"
-  y_hosp_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + 7682 - 1]))
+  y_hosp_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + firstEntry_y_hosp_tilde - 1]))
 }
 
 
