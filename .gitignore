@@ -4,6 +4,8 @@
 *.DS_Store
 201212COVID19MEXICO.csv
 201104COVID19MEXICO.csv
+ModeloQR_reduce_threads.exe
+ModeloJer2QRhosp_reduce_threads.exe
 
 *.rds
 

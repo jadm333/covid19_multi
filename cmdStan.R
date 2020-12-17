@@ -7,8 +7,6 @@ library(posterior)
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
 df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-#No borrar lo de abajo - corresponde al database con el que trabajo
-#df=read_csv("Data/201104COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-11-04")
 
 
@@ -252,3 +250,53 @@ fitJerQR$save_object(file = "Fit/fitJerQR.rds")
 fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
 fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
+
+
+Jer2draws <- fitJer2QRmodi_h$draws()
+
+#################### COMENTARIO: #################################
+### SI CARGAS EL OBJETO fitJer2QRmodi_h.rds, YA NO SE          ###
+### TIENE ACCESO DIRECTO A LAS ENTRADAS DEL VECTOR             ###
+### y_hosp_tildde y y_mort_tilde. HAY QUE HACERLO MANUALMENTE. ###        ###
+##################################################################
+
+Jer2draws[,,"y_hosp_tilde"]
+
+ID_estados <- sprintf("%02d", 1:32)
+
+muertos_por_Estado <- list()
+for(i in 1:32){
+  muertos_por_Estado[[i]] <- which(muerte$ENTIDAD_UM == ID_estados[i])
+  
+}
+
+
+#y_mort_tilde inicia en 4259
+Jer2draws[,,4259]
+#y_hosp_tilde inicia en 7682
+Jer2draws[,,7682]
+
+#Esta librería es para permutar las muestras por estado
+library(gtools)
+y_mort_tilde_porEstado <- list()
+y_hosp_tilde_porEstado <- list()
+
+for(j in 1:32){
+  #Esto es para filtrar por entradas a "y_mort_tilde"
+  y_mort_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + 4259 - 1]))
+  #Esto es para filtrar por entradas a "y_hosp_tilde"
+  y_hosp_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + 7682 - 1]))
+}
+
+
+names(y_mort_tilde_porEstado) <- c("AS","BC","BS","CC","CL","CM","CS","CH","DF","DG","GT","GR","HG","JC","MC","MN","MS","NT","NL","OC","PL","QT","QR","SP","SL","SR","TC","TS","TL","VZ","YN","ZS")
+names(y_hosp_tilde_porEstado) <- c("AS","BC","BS","CC","CL","CM","CS","CH","DF","DG","GT","GR","HG","JC","MC","MN","MS","NT","NL","OC","PL","QT","QR","SP","SL","SR","TC","TS","TL","VZ","YN","ZS")
+
+#Alternativa para el nombre de las muestras
+#names(y_mort_tilde_porEstado) <- c("AGUASCALIENTES","BAJA CALIFORNIA","BAJA CALIFORNIA SUR",
+#                                "CAMPECHE","COAHUILA","COLIMA","CHIAPAS","CHIHUAHUA",
+#                                "CIUDAD DE MEXICO","DURANGO","GUANAJUATO","GUERRERO",
+#                                "HIDALGO","JALISCO","MEXICO","MICHOACAN","MORELOS","NAYARIT",
+#                                "NUEVO LEON","OAXACA","PUEBLA","QUERETARO","QUINTANA ROO",
+#                                "SAN LUIS POTOSI","SINALOA","SONORA","TABASCO","TAMAULIPAS",
+#                                "TLAXCALA","VERACRUZ","YUCATAN","ZACATECAS")
