@@ -252,50 +252,12 @@ fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
 
 
-Jer2draws <- fitJer2QRmodi_h$draws()
+longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
 
-#################### COMENTARIO: #################################
-### SI CARGAS EL OBJETO fitJer2QRmodi_h.rds, YA NO SE          ###
-### TIENE ACCESO DIRECTO A LAS ENTRADAS DEL VECTOR             ###
-### y_hosp_tildde y y_mort_tilde. HAY QUE HACERLO MANUALMENTE. ###        ###
-##################################################################
+longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mort_tilde[id]) %>% ungroup()
 
-Jer2draws[,,"y_hosp_tilde"]
+Estados <- muertes %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
 
-ID_estados <- sprintf("%02d", 1:32)
+longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id"))
 
-muertos_por_Estado <- list()
-for(i in 1:32){
-  muertos_por_Estado[[i]] <- which(muerte$ENTIDAD_UM == ID_estados[i])
-  
-}
-
-#Aquí tenemos a la entrada correspondiente de y_hosp_tilde[1] en el array Jer2draws
-firstEntry_y_hosp_tilde <- which(dimnames(Jer2draws)[[3]] == "y_hosp_tilde[1]")
-#Aquí tenemos a la entrada correspondiente de y_mort_tilde[1] en el array Jer2draws
-firstEntry_y_mort_tilde <- which(dimnames(Jer2draws)[[3]] == "y_mort_tilde[1]")
-
-#Esta librería es para permutar las muestras por estado
-library(gtools)
-y_mort_tilde_porEstado <- list()
-y_hosp_tilde_porEstado <- list()
-
-for(j in 1:32){
-  #Esto es para filtrar por entradas a "y_mort_tilde"
-  y_mort_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + firstEntry_y_mort_tilde - 1]))
-  #Esto es para filtrar por entradas a "y_hosp_tilde"
-  y_hosp_tilde_porEstado[[j]] <- permute(as.vector(Jer2draws[,,muertos_por_Estado[[j]] + firstEntry_y_hosp_tilde - 1]))
-}
-
-
-names(y_mort_tilde_porEstado) <- c("AS","BC","BS","CC","CL","CM","CS","CH","DF","DG","GT","GR","HG","JC","MC","MN","MS","NT","NL","OC","PL","QT","QR","SP","SL","SR","TC","TS","TL","VZ","YN","ZS")
-names(y_hosp_tilde_porEstado) <- c("AS","BC","BS","CC","CL","CM","CS","CH","DF","DG","GT","GR","HG","JC","MC","MN","MS","NT","NL","OC","PL","QT","QR","SP","SL","SR","TC","TS","TL","VZ","YN","ZS")
-
-#Alternativa para el nombre de las muestras
-#names(y_mort_tilde_porEstado) <- c("AGUASCALIENTES","BAJA CALIFORNIA","BAJA CALIFORNIA SUR",
-#                                "CAMPECHE","COAHUILA","COLIMA","CHIAPAS","CHIHUAHUA",
-#                                "CIUDAD DE MEXICO","DURANGO","GUANAJUATO","GUERRERO",
-#                                "HIDALGO","JALISCO","MEXICO","MICHOACAN","MORELOS","NAYARIT",
-#                                "NUEVO LEON","OAXACA","PUEBLA","QUERETARO","QUINTANA ROO",
-#                                "SAN LUIS POTOSI","SINALOA","SONORA","TABASCO","TAMAULIPAS",
-#                                "TLAXCALA","VERACRUZ","YUCATAN","ZACATECAS")
+longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id"))
