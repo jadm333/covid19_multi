@@ -3,6 +3,7 @@ library(tidyverse)
 library(bayesplot) 
 library(lubridate)
 library(posterior)
+library(tidybayes)
 
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
@@ -250,14 +251,16 @@ fitJerQR$save_object(file = "Fit/fitJerQR.rds")
 fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
 fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
-
+fitJer2QRmodi_h=readRDS("Fit/fitJer2QRmodi_h.rds")
 
 longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
 
 longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mort_tilde[id]) %>% ungroup()
 
-Estados <- muertes %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
+Estados <- muerte %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
 
-longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id"))
+longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id")) %>% 
+  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_hosp.csv")
 
-longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id"))
+longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id")) %>% 
+  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_mort.csv")
