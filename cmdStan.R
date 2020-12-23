@@ -1,8 +1,9 @@
 library(cmdstanr)
 library(tidyverse)
-library(bayesplot) 
+library(bayesplot)
 library(lubridate)
 library(posterior)
+library(tidybayes)
 
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
@@ -178,12 +179,12 @@ fitJer2QR <- modJer2QR$sample(data=jer_2,
 #   x_hosp=x_hosp,
 #   M_hosp=ncol(x_hosp)
 # )
-# 
+#
 # inits4=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
 #             list(mu_raw_mort=-2.5,alpha_raw=0.01),
 #             list(mu_raw_mort=-2.5,alpha_raw=0.01))
-# 
-# 
+#
+#
 # fitJer2QRmodi<- modJer2QR$sample(data=jer_2modi,
 #                               init=inits4,
 #                               chains = 3,
@@ -191,13 +192,13 @@ fitJer2QR <- modJer2QR$sample(data=jer_2,
 #                               threads_per_chain = 3,
 #                               iter_warmup = 750,
 #                               iter_sampling = 750)
-# 
+#
 # y_rep_hosp=fitJer2QRmodi$draws("y_hosp_tilde")
 # y_rep_hosp=as_draws_matrix(y_rep_hosp)
-# 
+#
 # y_rep_mort=fitJer2QRmodi$draws("y_mort_tilde")
 # y_rep_mort=as_draws_matrix(y_rep_mort)
-# 
+#
 # ppc_dens_overlay(jer_2modi$y_hosp, y_rep_hosp[1:200, ])
 # ppc_dens_overlay(jer_2modi$y_mort, y_rep_mort[1:200, ])
 
@@ -250,7 +251,7 @@ fitJerQR$save_object(file = "Fit/fitJerQR.rds")
 fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
 fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
-
+fitJer2QRmodi_h=readRDS("Fit/fitJer2QRmodi_h.rds")
 
 longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
 
@@ -258,9 +259,8 @@ longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mor
 
 Estados <- muerte %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
 
-longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id"))
+longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id")) %>%
+  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_hosp.csv")
 
-longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id"))
-
-write_csv(longFormat_y_rep_mort,"Data/longFormat_y_rep_mort.csv")
-write_csv(longFormat_y_rep_hosp,"Data/longFormat_y_rep_hosp.csv")
+longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id")) %>%
+  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_mort.csv")
