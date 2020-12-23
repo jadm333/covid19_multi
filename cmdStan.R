@@ -256,8 +256,11 @@ longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hos
 
 longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mort_tilde[id]) %>% ungroup()
 
-Estados <- muertes %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
+Estados <- muerte %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
 
 longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id"))
 
 longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id"))
+
+write_csv(longFormat_y_rep_mort,"Data/longFormat_y_rep_mort.csv")
+write_csv(longFormat_y_rep_hosp,"Data/longFormat_y_rep_hosp.csv")
