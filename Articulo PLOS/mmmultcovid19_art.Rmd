@@ -11,9 +11,9 @@
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
 author:
-  - name: Fuentes García Ruth Selene
-    email: alice@example.com
-    affiliation: Some Institute of Technology
+  - name: Fuentes-García Ruth 
+    email: rfuentes@ciencias.unam.mx
+    affiliation: Science Faculty, UNAM.
     corresponding: alice@example.com
   - name: Bob Security
     email: bob@example.com
@@ -67,53 +67,77 @@ hospitalizations in each state of the country and the different health instituti
 Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 #Methods and materials
-
-We considered four different Bayesian models  for trajectories of interest:  Symptoms-Hospitalization, Hospitalization-Death, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a $QR$ reparameterization for the covariable matrix was used, that is, if  $X$ is an  $N \times K$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matriz. In practice,  considering $X=Q'R'$ where $Q'=Q*\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}*R$ is convinient. Hence if  $\zeta$ is the  $N$ linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a $K$  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
-
-
-Modelo I: One level
-
-For patient  $i$, with $M$ covariables, we assumed deaths and hospitalizations, $M_i$ y $H_i$ respectively,  are independent and follow  distributions: 
-       $$ M_i \sim Weibull(\alpha, exp\{-(\frac{(Q^m\theta^m)+\mu^m}{\alpha})\}) \:\:\:\:\:\: y \:\:\: \:\:\:  H_i \sim Weibull(\alpha, exp\{-(\frac{(Q^h\theta^h)+\mu^h}{\alpha})\})$$
+We considered four different Bayesian models  for trajectories of interest:  *Symptoms-Hospitalization*, *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matriz. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
 
 
-where  
+### Model I: One level
 
-  -$\alpha=\tau_\alpha \beta$ for $\tau_\alpha$ a given positive value and $\beta\sim Normal(0,1)$.
-  
-  -$\theta^m$ and $\theta^h$ are $M$-dimensional vectors.
-  $Q^m$ and $Q^h$ are matrices of standarized covariables for deaths and hospitalizations respectively.
+Patient $i$ corresponds to the $i$-th row of vectors $M$ and $H$ for deaths and hospitalizations, respectively. We considered a different set of covariables in each case  and  we assumed deaths  and hospitalizations are independent and the model is given as  
 
- -Hyperparameters $\mu ^{m}$ and $\mu ^{h}$, for deaths and hospitalizations correspondingly, with a given $\tau_{\mu}$ follow a normal distribution
-    
-  $$mu^m, \mu ^h \sim Normal (0, \tau_{\mu})$$
-       
 
-Model II: two levels
-Using the first model an additional level is added to account for each state of Mexico to model deaths. The hospitalization  $H_i$  remains  unchanged and for each state  $j= 1,\ldots, 32$ and  patient $i$,  $M_{i,j}$ has distribution:
 
-  $$M_{i,j} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})$$
-Where  $\mu^{L_1}=\nu^{L_1}*\frac{\sigma^{L_1}}{\tau^{L_1}}$, have the following distributions
+$$
+\begin{aligned}
+ {M}  &\sim Weibull(\alpha,\mathbf{\eta})\\
+ {H}  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right) \\
+ \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
+ \alpha&=\exp(\alpha_r*\tau_\alpha) \\
+ \alpha_r&\sim N(0,1) \\
+ \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
 
-   $$\nu^{L1} \sim Normal(0,1)$$
-   $$\sigma^{L1} \sim Normal(0,1)$$
-  $$\tau^{L1} \sim Gamma(a,a)$$ with  $a0$ a given positive value.
+where $Q^*$ and $Q^{**}$ are matrices of standarized covariables for deaths and hospitalizations respectively  and $\tau_\alpha$ and  $\tau_{\mu}$ are given positive values. This model is described in grey in Figure REF.
 
-Model III: Three levels
-Based on  Model II, we consider a third level to include the type of health service where patients are hospitalized, $k$ for patient
- $i$ in state  $j$ we have $M_{i,j,k}$ distributed as
+### Model II: two levels
+The second model is based on the first one, an additional level is added to account for each state of Mexico to model deaths. The hospitalization  $H$  remains  unchanged and for each state  $l= 1,\ldots, 32$ and  patient $i$, deaths are summarized in matriz  $M_{l}$ the model is defined as 
 
-  $$M_{i,j,k} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}+\mu^{L_2}}{\alpha} \})$$
-Where $\mu^{L_2}=\nu^{L_2}*\frac{\sigma^{L_2}}{\tau^{L_2}}$, with distributions: 
-     
-  $$\nu^{L_2} \sim Normal(0,1)$$
-  $$\sigma^{L_2} \sim Normal(0,1)$$
-  $$\tau^{L_2} \sim Gamma(a,a)$$ with $a$ a given positive value.
-  
-Model IV:
-Based as well in  Modelo II, however, we consider index� $l=(j,k)$ where $j$ accounts for the $j-$-th state  and $k$ for the type of health service, $j \in \{1,...,153\}$ where the distribution for deaths is given by
+$$
+\begin{aligned}
+ M_l   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right),\space\space l=1,...,32\\
+ \mathbf{\upsilon} &= \exp(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}) \\
+ \mathbf{\mu}_l&=\sigma*\mathbf{\mu}_l^r \\
+ \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha^r&\sim N(0,1) \\
+ \mu^r_l&\sim N(0,1) \\
+ \sigma&\sim t^+_3(0,1) \\
+ \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
+where $Q^*$ and $Q^{**}$ are matrices of standarized covariables for deaths and hospitalizations respectively  and $\tau_\alpha$ and  $\tau_{\mu}$ are given positive values. This model is described in green in Figure REF.
 
-   $$M_{i,l} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})$$
+### Model III: Three levels
+Based on  Model II, we consider a third level to include the type of health service where patients are hospitalized, $k$, for patient $i$ in state $l$ we have $M_{l,k}$ for the corresponding death matrix and the model is given as 
+
+
+
+$$
+\begin{aligned}
+ M_{l,k}   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{\mu}_k^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\space l=1,...,32,\space k=1,...,5\\
+ \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
+  \mathbf{\mu}_l&=\sigma_l*\mathbf{\mu}_l^r, \space\space l=1,2 \\
+ \mathbf{\mu}_k&=\sigma_l*\mathbf{\mu}_k^r \\
+ \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha^r&\sim N(0,1) \\
+ \mu^r_l,\mu^r_k &\sim N(0,1) \\
+ \sigma_l&\sim t^+_3(0,1) \\
+ \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+$$
+where $Q^*$ and $Q^{**}$ are matrices of standarized covariables for deaths and hospitalizations respectively  and $\tau_\alpha$ and  $\tau_{\mu}$ are given positive values. This model is described in yellow in Figure REF.
+
+### Model IV:
+Based as well on  Modelo II, however, we consider index $j=(l,k)$ where $l$ accounts for the $l$-th state  and $k$ for the type of health service, $j \in \{1,...,153\}$ where the distribution for deaths is given by
+
+ $$M_j \sim Weibull\left(\alpha, exp\left(-\frac{Q^{**}\theta^m+\mu_k+\mu_l}{\alpha} \right) \right)$$
 
 # Tabla ejemplo
 
