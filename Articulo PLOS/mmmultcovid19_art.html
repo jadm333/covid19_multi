@@ -452,33 +452,26 @@ Some Institute of Technology<br><a class="author_email" href="mailto:#"><a href=
 <p>Over time it has become clear that the presence of comorbidities such as hypertension, diabetes, obesity and smoking are factors that increase the serious illness that leads to hospitalization and in 25% of the cases they required admission and intubation to the intensive care unit (4). Mexico ranks second in obesity among OECD countries, with almost 72.5% obesity among the adult population, which is associated with the high prevalence of type 2 diabetes, estimated at 13% of the adult population in 2017, which is the highest rate among OECD countries (5); hypertension is also one of the hights chronic diseases among adult population 30% (6). The high prevalence of this comorbidities besides the lack of a functional health care system is believed to be the main reason why the deaths rates in the country are so high.</p>
 <p>Data used in the modeling comes from the official database by the Mexican Ministry of Health; the analysis provides of general overview of hospitalizations in each state of the country and the different health institutions within.</p>
 <p>Here are two sample references: <span class="citation">@Feynman1963118 [@Dirac1953888]</span>.</p>
-<p>#Methods and materials We considered four different Bayesian models for trajectories of interest: , , in which non-informative initial distributions were used, located near <span class="math display">\[0\]</span>, to improve convergence. Additionally a  reparameterization for the covariable matrix was used, that is, if <span class="math display">\[X\]</span> is an <span class="math display">\[N \times K\]</span> covariable matrix, <span class="math display">\[X=QR\]</span>, where <span class="math display">\[Q\]</span> is an ortogonal matrix and <span class="math display">\[R\]</span> is an upper triangular matriz. In practice, considering <span class="math display">\[X=Q&#39;R&#39;\]</span> where <span class="math display">\[Q&#39;=Q*\sqrt{n-1}\]</span> and <span class="math display">\[R&#39;=\frac{1}{\sqrt{n-1}}*R\]</span> is convinient. Hence if <span class="math display">\[\zeta\]</span> is the  linear predictor vector such that <span class="math display">\[\zeta=X\beta\]</span>, with <span class="math display">\[\beta\]</span> a  coefficient vector, then <span class="math display">\[\zeta=X\beta=QR\beta=Q&#39;R&#39;\beta\]</span>. We used <span class="math display">\[\zeta=Q&#39;R&#39;\beta\]</span> for numerical stability.</p>
-<p></p>
-For patient <span class="math display">\[i\]</span>, with <span class="math display">\[M\]</span> covariables, we assumed deaths and hospitalizations, <span class="math display">\[M_i\]</span> y <span class="math display">\[H_i\]</span> respectively, are independent and follow distributions:
-
-where<br />
-
-
-<p> Using the first model an additional level is added to account for each state of Mexico to model deaths. The hospitalization <span class="math display">\[H_i\]</span> remains unchanged and for each state <span class="math display">\[j= 1,\ldots, 32\]</span> and patient <span class="math display">\[i\]</span>, <span class="math display">\[M_{i,j}\]</span> has distribution:</p>
-
-Where <span class="math display">\[\mu^{L_1}=\nu^{L_1}*\frac{\sigma^{L_1}}{\tau^{L_1}}\]</span>, have the following distributions
-
-
-<p>Based on Model II, we consider a third level to include the type of health service where patients are hospitalized, <span class="math display">\[k\]</span> for patient <span class="math display">\[i\]</span> in state <span class="math display">\[j\]</span> we have <span class="math display">\[M_{i,j,k}\]</span> distributed as</p>
-
-Where <span class="math display">\[\mu^{L_2}=\nu^{L_2}*\frac{\sigma^{L_2}}{\tau^{L_2}}\]</span>, with distributions:
-
-
-<p>Based as well in , however, we consider index� <span class="math display">\[l=(j,k)\]</span> where <span class="math display">\[j\]</span> accounts for the <span class="math display">\[j-\]</span>-th state and <span class="math display">\[k\]</span> for the type of health service, �<span class="math display">\[j \in \{1,...,153\}\]</span> where the distribution for deaths is given by</p>
-<p>\begin{center} <span class="math display">\[\begin{equation}\nonumber
-        M_{i,l} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})\\
-    \end{equation}\]</span></p>
+<p>#Methods and materials</p>
+<p>We considered four different Bayesian models for trajectories of interest: Symptoms-Hospitalization, Hospitalization-Death, in which non-informative initial distributions were used, located near <span class="math inline">\(0\)</span>, to improve convergence. Additionally a <span class="math inline">\(QR\)</span> reparameterization for the covariable matrix was used, that is, if <span class="math inline">\(X\)</span> is an <span class="math inline">\(N \times K\)</span> covariable matrix, <span class="math inline">\(X=QR\)</span>, where <span class="math inline">\(Q\)</span> is an ortogonal matrix and <span class="math inline">\(R\)</span> is an upper triangular matriz. In practice, considering <span class="math inline">\(X=Q&#39;R&#39;\)</span> where <span class="math inline">\(Q&#39;=Q*\sqrt{n-1}\)</span> and <span class="math inline">\(R&#39;=\frac{1}{\sqrt{n-1}}*R\)</span> is convinient. Hence if <span class="math inline">\(\zeta\)</span> is the <span class="math inline">\(N\)</span> linear predictor vector such that <span class="math inline">\(\zeta=X\beta\)</span>, with <span class="math inline">\(\beta\)</span> a <span class="math inline">\(K\)</span> coefficient vector, then <span class="math inline">\(\zeta=X\beta=QR\beta=Q&#39;R&#39;\beta\)</span>. We used <span class="math inline">\(\zeta=Q&#39;R&#39;\beta\)</span> for numerical stability.</p>
+<p>Modelo I: One level</p>
+<p>For patient <span class="math inline">\(i\)</span>, with <span class="math inline">\(M\)</span> covariables, we assumed deaths and hospitalizations, <span class="math inline">\(M_i\)</span> y <span class="math inline">\(H_i\)</span> respectively, are independent and follow distributions: <span class="math display">\[ M_i \sim Weibull(\alpha, exp\{-(\frac{(Q^m\theta^m)+\mu^m}{\alpha})\}) \:\:\:\:\:\: y \:\:\: \:\:\:  H_i \sim Weibull(\alpha, exp\{-(\frac{(Q^h\theta^h)+\mu^h}{\alpha})\})\]</span></p>
+<p>where</p>
+<p>-<span class="math inline">\(\alpha=\tau_\alpha \beta\)</span> for <span class="math inline">\(\tau_\alpha\)</span> a given positive value and <span class="math inline">\(\beta\sim Normal(0,1)\)</span>.</p>
+<p>-<span class="math inline">\(\theta^m\)</span> and <span class="math inline">\(\theta^h\)</span> are <span class="math inline">\(M\)</span>-dimensional vectors. <span class="math inline">\(Q^m\)</span> and <span class="math inline">\(Q^h\)</span> are matrices of standarized covariables for deaths and hospitalizations respectively.</p>
+<p>-Hyperparameters <span class="math inline">\(\mu ^{m}\)</span> and <span class="math inline">\(\mu ^{h}\)</span>, for deaths and hospitalizations correspondingly, with a given <span class="math inline">\(\tau_{\mu}\)</span> follow a normal distribution</p>
+<p><span class="math display">\[mu^m, \mu ^h \sim Normal (0, \tau_{\mu})\]</span></p>
+<p>Model II: two levels Using the first model an additional level is added to account for each state of Mexico to model deaths. The hospitalization <span class="math inline">\(H_i\)</span> remains unchanged and for each state <span class="math inline">\(j= 1,\ldots, 32\)</span> and patient <span class="math inline">\(i\)</span>, <span class="math inline">\(M_{i,j}\)</span> has distribution:</p>
+<p><span class="math display">\[M_{i,j} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})\]</span> Where <span class="math inline">\(\mu^{L_1}=\nu^{L_1}*\frac{\sigma^{L_1}}{\tau^{L_1}}\)</span>, have the following distributions</p>
+<p><span class="math display">\[\nu^{L1} \sim Normal(0,1)\]</span> <span class="math display">\[\sigma^{L1} \sim Normal(0,1)\]</span> <span class="math display">\[\tau^{L1} \sim Gamma(a,a)\]</span> with <span class="math inline">\(a0\)</span> a given positive value.</p>
+<p>Model III: Three levels Based on Model II, we consider a third level to include the type of health service where patients are hospitalized, <span class="math inline">\(k\)</span> for patient <span class="math inline">\(i\)</span> in state <span class="math inline">\(j\)</span> we have <span class="math inline">\(M_{i,j,k}\)</span> distributed as</p>
+<p><span class="math display">\[M_{i,j,k} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}+\mu^{L_2}}{\alpha} \})\]</span> Where <span class="math inline">\(\mu^{L_2}=\nu^{L_2}*\frac{\sigma^{L_2}}{\tau^{L_2}}\)</span>, with distributions:</p>
+<p><span class="math display">\[\nu^{L_2} \sim Normal(0,1)\]</span> <span class="math display">\[\sigma^{L_2} \sim Normal(0,1)\]</span> <span class="math display">\[\tau^{L_2} \sim Gamma(a,a)\]</span> with <span class="math inline">\(a\)</span> a given positive value.</p>
+<p>Model IV: Based as well in Modelo II, however, we consider index� <span class="math inline">\(l=(j,k)\)</span> where <span class="math inline">\(j\)</span> accounts for the <span class="math inline">\(j-\)</span>-th state and <span class="math inline">\(k\)</span> for the type of health service, �<span class="math inline">\(j \in \{1,...,153\}\)</span> where the distribution for deaths is given by</p>
+<p><span class="math display">\[M_{i,l} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})\]</span></p>
 </div>
 <div id="tabla-ejemplo" class="section level1">
 <h1>Tabla ejemplo</h1>
-<ul>
-<li>estamos probando</li>
-</ul>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
