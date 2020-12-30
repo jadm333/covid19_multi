@@ -66,6 +66,7 @@ We conducted a prevalence study the official database from the Mexican Ministry 
 We developed four different Bayesian models  for trajectories of interest:  *Symptoms-Hospitalization*, *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
 
 
+
 ### Model I: One level
 
 Patient $i$ corresponds to the $i$-th row of vectors $M$ and $H$ for deaths and hospitalizations, respectively. We considered a different set of covariables in each case  and  we assumed deaths  and hospitalizations are independent and the model is given as  
