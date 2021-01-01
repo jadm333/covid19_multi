@@ -18,7 +18,7 @@ data {
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
-  matrix[N, M_hosp] x_hosp;
+  matrix[N2, M_hosp] x_hosp;
 }
 transformed data {
   real<lower=0> tau_mu;
