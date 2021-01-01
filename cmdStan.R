@@ -59,6 +59,8 @@ inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01))
 
+write_stan_json(inits1,file = "Cmdstan/initis1.json")
+
 
 ########################################################
 #Modelos de la trayectoria Muerte
@@ -78,6 +80,7 @@ sin_jer=list(
   M_hosp=ncol(x_hosp)
 )
 
+write_stan_json(sin_jer,file = "Cmdstan/sin_jer.json")
 
 modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
@@ -119,6 +122,9 @@ inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
+write_stan_json(jer_1,file = "Cmdstan/jer_1.json")
+write_stan_json(inits2,file = "Cmdstan/inits2.json")
+
 modJerQR <- cmdstan_model(stan_file = "Stan/ModeloJerQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
 fitJerQR <- modJerQR$sample(data=jer_1,
@@ -151,6 +157,9 @@ jer_2=list(
 inits3=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
+
+write_stan_json(jer_2,file = "Cmdstan/jer_2.json")
+write_stan_json(inits2,file = "Cmdstan/inits3.json")
 
 
 modJer2QR <- cmdstan_model(stan_file = "Stan/ModeloJer2QR_reduce.stan",cpp_options=list(stan_threads=TRUE))

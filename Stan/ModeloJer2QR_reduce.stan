@@ -89,7 +89,7 @@ model {
   target += gamma_lpdf(tau | 0.5*3, 0.5*3);
   target += normal_lpdf(stdnormal | 0, 1);
   //target += weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha));
-  target += reduce_sum(partial_sum,y_mort,grainsize,alpha,(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha);
+  target += reduce_sum(partial_sum,y_mort,grainsize,alpha,(Q_ast*theta +mu_raw_mort+mu_l[Niv1]+mu_l2[Niv2])/alpha);
   //target += weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
   target += reduce_sum(partial_sum,y_hosp,grainsize,alpha,(Q_ast_h*theta_h +mu_raw_hosp)/alpha);
 }
@@ -106,11 +106,14 @@ generated quantities {
   beta_h = R_ast_inverse_h * theta_h;
   
   for(i in 1:N){
-    log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1[i]]+
-    mu_l2_raw[Niv2[i]])/alpha))+
-    weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
-    y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1[i]]+
-    mu_l2_raw[Niv2[i]])/alpha));
+    log_lik_mort[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+    mu_l2[Niv2[i]])/alpha));
+    y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+    mu_l2[Niv2[i]])/alpha));
+  }
+  
+  for(i in 1:N2){
+    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
     y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
   }
   
