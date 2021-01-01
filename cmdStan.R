@@ -8,7 +8,7 @@ library(tidybayes)
 #set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
 df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-corte=ymd("2020-11-04")
+corte=ymd("2020-12-12")
 
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
@@ -37,16 +37,19 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 #Modelo
 ##############################################################
 
+hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),
+                    tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
+                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) 
+
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% filter(FECHA_DEF<"2020-05-01") %>%
-  as.data.frame()
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR))
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
-x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=muerte)
+x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hosp)
 
-ggplot(muerte,aes(x=tiempo_hosp)) + geom_density() + facet_wrap(~SECTOR)
+ggplot(hosp,aes(x=tiempo_hosp)) + geom_density() + facet_wrap(~SECTOR)
 
 x=x[,-1]
 x_hosp=x_hosp[,-1]
@@ -67,8 +70,8 @@ inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
 sin_jer=list(
   N=length(muerte$tiempo_muerte),
   y_mort=as.numeric(muerte$tiempo_muerte),
-  N2=length(muerte$tiempo_hosp),
-  y_hosp=as.numeric(muerte$tiempo_hosp),
+  N2=length(hosp$tiempo_hosp),
+  y_hosp=as.numeric(hosp$tiempo_hosp),
   x=x,
   M=ncol(x),
   x_hosp=x_hosp,
