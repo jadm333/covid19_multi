@@ -228,17 +228,23 @@ fitJer2QR <- modJer2QR$sample(data=jer_2,
 jer_2modi_h=list(
   N=length(muerte$tiempo_muerte),
   y_mort=as.numeric(muerte$tiempo_muerte),
-  N2=length(muerte$tiempo_hosp),
-  y_hosp=as.numeric(muerte$tiempo_hosp),
+  N2=length(hosp$tiempo_hosp),
+  y_hosp=as.numeric(hosp$tiempo_hosp),
   Gniv1=length(levels(muerte$ENTIDAD_UM)),
   Gniv2=length(levels(muerte$SECENT)),
   Niv1=as.numeric(muerte$ENTIDAD_UM),
   Niv2=as.numeric(muerte$SECENT),
+  Gnivh1=length(levels(hosp$ENTIDAD_UM)),
+  Gnivh2=length(levels(hosp$SECENT)),
+  Nivh1=as.numeric(hosp$ENTIDAD_UM),
+  Nivh2=as.numeric(hosp$SECENT),
   x=x,
   M=ncol(x),
   x_hosp=x_hosp,
   M_hosp=ncol(x_hosp)
 )
+
+write_stan_json(jer_2modi_h,file = "Cmdstan/jer_2modi.json")
 
 inits5=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01),
