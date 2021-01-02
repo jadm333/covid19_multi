@@ -13,8 +13,8 @@ data {
   int<lower=1,upper=Gniv1> Niv1[N];
   int<lower=0> Gniv2;                  // num de grupos en niv1
   int<lower=1,upper=Gniv2> Niv2[N];
-  int<lower=0> Gnivh;                  // num de grupos en niv1
-  int<lower=1,upper=Gnivh> Nivh1[N2];
+  int<lower=0> Gnivh1;                  // num de grupos en niv1
+  int<lower=1,upper=Gnivh1> Nivh1[N2];
   int<lower=0> Gnivh2;                  // num de grupos en niv1
   int<lower=1,upper=Gnivh2> Nivh2[N];
   //vector<lower=0>[N] y_mort; 
@@ -58,9 +58,9 @@ parameters {
   real mu_raw_mort;
   real mu_raw_hosp;
   vector[Gniv1] mu_l_raw;
-  vector[Gniv1] mu_l_raw_h;
+  vector[Gnivh1] mu_l_raw_h;
   vector[Gniv2] mu_l2_raw;
-  vector[Gniv2] mu_l2_raw_h;// Coeficientes en el predictor lineal
+  vector[Gnivh2] mu_l2_raw_h;// Coeficientes en el predictor lineal
   real<lower=0> alpha_raw;
   vector[M] theta;
   vector[M_hosp] theta_h;// parametro de escala
