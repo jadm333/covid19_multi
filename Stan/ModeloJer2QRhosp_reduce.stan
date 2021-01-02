@@ -119,14 +119,14 @@ generated quantities {
   beta = R_ast_inverse * theta;
   beta_h = R_ast_inverse_h * theta_h;
   
-  for(i in 1:500){
+  for(i in 1:2000){
     log_lik_mort[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
     mu_l2[Niv2[i]])/alpha));
     y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
     mu_l2[Niv2[i]])/alpha));
   }
   
-  for(i in 1:500){
+  for(i in 1:2000){
     log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+
     mu_l_h[Nivh1[i]]+mu_l2_h[Nivh2[i]])/alpha));
     y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+

@@ -39,11 +39,13 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 
 hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),
                     tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) 
+                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
+  filter(FECHA_INGRESO<="2020-06-01")
 
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR))
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
+  filter(FECHA_INGRESO<="2020-06-01")
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
