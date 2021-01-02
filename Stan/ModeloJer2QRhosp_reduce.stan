@@ -110,7 +110,8 @@ model {
 generated quantities {
   vector[M] beta;
   vector[M_hosp] beta_h;
-  real log_lik[N];
+  real log_lik_mort[N];
+  real log_lik_hosp[N2];
   real<lower=0> y_mort_tilde[N];
   real<lower=0> y_hosp_tilde[N];
   
