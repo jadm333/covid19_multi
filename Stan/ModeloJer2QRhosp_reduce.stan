@@ -20,7 +20,7 @@ data {
   //vector<lower=0>[N] y_mort; 
   real<lower=0> y_mort[N];
   //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
-  real<lower=0> y_hosp[N];
+  real<lower=0> y_hosp[N2];
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
@@ -72,9 +72,9 @@ transformed parameters {
   //vector[N] linpred;
   real alpha;
   vector[Gniv1] mu_l;
-  vector[Gniv1] mu_l_h;
+  vector[Gnivh1] mu_l_h;
   vector[Gniv2] mu_l2;
-  vector[Gniv2] mu_l2_h;
+  vector[Gnivh2] mu_l2_h;
   vector<lower=0>[4] sigma;
 
   for (j in 1:4)
