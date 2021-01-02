@@ -16,7 +16,7 @@ data {
   int<lower=0> Gnivh1;                  // num de grupos en niv1
   int<lower=1,upper=Gnivh1> Nivh1[N2];
   int<lower=0> Gnivh2;                  // num de grupos en niv1
-  int<lower=1,upper=Gnivh2> Nivh2[N];
+  int<lower=1,upper=Gnivh2> Nivh2[N2];
   //vector<lower=0>[N] y_mort; 
   real<lower=0> y_mort[N];
   //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
