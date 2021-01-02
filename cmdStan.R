@@ -59,7 +59,9 @@ inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01))
 
-write_stan_json(inits1,file = "Cmdstan/initis1.json")
+inits1=list(mu_raw_mort=-1.5,alpha_raw=0.01)
+
+write_stan_json(inits1,file = "Cmdstan/inits1.json")
 
 
 ########################################################
