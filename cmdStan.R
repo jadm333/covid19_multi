@@ -63,6 +63,10 @@ inits1=list(mu_raw_mort=-1.5,alpha_raw=0.01)
 
 write_stan_json(inits1,file = "Cmdstan/inits1.json")
 
+for (i in 1:3){
+  write_stan_json(inits1,file = paste0("Cmdstan/inits_",i,".json"))
+}
+
 
 ########################################################
 #Modelos de la trayectoria Muerte
@@ -83,6 +87,7 @@ sin_jer=list(
 )
 
 write_stan_json(sin_jer,file = "Cmdstan/sin_jer.json")
+
 
 modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
