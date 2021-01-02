@@ -13,6 +13,10 @@ data {
   int<lower=1,upper=Gniv1> Niv1[N];
   int<lower=0> Gniv2;                  // num de grupos en niv1
   int<lower=1,upper=Gniv2> Niv2[N];
+  int<lower=0> Gnivh;                  // num de grupos en niv1
+  int<lower=1,upper=Gnivh> Nivh1[N2];
+  int<lower=0> Gnivh2;                  // num de grupos en niv1
+  int<lower=1,upper=Gnivh2> Nivh2[N];
   //vector<lower=0>[N] y_mort; 
   real<lower=0> y_mort[N];
   //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
@@ -20,7 +24,7 @@ data {
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
-  matrix[N, M_hosp] x_hosp;// matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
+  matrix[N2, M_hosp] x_hosp;// matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
 }
 transformed data {
   real<lower=0> tau_mu;
@@ -99,8 +103,8 @@ model {
   //target += weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha));
   target += reduce_sum(partial_sum,y_mort,grainsize,alpha,(Q_ast*theta +mu_raw_mort+mu_l[Niv1]+mu_l2[Niv2])/alpha);
   //target += weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
-  target += reduce_sum(partial_sum,y_hosp,grainsize,alpha,(Q_ast_h*theta_h +mu_raw_hosp+mu_l_h[Niv1]+
-  mu_l2_h[Niv2])/alpha);
+  target += reduce_sum(partial_sum,y_hosp,grainsize,alpha,(Q_ast_h*theta_h +mu_raw_hosp+mu_l_h[Nivh1]+
+  mu_l2_h[Nivh2])/alpha);
 }
 
 generated quantities {
@@ -117,12 +121,26 @@ generated quantities {
   for(i in 1:N){
     log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
     mu_l2[Niv2[i]])/alpha))+
-    weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+mu_l_h[Niv1[i]]+
+    weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+mu_l_h[Nivh[i]]+
     mu_l2_h[Niv2[i]])/alpha));
     y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
     mu_l2[Niv2[i]])/alpha));
-    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+mu_l_h[Niv1[i]]+
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+mu_l_h[Nivh[i]]+
     mu_l2_h[Niv2[i]])/alpha));
+  }
+  
+  for(i in 1:500){
+    log_lik_mort[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+    mu_l2[Niv2[i]])/alpha));
+    y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+    mu_l2[Niv2[i]])/alpha));
+  }
+  
+  for(i in 1:500){
+    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+
+    mu_l_h[Nivh1[i]]+mu_l2_h[Nivh2[i]])/alpha));
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+
+    mu_l_h[Nivh1[i]]+mu_l2_h[Nivh2[i]])/alpha));
   }
   
 }
