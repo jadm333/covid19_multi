@@ -52,12 +52,11 @@ _Text based on plos sample manuscript, see <https://journals.plos.org/ploscompbi
 
   Over time it has become clear that the presence of comorbidities such as hypertension, diabetes, obesity and smoking are factors that increase the serious illness that leads to hospitalization and in 25% of the cases they required admission and intubation to the intensive care unit (4). Mexico ranks second in obesity among OECD countries, with almost 72.5% obesity among the adult population, which is associated with the high prevalence of type 2 diabetes, estimated at 13% of the adult population in 2017, which is the highest rate among OECD countries (5); hypertension is also one of the higher chronic diseases among adult population 30% (6). The high prevalence of this comorbidities besides the lack of a functional health care system is believed to be the main reason why the severe cases and deaths rates in the country are so high.
 
+After onset of infection there is a period of time between symptom detection and hospoitalization. The time elapsed before patients approach hospitals could  be excessively long. Once patients are admited to hospital, there is also a period of time between the admission and death. Estimation of this times through a multilevel model could enable a better information system to estimate incidence and transmission rates, particularly at regional level since differences have already been established. 
 
-  After onset of infection there is a period of time between symptom detection and hospitalization. The time elapsed before patients approach hospitals could  be excessively long. Once patients are admitted to hospital, there is also a period of time between the admission and death. Estimation of this times through a multilevel model could enable a better information system to estimate incidence and transmission rates, particularly at regional level since differences have already been established. 
 
-
-  Data used in the modeling comes from the official database by the Mexican Ministry of Health; the analysis provides of general overview of hospitalizations in each state of the country and the different health institutions within. This work considers a multi-state model to describe hospital resource usage enabling an evaluation of disease severity. 
-
+Data used in the modeling comes from the official database by the Mexican Ministry of Health; the analysis provides of general overview of 
+hospitalizations in each state of the country and the different health institutions within. This work considers a multi-state model to describe hospital resource usage enabling an evaluation of disease severity. 
 
   This study shows how different the outcomes can be for the patient due the late hospitalization, this lead to believe that the average patients waits until the symptoms are severe to seek professional healthcare.
 
@@ -81,13 +80,9 @@ The primary outcome was the time between symptoms and hospitalization and from h
 
 We developed four different Bayesian models  for trajectories of interest:  *Symptoms-Hospitalization*, *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
 
-
-
 #### Model I: One level
 
 Patient $i$ corresponds to the $i$-th row of vectors $M$ and $H$ for deaths and hospitalizations, respectively. We considered a different set of covariables in each case  and  we assumed deaths  and hospitalizations are independent and the model is given as  
-
-
 
 $$
 \begin{aligned}
