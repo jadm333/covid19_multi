@@ -1,3 +1,43 @@
+####
+
+cambioCVE <- function(df){
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="01","AS"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="02","BC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="03","BS"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="04","CC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="07","CS"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="08","CH"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="09","DF"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="05","CL"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="06","CM"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="10","DG"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="11","GT"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="12","GR"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="13","HG"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="14","JC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="15","MC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="16","MN"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="17","MS"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="18","NT"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="19","NL"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="20","OC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="21","PL"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="22","QT"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="23","QR"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="24","SP"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="25","SL"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="26","SR"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="27","TC"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="28","TL"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="29","TS"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="30","VZ"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="31","YN"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="32","ZS"))
+  return(df)
+}
+
+#####
+
 library(cmdstanr)
 library(tidyverse)
 library(bayesplot)
@@ -10,6 +50,7 @@ library(tidybayes)
 df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-12-12")
 
+df=cambioCVE(df)
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
   filter(CLASIFICACION_FINAL==1 | CLASIFICACION_FINAL==2 | CLASIFICACION_FINAL==3,
