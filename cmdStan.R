@@ -88,6 +88,8 @@ muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),eve
                       !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
   filter(FECHA_INGRESO<="2020-06-01")
 
+#save(hosp,muerte,file = "Data/datos.RData")
+
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
 x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hosp)
