@@ -446,20 +446,29 @@ Some Institute of Technology<br><a class="author_email" href="mailto:#"><a href=
 
 
 <p><em>Text based on plos sample manuscript, see <a href="https://journals.plos.org/ploscompbiol/s/latex" class="uri">https://journals.plos.org/ploscompbiol/s/latex</a></em></p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>The SARS-CoV-2 pandemic was declared a Public Health Emergency of International Concern on January 30, 2020 by the World Health Organization.The Mexican Health Authorithies declared the first lockdown on March 26 with 585 cases and 8 deaths reported for COVID-19 (2); at the end of the lockdown (june 5th 2020) the total cases were 110,026 and 13 170 deaths. Until November 1, Mexico is the fourth country in death rates of SARS-CoV-19 (106,765 deaths), with 1,122,362 incident cases (3).</p>
 <p>Over time it has become clear that the presence of comorbidities such as hypertension, diabetes, obesity and smoking are factors that increase the serious illness that leads to hospitalization and in 25% of the cases they required admission and intubation to the intensive care unit (4). Mexico ranks second in obesity among OECD countries, with almost 72.5% obesity among the adult population, which is associated with the high prevalence of type 2 diabetes, estimated at 13% of the adult population in 2017, which is the highest rate among OECD countries (5); hypertension is also one of the higher chronic diseases among adult population 30% (6). The high prevalence of this comorbidities besides the lack of a functional health care system is believed to be the main reason why the severe cases and deaths rates in the country are so high.</p>
-<p>Data used in the modeling comes from the official database by the Mexican Ministry of Health; we developed a multi-level multi-state bayesian model that visualizes the period of time between the first symptoms and hospitalizations in each state of the country and the different health institutions within.</p>
+<p>After onset of infection there is a period of time between symptom detection and hospitalization. The time elapsed before patients approach hospitals could be excessively long. Once patients are admitted to hospital, there is also a period of time between the admission and death. Estimation of this times through a multilevel model could enable a better information system to estimate incidence and transmission rates, particularly at regional level since differences have already been established.</p>
+<p>Data used in the modeling comes from the official database by the Mexican Ministry of Health; the analysis provides of general overview of hospitalizations in each state of the country and the different health institutions within. This work considers a multi-state model to describe hospital resource usage enabling an evaluation of disease severity.</p>
 <p>This study shows how different the outcomes can be for the patient due the late hospitalization, this lead to believe that the average patients waits until the symptoms are severe to seek professional healthcare.</p>
 <p>Here are two sample references: <span class="citation">@Feynman1963118 [@Dirac1953888]</span>.</p>
 </div>
-<div id="methods-and-materials" class="section level1">
-<h1>Methods and materials</h1>
-<p>We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admmissions, deaths and the period of time between hospitalizations and first symptoms between March and XX 2020. The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models allows to look at this results from each state of the mexican Republic and the healthcare institutions in them.</p>
+<div id="methods-and-materials" class="section level2">
+<h2>Methods and materials</h2>
+<div id="data-source-and-study-population" class="section level3">
+<h3>Data Source and Study Population</h3>
+<p>We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and XX 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. After applying exclusion criteria the total sample was about XXXX registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico.</p>
+<p>Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, autoimmune diseases and chronic kidney disease were considered and also the interactions between two or more was simulated.</p>
+<p>About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 5 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA this 4 are the public care provider and the fifth sector is private hospitals.</p>
+</div>
+<div id="modelling" class="section level3">
+<h3>Modelling</h3>
+<p>The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models allows to look at this results from each state of the mexican Republic and the healthcare institutions in them.</p>
 <p>We developed four different Bayesian models for trajectories of interest: <em>Symptoms-Hospitalization</em>, <em>Hospitalization-Death</em>, in which non-informative initial distributions were used, located near <span class="math inline">\(0\)</span>, to improve convergence. Additionally a  reparameterization for the covariable matrix was used, that is, if <span class="math inline">\(X\)</span> is an <span class="math inline">\(n \times m\)</span> covariable matrix, <span class="math inline">\(X=QR\)</span>, where <span class="math inline">\(Q\)</span> is an ortogonal matrix and <span class="math inline">\(R\)</span> is an upper triangular matrix. In practice, considering <span class="math inline">\(X=Q&#39;R&#39;\)</span> where <span class="math inline">\(Q&#39;=Q\sqrt{n-1}\)</span> and <span class="math inline">\(R&#39;=\frac{1}{\sqrt{n-1}}R\)</span> is convinient. Hence if <span class="math inline">\(\zeta\)</span> is the  linear predictor vector such that <span class="math inline">\(\zeta=X\beta\)</span>, with <span class="math inline">\(\beta\)</span> a  coefficient vector, then <span class="math inline">\(\zeta=X\beta=QR\beta=Q&#39;R&#39;\beta\)</span>. We used <span class="math inline">\(\zeta=Q&#39;R&#39;\beta\)</span> for numerical stability.</p>
-<div id="model-i-one-level" class="section level3">
-<h3>Model I: One level</h3>
+<div id="model-i-one-level" class="section level4">
+<h4>Model I: One level</h4>
 <p>Patient <span class="math inline">\(i\)</span> corresponds to the <span class="math inline">\(i\)</span>-th row of vectors <span class="math inline">\(M\)</span> and <span class="math inline">\(H\)</span> for deaths and hospitalizations, respectively. We considered a different set of covariables in each case and we assumed deaths and hospitalizations are independent and the model is given as</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -475,8 +484,8 @@ Some Institute of Technology<br><a class="author_email" href="mailto:#"><a href=
 \]</span></p>
 <p>where <span class="math inline">\(Q^*\)</span> and <span class="math inline">\(Q^{**}\)</span> are matrices of standarized covariables for deaths and hospitalizations respectively and <span class="math inline">\(\tau_\alpha\)</span> and <span class="math inline">\(\tau_{\mu}\)</span> are given positive values. This model is described in grey in Figure REF.</p>
 </div>
-<div id="model-ii-two-levels" class="section level3">
-<h3>Model II: two levels</h3>
+<div id="model-ii-two-levels" class="section level4">
+<h4>Model II: two levels</h4>
 <p>The second model is based on the first one, an additional level is added to account for each state of Mexico to model deaths. The hospitalization <span class="math inline">\(H\)</span> remains unchanged and for each state <span class="math inline">\(l= 1,\ldots, 32\)</span> and patient <span class="math inline">\(i\)</span>, deaths are summarized in matriz <span class="math inline">\(M_{l}\)</span> the model is defined as</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -494,8 +503,8 @@ Some Institute of Technology<br><a class="author_email" href="mailto:#"><a href=
 \end{aligned}
 \]</span> where <span class="math inline">\(Q^*\)</span> and <span class="math inline">\(Q^{**}\)</span> are matrices of standarized covariables for deaths and hospitalizations respectively and <span class="math inline">\(\tau_\alpha\)</span> and <span class="math inline">\(\tau_{\mu}\)</span> are given positive values. This model is described in green in Figure REF.</p>
 </div>
-<div id="model-iii-three-levels" class="section level3">
-<h3>Model III: Three levels</h3>
+<div id="model-iii-three-levels" class="section level4">
+<h4>Model III: Three levels</h4>
 <p>Based on Model II, we consider a third level to include the type of health service where patients are hospitalized, <span class="math inline">\(k\)</span>, for patient <span class="math inline">\(i\)</span> in state <span class="math inline">\(l\)</span> we have <span class="math inline">\(M_{l,k}\)</span> for the corresponding death matrix and the model is given as</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -514,10 +523,11 @@ Some Institute of Technology<br><a class="author_email" href="mailto:#"><a href=
 \end{aligned}
 \]</span> where <span class="math inline">\(Q^*\)</span> and <span class="math inline">\(Q^{**}\)</span> are matrices of standarized covariables for deaths and hospitalizations respectively and <span class="math inline">\(\tau_\alpha\)</span> and <span class="math inline">\(\tau_{\mu}\)</span> are given positive values. This model is described in yellow in Figure REF.</p>
 </div>
-<div id="model-iv" class="section level3">
-<h3>Model IV:</h3>
+<div id="model-iv" class="section level4">
+<h4>Model IV:</h4>
 <p>Based as well on Modelo II, however, we consider index <span class="math inline">\(j=(l,k)\)</span> where <span class="math inline">\(l\)</span> accounts for the <span class="math inline">\(l\)</span>-th state and <span class="math inline">\(k\)</span> for the type of health service, <span class="math inline">\(j \in \{1,...,153\}\)</span> where the distribution for deaths is given by</p>
 <p><span class="math display">\[M_j \sim Weibull\left(\alpha, exp\left(-\frac{Q^{**}\theta^m+\mu_k+\mu_l}{\alpha} \right) \right)\]</span></p>
+</div>
 </div>
 </div>
 <div id="tabla-ejemplo" class="section level1">

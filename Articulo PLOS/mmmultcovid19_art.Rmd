@@ -79,8 +79,6 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models allows to look at this results from each state of the mexican Republic and the healthcare institutions in them.
 
-
-
 We developed four different Bayesian models  for trajectories of interest:  *Symptoms-Hospitalization*, *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
 
 
@@ -162,7 +160,7 @@ Based as well on  Modelo II, however, we consider index $j=(l,k)$ where $l$ acco
 # Results
 
 # Disscusion
-Mexican public healthcare system has gone throw 
+
 
 
 # References {#references .unnumbered}
