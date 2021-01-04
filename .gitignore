@@ -4,6 +4,8 @@
 *.DS_Store
 data/*.csv
 
+Fit/fitJer2QRmodi_h.rds
+
 # Session Data files
 .RData
 
