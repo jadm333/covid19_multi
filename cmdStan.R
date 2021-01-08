@@ -35,6 +35,41 @@ cambioCVE <- function(df){
   df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="32","ZS"))
   return(df)
 }
+cambioCVE_nombreEstado_completo <- function(df){
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="01","Aguascalientes"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="02","Baja California"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="03","Baja California Sur"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="04","Campeche"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="07","Chiapas"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="08","Chihuahua"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="09","Mexico City"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="05","Coahuila"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="06","Colima"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="10","Durango"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="11","Guanajuato"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="12","Guerrero"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="13","Hidalgo"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="14","Jalisco"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="15","Mexico"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="16","Michoacan"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="17","Morelos"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="18","Nayarit"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="19","Nuevo Leon"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="20","Oaxaca"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="21","Puebla"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="22","Queretaro"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="23","Quintana Roo"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="24","San Luis Potosi"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="25","Sinaloa"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="26","Sonora"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="27","Tabasco"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="28","Tlaxcala"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="29","Tamaulipas"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="30","Veracruz"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="31","Yucatan"))
+  df <- df %>% mutate(ENTIDAD_UM=replace(ENTIDAD_UM,ENTIDAD_UM=="32","Zacatecas"))
+  return(df)
+}
 
 #####
 
@@ -45,12 +80,12 @@ library(lubridate)
 library(posterior)
 library(tidybayes)
 
-#set_cmdstan_path(path="C:/Users/marco/cmdstan")
 
 df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2020-12-12")
 
-df=cambioCVE(df)
+#df=cambioCVE(df)
+df=cambioCVE_nombreEstado_completo(df)
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
   filter(CLASIFICACION_FINAL==1 | CLASIFICACION_FINAL==2 | CLASIFICACION_FINAL==3,
@@ -71,7 +106,7 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
                   DIABETES=as.factor(DIABETES),EPOC=as.factor(EPOC),OBESIDAD=as.factor(OBESIDAD),ASMA=as.factor(ASMA),INMUSUPR=as.factor(INMUSUPR),
                   HIPERTENSION=as.factor(HIPERTENSION),ORIGEN=as.factor(ORIGEN),SEXO=as.factor(SEXO),
                   INTUBADO=as.factor(INTUBADO),RENAL_CRONICA=as.factor(RENAL_CRONICA),
-                  SECENT=factor(paste(ENTIDAD_UM,SECTOR,sep = ".")))
+                  SECENT=factor(paste(ENTIDAD_UM,SECTOR,sep = " ")))
 
 
 ##############################################################

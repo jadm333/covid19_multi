@@ -7,7 +7,7 @@ library(tidybayes)
 
 
 fitJer2QRmodi_h=readRDS("fitJer2QRmodi_h.rds")
-datos=readRDS("datos.rds")
+datos=readRDS("Data/datos.rds")
 mdat=datos$muerte
 hdat=datos$hosp
 
