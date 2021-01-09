@@ -9,7 +9,7 @@ ModeloJer2QRhosp_reduce_threads.exe
 #*.json
 
 *.rds
-
+!Data/datos.rds
 # Session Data files
 .RData
 
