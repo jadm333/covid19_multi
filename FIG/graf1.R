@@ -6,10 +6,44 @@ library(posterior)
 library(tidybayes)
 
 
-fitJer2QRmodi_h=readRDS("fitJer2QRmodi_h.rds")
+fitJer2QRmodi_h=readRDS("FIG/fitJer2QRmodi_h.rds")
 datos=readRDS("Data/datos.rds")
 mdat=datos$muerte
 hdat=datos$hosp
+
+mu_l1=fitJer2QRmodi_h$draws("mu_l")
+mu_l1=as_draws_matrix(mu_l1)
+mu_l1=as.data.frame(mu_l1)
+colnames(mu_l1)=levels(mdat$ENTIDAD_UM)
+
+mu_l2=fitJer2QRmodi_h$draws("mu_l2")
+mu_l2=as_draws_matrix(mu_l2)
+mu_l2=as.data.frame(mu_l2)
+cml2=colnames(mu_l2)=levels(mdat$SECENT)
+
+color_scheme_set("gray")
+mcmc_intervals(
+  mu_l1,
+  regex_pars  =colnames(mu_l1), 
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)+
+  ggplot2::labs(
+    x="log hazard ratio"
+  )
+
+
+mcmc_intervals(
+  mu_l2,
+  regex_pars  =cml2[c(21:25,49:53,69:73,94:99,120:124,151:155)], 
+  prob = 0.8,
+  prob_outer = 0.95,
+  point_est = "median"
+)+  ggplot2::labs(
+  x="log hazard ratio"
+)
+
 
 
 beta_m=fitJer2QRmodi_h$draws("beta")
@@ -31,17 +65,6 @@ muraw_h=fitJer2QRmodi_h$draws("mu_raw_hosp")
 muraw_h=as_draws_matrix(muraw_h)
 muraw_h=as.data.frame(muraw_h)
 
-mu_l1=fitJer2QRmodi_h$draws("mu_l")
-mu_l1=as_draws_matrix(mu_l1)
-mu_l1=as.data.frame(mu_l1)
-
-colnames(mu_l1)=levels(mdat$ENTIDAD_UM)
-
-
-mu_l2=fitJer2QRmodi_h$draws("mu_l2")
-mu_l2=as_draws_matrix(mu_l2)
-mu_l2=as.data.frame(mu_l2)
-cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
 y_rep_mort=fitJer2QRmodi_h$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
@@ -102,65 +125,6 @@ mcmc_areas(
   )
 
 
-mcmc_intervals(
-  mu_l1,
-  regex_pars  =colnames(mu_l1), 
-  prob = 0.8,
-  prob_outer = 0.95,
-  point_est = "median"
-)+
-  ggplot2::labs(
-    title = "Mu_l for State",
-    subtitle = ""
-  )
-
-
-mcmc_intervals(
-  mu_l2,
-  regex_pars  =cml2[1:42], 
-  prob = 0.8,
-  prob_outer = 0.95,
-  point_est = "median"
-)+  ggplot2::labs(
-    title = "Mu_l for STATE-SECTOR",
-    subtitle = "AS-CS"
-  )
-
-mcmc_intervals(
-  mu_l2,
-  regex_pars  =cml2[43:83], 
-  prob = 0.8,
-  prob_outer = 0.95,
-  point_est = "median"
-)+
-  ggplot2::labs(
-    title = "Mu_l for STATE-SECTOR",
-    subtitle = "DF-MN"
-  )
-mcmc_intervals(
-  mu_l2,
-  regex_pars  =cml2[84:125],
-  prob = 0.8,
-  prob_outer = 0.95,
-  point_est = "median"
-)+
-  ggplot2::labs(
-    title = "Mu_l for STATE-SECTOR",
-    subtitle = "MS-SL"
-  )
-
-mcmc_intervals(
-  mu_l2,
-  regex_pars  =cml2[126:165],
-  prob = 0.8,
-  prob_outer = 0.95,
-  point_est = "median"
-)+
-  ggplot2::labs(
-    title = "Mu_l for STATE-SECTOR",
-    subtitle = "SP-zs"
-  )
-
 qplot(y_rep_hosp,geom="density", alpha=I(1/10),main = "Predictive Posterior Distribution Hosp",xlim=c(-1,50))+
 theme_bw() +scale_fill_manual(values=c("black"))
 
@@ -170,6 +134,3 @@ qplot(y_rep_mort,geom="density", main = "Predictive Posterior Distribution Dead"
 plot(density(y_rep_mort), xlim=c(-1,70),main="Predictive Posterior Distribution Dead")
 plot(density(y_rep_hosp), xlim=c(-1,50),main="Posterior predictiva Hospitalización Hosp")
 
-
-
-  
