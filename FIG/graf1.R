@@ -12,7 +12,6 @@ mdat=datos$muerte
 hdat=datos$hosp
 
 
-
 mu_l1=fitJer2QRmodi_h$draws("mu_l")
 mu_l1=as_draws_matrix(mu_l1)
 mu_l1=as.data.frame(mu_l1)
@@ -39,7 +38,7 @@ cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
 mcmc_intervals(
   mu_l2,
-  regex_pars  =cml2[c(21:25,49:53,69:73,94:99,120:124,151:155)], 
+  regex_pars  =cml2[c(21:25,48:54,69:73,94:99,120:124,151:155)], 
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
