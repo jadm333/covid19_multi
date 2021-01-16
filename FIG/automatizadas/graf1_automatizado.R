@@ -31,7 +31,7 @@ colnames(mu_l1)=levels(mdat$ENTIDAD_UM)
 
 EstadosMuCompl <- mcmc_intervals(
   mu_l1,
-  regex_pars  =colnames(mu_l1), 
+  regex_pars  =colnames(mu_l1),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -63,8 +63,7 @@ cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
 EstadoSectoresMuCompl <- mcmc_intervals(
   mu_l2,
-  regex_pars  =cml2[c(21:25,49:53,69:73,94:99,120:124,151:155)], 
-  #regex_pars = cml2[c(Chiapas_index,Guanajuato_index,CDMX_index,NL_index,SLP_index,Veracruz_index)],
+  regex_pars  =cml2[c(21:25,48:52,69:73,94:99,120:124,151:155)], 
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -84,7 +83,7 @@ colnames(beta_m)=c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" )
 
 betamDistHazard <- mcmc_areas(
   beta_m,
-  regex_pars  =c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" ), 
+  regex_pars  =c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" ),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -100,7 +99,7 @@ ggsave(paste0(carpeta_imagenes,"betamDistHazard.png"),betamDistHazard,width = 23
 
 betaMIntervalsHazard <- mcmc_intervals(
   beta_m,
-  regex_pars  =c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" ), 
+  regex_pars  =c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" ),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -121,7 +120,7 @@ colnames(beta_h)=c("OBESITY","CHRONIC_KIDNEY")
 
 BetaHDistrHazard <- mcmc_areas(
   beta_h,
-  regex_pars=c("OBESITY","CHRONIC_KIDNEY"), 
+  regex_pars=c("OBESITY","CHRONIC_KIDNEY"),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -138,7 +137,7 @@ ggsave(paste0(carpeta_imagenes,"BetaHDistrHazard.png"),BetaHDistrHazard,width = 
 
 BetaHIntervHazard <- mcmc_intervals(
   beta_h,
-  regex_pars=c("OBESITY","CHRONIC_KIDNEY"), 
+  regex_pars=c("OBESITY","CHRONIC_KIDNEY"),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -157,7 +156,7 @@ muraw_m=as.data.frame(muraw_m)
 
 MuRawMortHazard <- mcmc_areas(
   muraw_m,
-  regex_pars  =c("mu_raw_mort"), 
+  regex_pars  =c("mu_raw_mort"),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -177,7 +176,7 @@ muraw_h=as.data.frame(muraw_h)
 
 MuRawHospHazard <- mcmc_areas(
   muraw_h,
-  regex_pars  =c("mu_raw_hosp"), 
+  regex_pars  =c("mu_raw_hosp"),
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
@@ -218,5 +217,3 @@ ggsave(paste0(carpeta_imagenes,"PostHosp1.png"),PostHosp1,width = 23.05,height =
 #plot(density(y_rep_hosp), xlim=c(-1,50))
 
 #rm(fitJer2QRmodi_h)
-
-
