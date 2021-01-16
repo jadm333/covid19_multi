@@ -52,13 +52,13 @@ cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
 #library(stringr)
 
-#Chiapas_index <-which(str_detect(cml2,pattern = "Chiapas."))
-#Guanajuato_index <-which(str_detect(cml2,pattern = "Guanajuato."))
-#Veracruz_index <-which(str_detect(cml2,pattern = "Veracruz."))
-#Guerrero_index <-which(str_detect(cml2,pattern = "Guerrero."))
-#CDMX_index <-which(str_detect(cml2,pattern = "Mexico City."))
-#NL_index <-which(str_detect(cml2,pattern = "Nuevo Leon."))
-#SLP_index <-which(str_detect(cml2,pattern = "San Luis Potosi."))
+Chiapas_index <-which(str_detect(cml2,pattern = "Chiapas."))
+Guanajuato_index <-which(str_detect(cml2,pattern = "Guanajuato."))
+Veracruz_index <-which(str_detect(cml2,pattern = "Veracruz."))
+Guerrero_index <-which(str_detect(cml2,pattern = "Guerrero."))
+CDMX_index <-which(str_detect(cml2,pattern = "Mexico City."))
+NL_index <-which(str_detect(cml2,pattern = "Nuevo Leon."))
+SLP_index <-which(str_detect(cml2,pattern = "San Luis Potosi."))
 
 
 EstadoSectoresMuCompl <- mcmc_intervals(
