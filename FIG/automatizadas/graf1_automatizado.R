@@ -63,6 +63,7 @@ cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
 EstadoSectoresMuCompl <- mcmc_intervals(
   mu_l2,
+  #regex_pars = cml2[c(Chiapas_index,Guanajuato_index,CDMX_index,NL_index,SLP_index,Veracruz_index)],
   regex_pars  =cml2[c(21:25,48:52,69:73,94:99,120:124,151:155)], 
   prob = 0.8,
   prob_outer = 0.95,
