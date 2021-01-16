@@ -50,9 +50,21 @@ mu_l2=as_draws_matrix(mu_l2)
 mu_l2=as.data.frame(mu_l2)
 cml2=colnames(mu_l2)=levels(mdat$SECENT)
 
+#library(stringr)
+
+#Chiapas_index <-which(str_detect(cml2,pattern = "Chiapas."))
+#Guanajuato_index <-which(str_detect(cml2,pattern = "Guanajuato."))
+#Veracruz_index <-which(str_detect(cml2,pattern = "Veracruz."))
+#Guerrero_index <-which(str_detect(cml2,pattern = "Guerrero."))
+#CDMX_index <-which(str_detect(cml2,pattern = "Mexico City."))
+#NL_index <-which(str_detect(cml2,pattern = "Nuevo Leon."))
+#SLP_index <-which(str_detect(cml2,pattern = "San Luis Potosi."))
+
+
 EstadoSectoresMuCompl <- mcmc_intervals(
   mu_l2,
   regex_pars  =cml2[c(21:25,49:53,69:73,94:99,120:124,151:155)], 
+  #regex_pars = cml2[c(Chiapas_index,Guanajuato_index,CDMX_index,NL_index,SLP_index,Veracruz_index)],
   prob = 0.8,
   prob_outer = 0.95,
   point_est = "median"
