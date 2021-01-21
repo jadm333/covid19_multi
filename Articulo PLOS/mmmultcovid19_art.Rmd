@@ -154,8 +154,6 @@ Based as well on  Modelo II, however, we consider index $j=(l,k)$ where $l$ acco
 # Results
 
 # Disscusion
-<<<<<<< Updated upstream
-Through time it has been prove that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study who analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those whichever the risk of hospitalization and death increases.
 
 =======
 Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study who analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
