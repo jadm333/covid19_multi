@@ -165,7 +165,7 @@ This analysis can be helpful to a regional level to improve healthcare assistanc
 
 One of the main problems is the precarious situation of the public healthcare system which universal coverage is estimated about 87% of the mexican population. It´s clear that mexican healthcare has overrun during this pandemic and has appeal to private health providers to cope with the treatment of COVID-19 patients. Mexican population is the third place in obesity among the OCDE countries such thing as this one is one of the main reason why the severe cases due COVID-19 are so high. 
 
-This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX
+This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 >>>>>>> Stashed changes
 
 # References {#references .unnumbered}
