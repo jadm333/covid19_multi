@@ -81,8 +81,8 @@ library(posterior)
 library(tidybayes)
 
 
-df=read_csv("Data/201212COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-corte=ymd("2020-12-12")
+df=read_csv("Data/210107COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+corte=ymd("2021-01-07")
 
 #df=cambioCVE(df)
 df=cambioCVE_nombreEstado_completo(df)
@@ -115,13 +115,11 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 
 hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),
                     tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
-  filter(FECHA_INGRESO<="2020-06-01")
+                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR))
 
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
-  filter(FECHA_INGRESO<="2020-06-01")
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR))
 
 # datos=list(hosp=hosp,muerte=muerte)
 # 
@@ -132,12 +130,12 @@ x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSI
                  SEXO+RENAL_CRONICA,data=muerte)
 x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hosp)
 
-ggplot(hosp,aes(x=tiempo_hosp)) + geom_density() + facet_wrap(~SECTOR)
+#ggplot(hosp,aes(x=tiempo_hosp)) + geom_density() + facet_wrap(~SECTOR)
 
 x=x[,-1]
 x_hosp=x_hosp[,-1]
 
-
+##### ver ####3
 inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01),
             list(mu_raw_mort=-1.5,alpha_raw=0.01))
@@ -333,15 +331,20 @@ inits5=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01),
             list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
+for (i in 1:3){
+  write_stan_json(inits5,file = paste0("Cmdstan/inits_",i,".json"))
+}
+
+
 modJer2QR_h <- cmdstan_model(stan_file = "Stan/ModeloJer2QRhosp_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
-fitJer2QRmodi_h <- modJer2QR_h$sample(data=jer_2modi_h,
-                                      init=inits5,
-                                      chains = 3,
-                                      parallel_chains = 3,
-                                      threads_per_chain = 3,
-                                      iter_warmup = 750,
-                                      iter_sampling = 750)
+# fitJer2QRmodi_h <- modJer2QR_h$sample(data=jer_2modi_h,
+#                                       init=inits5,
+#                                       chains = 3,
+#                                       parallel_chains = 3,
+#                                       threads_per_chain = 3,
+#                                       iter_warmup = 750,
+#                                       iter_sampling = 750)
 
 y_rep_hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
 y_rep_hosp=as_draws_matrix(y_rep_hosp)
