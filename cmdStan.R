@@ -327,9 +327,11 @@ jer_2modi_h=list(
 
 write_stan_json(jer_2modi_h,file = "Cmdstan/jer_2modi.json")
 
-inits5=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01))
+# inits5=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
+#             list(mu_raw_mort=-2.5,alpha_raw=0.01),
+#             list(mu_raw_mort=-2.5,alpha_raw=0.01))
+
+inits5=list(mu_raw_mort=-1.5,alpha_raw=0.01)
 
 for (i in 1:3){
   write_stan_json(inits5,file = paste0("Cmdstan/inits_",i,".json"))
