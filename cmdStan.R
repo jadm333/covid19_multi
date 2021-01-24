@@ -113,13 +113,27 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 #Modelo
 ##############################################################
 
+stratified_sample <- iris_subset %>%
+  group_by(Species) %>%
+  mutate(num_rows=n()) %>%
+  sample_frac(0.4, weight=num_rows) %>%
+  ungroup
+
+# These results should be equal
+table(iris_subset$Species) / nrow(iris_subset)
+table(stratified_sample$Species) / nrow(stratified_sample)
+
+set.seed(12345)
+
 hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),
                     tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR),tiempo_hosp>1)
+                    !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR),tiempo_hosp>1) %>% 
+  group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
 
 muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
-                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR))
+                      !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
+  group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
 
 # datos=list(hosp=hosp,muerte=muerte)
 # 
