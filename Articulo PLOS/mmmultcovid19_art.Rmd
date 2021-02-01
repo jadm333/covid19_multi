@@ -16,15 +16,21 @@ output:
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
 author:
-  - name: Fuentes-García Ruth 
+  - name: Juan Pablo Diaz Martinez 
+    email: juan.diaz.mart@ciencias.unam.mx
+    affiliation: UHN. Toronto, Canada.
+    corresponding: juan.diaz.mart@ciencias.unam.mx 
+  - name: Ruth Fuentes-García
     email: rfuentes@ciencias.unam.mx
     affiliation: Science Faculty, UNAM.
-    corresponding: rfuentes@ciencias.unam.mx
-  - name: Bob Security
-    email: bob@example.com
-    affiliation: 
-      - Another University
-      - Some Institute of Technology
+  - name: Alice Anonymous
+    email: alice@example.com
+    affiliation: Some Institute of Technology
+    corresponding: alice@example.com
+  - name: Alice Anonymous
+    email: alice@example.com
+    affiliation: Some Institute of Technology
+    corresponding: alice@example.com    
   - name: Alice Anonymous
     email: alice@example.com
     affiliation: Some Institute of Technology
@@ -71,18 +77,18 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 ### Data Source and Study Population
 
-  We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and December 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. After applying exclusion criteria a total sample of 1200 registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico was selected, preserving the population characteristics. JUAN PABLO ESTE NUMERO DE MUESTRA ES CORRECTO?
+  We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and December 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. Additionally patiends whose time of intial symptoms was captured as the day the were admited to hospital were removed, since this time was likely to be unknown. After applying exclusion criteria a total sample of 1200 registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico was selected, preserving the population characteristics. JUAN PABLO ESTE NUMERO DE MUESTRA ES CORRECTO?
 
-  Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, autoimmune diseases and chronic kidney disease were considered and also the interactions between two or more was considered.
+  Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, autoimmune diseases and chronic kidney disease were considered as well as the interactions between two or more of these.
 
   About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 5 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA these 4 are the public care provider and the fifth sector is private hospitals.
 
 
 ### Modelling
 
-The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models enable us to look at these results for each state of the mexican Republic and the healthcare institutions in them.
+The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models enable us to look at these results for each state of the mexican Republic and the healthcare institutions within them.
 
-We developed four different Bayesian models  for trajectories of interest namely,  *Symptoms-Hospitalization* and *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, that is the aforementioned comorbidities, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability.
+We developed four different Bayesian models  for trajectories of interest namely,  *Symptoms-Hospitalization* and *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, corresponding to the aforementioned comorbidities, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability.
 
 #### Model I: One level
 
@@ -159,14 +165,15 @@ Models are described graphiclly in Figure \ref{fig1}.
 # Results
 
 # Disscusion
-Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study who analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
+Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study which analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
+
+One of the main problems is the precarious situation of the public healthcare system, universal coverage is estimated to be about 87% of the mexican population. It´s clear that mexican healthcare has overrun during this pandemic and has appeal to private health providers to cope with the treatment of COVID-19 patients. Mexican population is the third place in obesity among the OCDE countries, combined whith hypertension and/or diabetes could help  explain why the severe cases due to COVID-19 are so high. 
+
+This study has shown that there are  differences in mortality between the different states of the republic; there are states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
+
+
 
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
-
-One of the main problems is the precarious situation of the public healthcare system which universal coverage is estimated about 87% of the mexican population. It´s clear that mexican healthcare has overrun during this pandemic and has appeal to private health providers to cope with the treatment of COVID-19 patients. Mexican population is the third place in obesity among the OCDE countries such thing as this one is one of the main reason why the severe cases due COVID-19 are so high. 
-
-This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
-
 
 # References {#references .unnumbered}
