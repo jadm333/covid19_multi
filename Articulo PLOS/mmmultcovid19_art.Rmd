@@ -165,7 +165,7 @@ Models are described graphiclly in Figure \ref{fig1}.
 
 # Results
 
-We show results for model four which performed better, both in convergence and goodness of fit creiteria (¿PODRIAMOS AGREGAR QUIZÁ LA MAXIMA ESTADÍSTICA DE CONVERGENCIA O EL PROMEDIO PARA LOS PARAMETROS DEL MODELO O DE TODOS LOS MODELOS?) . We show the posterior distributions for parameteres of interest at different levels of the model. It is worth pointing out that we are displaying the log hazard ratio, hence positive values for parameters will point to increasing risks for the corresponing transition and level.   
+We show results for model four which performed better, both in convergence and goodness of fit creiteria (¿PODRIAMOS AGREGAR QUIZÁ LA MAXIMA ESTADÍSTICA DE CONVERGENCIA O EL PROMEDIO PARA LOS PARAMETROS DEL MODELO O DE TODOS LOS MODELOS?) . We show the posterior 0.95 credibility intervals for parameteres of interest at different levels of the model. It is worth pointing out that we are displaying the log hazard ratio, hence positive values for parameters will point to increasing risks for the corresponing transition and level.   
 
 Increased risk for hospitalization was observed at the global population level for chronic renal desease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity.
 
@@ -175,7 +175,7 @@ Through time it has been proved that the presence of comorbidities such as diabe
 
 One of the main problems is the precarious situation of the public healthcare system, universal coverage is estimated to be about 87% of the mexican population. It´s clear that mexican healthcare has overrun during this pandemic and has appeal to private health providers to cope with the treatment of COVID-19 patients. Mexican population is the third place in obesity among the OCDE countries, combined with hypertension and/or diabetes could help  explain why the severe cases due to COVID-19 are so high. 
 
-This study has shown that there are  differences in mortality between the different states of the republic; there are states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Jalisco, Morelos, Oaxaca, Puebla, Tabasco and Veracruz. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
+This study has shown that there are  differences in mortality between the different states of the republic; there are states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
