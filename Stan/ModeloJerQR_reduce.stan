@@ -14,7 +14,7 @@ data {
   //vector<lower=0>[N] y_mort;
   real<lower=0> y_mort[N];
   //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
-  real<lower=0> y_hosp[N];
+  real<lower=0> y_hosp[N2];
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
