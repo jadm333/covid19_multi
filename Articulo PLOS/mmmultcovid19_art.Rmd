@@ -169,13 +169,14 @@ We show results for model four which performed better, both in convergence and g
 
 Increased risk for hospitalization was observed at the global population level for chronic renal desease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity.
 
+This study has shown that there are  differences in mortality between the different states of the republic; there are states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz.
 
 # Disscusion
 Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study which analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
 
 One of the main problems is the precarious situation of the public healthcare system, universal coverage is estimated to be about 87% of the mexican population. It´s clear that mexican healthcare has overrun during this pandemic and has appeal to private health providers to cope with the treatment of COVID-19 patients. Mexican population is the third place in obesity among the OCDE countries, combined with hypertension and/or diabetes could help  explain why the severe cases due to COVID-19 are so high. 
 
-This study has shown that there are  differences in mortality between the different states of the republic; there are states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
+Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
