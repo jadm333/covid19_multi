@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sbatch --array=1,2,3 --nodes=1 --ntasks-per-node=48 --mem=0 -t 02:00:00 -o $SCRATCH/multi/jer2modi.out -J jer2modi --mail-user=juan.diaz.martinez@mail.utoronto.ca --mail-type=ALL $HOME/covid19_multi/Cmdstan/forloop.sh
+# sbatch --array=1,2,3 --nodes=1 --ntasks-per-node=48 --mem=0 -t 16:00:00 -o $SCRATCH/multi/jer2modi.out -J jer2modi --mail-user=juan.diaz.martinez@mail.utoronto.ca --mail-type=ALL $HOME/covid19_multi/Cmdstan/forloop.sh
 
 echo "Job $SLURM_ARRAY_TASK_ID  start: $(date)"
 

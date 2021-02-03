@@ -113,15 +113,6 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 #Modelo
 ##############################################################
 
-stratified_sample <- iris_subset %>%
-  group_by(Species) %>%
-  mutate(num_rows=n()) %>%
-  sample_frac(0.4, weight=num_rows) %>%
-  ungroup
-
-# These results should be equal
-table(iris_subset$Species) / nrow(iris_subset)
-table(stratified_sample$Species) / nrow(stratified_sample)
 
 set.seed(12345)
 
@@ -135,37 +126,27 @@ muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),eve
                       !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
   group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
 
-# datos=list(hosp=hosp,muerte=muerte)
-# 
-# saveRDS(datos,file = "Data/datos.rds")
 
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA,data=muerte)
 x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hosp)
 
-#ggplot(hosp,aes(x=tiempo_hosp)) + geom_density() + facet_wrap(~SECTOR)
+
 
 x=x[,-1]
 x_hosp=x_hosp[,-1]
 
-##### ver ####3
-inits1=list(list(mu_raw_mort=-1.5,alpha_raw=0.01),
-            list(mu_raw_mort=-1.5,alpha_raw=0.01),
-            list(mu_raw_mort=-1.5,alpha_raw=0.01))
 
 inits1=list(mu_raw_mort=-1.5,alpha_raw=0.01)
 
-write_stan_json(inits1,file = "Cmdstan/inits1.json")
 
 for (i in 1:3){
   write_stan_json(inits1,file = paste0("Cmdstan/inits_",i,".json"))
 }
 
 
-########################################################
-#Modelos de la trayectoria Muerte
-########################################################
+
 ############################
 #Sin jerarquia
 ############################
@@ -184,24 +165,6 @@ sin_jer=list(
 write_stan_json(sin_jer,file = "Cmdstan/sin_jer.json")
 
 
-modQR <- cmdstan_model(stan_file = "Stan/ModeloQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
-
-fitQR <- modQR$sample(data=sin_jer,
-                      init=inits1,
-                      chains = 3,
-                      parallel_chains = 3,
-                      threads_per_chain = 3,
-                      iter_warmup = 750,
-                      iter_sampling = 750)
-
-y_rep_hosp=fitQR$draws("y_hosp_tilde")
-y_rep_hosp=as_draws_matrix(y_rep_hosp)
-
-y_rep_mort=fitQR$draws("y_mort_tilde")
-y_rep_mort=as_draws_matrix(y_rep_mort)
-
-ppc_dens_overlay(sin_jer$y_hosp, y_rep_hosp[1:200, ])
-ppc_dens_overlay(sin_jer$y_mort, y_rep_mort[1:200, ])
 
 ############################
 #Con jerarquia 1
@@ -220,22 +183,9 @@ jer_1=list(
   M_hosp=ncol(x_hosp)
 )
 
-inits2=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01))
-
 write_stan_json(jer_1,file = "Cmdstan/jer_1.json")
-write_stan_json(inits2,file = "Cmdstan/inits2.json")
 
-modJerQR <- cmdstan_model(stan_file = "Stan/ModeloJerQR_reduce.stan",cpp_options=list(stan_threads=TRUE))
 
-fitJerQR <- modJerQR$sample(data=jer_1,
-                      init=inits2,
-                      chains = 3,
-                      parallel_chains = 3,
-                      threads_per_chain = 3,
-                      iter_warmup = 750,
-                      iter_sampling = 750)
 
 ############################
 #Con jerarquia 2
@@ -256,68 +206,13 @@ jer_2=list(
   M_hosp=ncol(x_hosp)
 )
 
-inits3=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01),
-            list(mu_raw_mort=-2.5,alpha_raw=0.01))
 
 write_stan_json(jer_2,file = "Cmdstan/jer_2.json")
-write_stan_json(inits2,file = "Cmdstan/inits3.json")
 
-
-modJer2QR <- cmdstan_model(stan_file = "Stan/ModeloJer2QR_reduce.stan",cpp_options=list(stan_threads=TRUE))
-
-fitJer2QR <- modJer2QR$sample(data=jer_2,
-                      init=inits3,
-                      chains = 3,
-                      parallel_chains = 3,
-                      threads_per_chain = 3,
-                      iter_warmup = 750,
-                      iter_sampling = 750)
 
 
 ############################
-#Con jerarquia 2 modif no correr
-############################
-
-# jer_2modi=list(
-#   N=length(muerte$tiempo_muerte),
-#   y_mort=as.numeric(muerte$tiempo_muerte),
-#   N2=length(muerte$tiempo_hosp),
-#   y_hosp=as.numeric(muerte$tiempo_hosp),
-#   Gniv1=length(levels(muerte$ENTIDAD_UM)),
-#   Gniv2=length(levels(muerte$SECENT)),
-#   Niv1=as.numeric(muerte$ENTIDAD_UM),
-#   Niv2=as.numeric(muerte$SECENT),
-#   x=x,
-#   M=ncol(x),
-#   x_hosp=x_hosp,
-#   M_hosp=ncol(x_hosp)
-# )
-#
-# inits4=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
-#             list(mu_raw_mort=-2.5,alpha_raw=0.01),
-#             list(mu_raw_mort=-2.5,alpha_raw=0.01))
-#
-#
-# fitJer2QRmodi<- modJer2QR$sample(data=jer_2modi,
-#                               init=inits4,
-#                               chains = 3,
-#                               parallel_chains = 3,
-#                               threads_per_chain = 3,
-#                               iter_warmup = 750,
-#                               iter_sampling = 750)
-#
-# y_rep_hosp=fitJer2QRmodi$draws("y_hosp_tilde")
-# y_rep_hosp=as_draws_matrix(y_rep_hosp)
-#
-# y_rep_mort=fitJer2QRmodi$draws("y_mort_tilde")
-# y_rep_mort=as_draws_matrix(y_rep_mort)
-#
-# ppc_dens_overlay(jer_2modi$y_hosp, y_rep_hosp[1:200, ])
-# ppc_dens_overlay(jer_2modi$y_mort, y_rep_mort[1:200, ])
-
-############################
-#Con jerarquia 2 modif alpha
+#Con jerarquia 2 modif 
 ############################
 
 jer_2modi_h=list(
@@ -341,26 +236,10 @@ jer_2modi_h=list(
 
 write_stan_json(jer_2modi_h,file = "Cmdstan/jer_2modi.json")
 
-# inits5=list(list(mu_raw_mort=-2.5,alpha_raw=0.01),
-#             list(mu_raw_mort=-2.5,alpha_raw=0.01),
-#             list(mu_raw_mort=-2.5,alpha_raw=0.01))
-
-inits5=list(mu_raw_mort=-1.5,alpha_raw=0.01)
-
-for (i in 1:3){
-  write_stan_json(inits5,file = paste0("Cmdstan/inits_",i,".json"))
-}
 
 
-modJer2QR_h <- cmdstan_model(stan_file = "Stan/ModeloJer2QRhosp_reduce.stan",cpp_options=list(stan_threads=TRUE))
+##### Extras #######
 
-# fitJer2QRmodi_h <- modJer2QR_h$sample(data=jer_2modi_h,
-#                                       init=inits5,
-#                                       chains = 3,
-#                                       parallel_chains = 3,
-#                                       threads_per_chain = 3,
-#                                       iter_warmup = 750,
-#                                       iter_sampling = 750)
 
 y_rep_hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
 y_rep_hosp=as_draws_matrix(y_rep_hosp)
