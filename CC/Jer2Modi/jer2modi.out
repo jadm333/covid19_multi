@@ -1,0 +1,538 @@
+Job 1  start: Mon Jan 25 11:31:28 PST 2021
+Job 2  start: Mon Jan 25 11:31:28 PST 2021
+Job 3  start: Mon Jan 25 11:31:28 PST 2021
+method = sample (Default)
+method = sample (Default)
+method = sample (Default)
+  sample
+  sample
+  sample
+    num_samples = 750
+    num_samples = 750
+    num_samples = 750
+    num_warmup = 500
+    num_warmup = 500
+    num_warmup = 500
+    save_warmup = 0 (Default)
+    save_warmup = 0 (Default)
+    save_warmup = 0 (Default)
+    thin = 1 (Default)
+    thin = 1 (Default)
+    thin = 1 (Default)
+    adapt
+    adapt
+    adapt
+      engaged = 1 (Default)
+      engaged = 1 (Default)
+      engaged = 1 (Default)
+      gamma = 0.050000000000000003 (Default)
+      gamma = 0.050000000000000003 (Default)
+      gamma = 0.050000000000000003 (Default)
+      delta = 0.80000000000000004 (Default)
+      delta = 0.80000000000000004 (Default)
+      delta = 0.80000000000000004 (Default)
+      kappa = 0.75 (Default)
+      kappa = 0.75 (Default)
+      kappa = 0.75 (Default)
+      t0 = 10 (Default)
+      t0 = 10 (Default)
+      t0 = 10 (Default)
+      init_buffer = 75 (Default)
+      init_buffer = 75 (Default)
+      init_buffer = 75 (Default)
+      term_buffer = 50 (Default)
+      term_buffer = 50 (Default)
+      term_buffer = 50 (Default)
+      window = 25 (Default)
+      window = 25 (Default)
+      window = 25 (Default)
+    algorithm = hmc (Default)
+    algorithm = hmc (Default)
+    algorithm = hmc (Default)
+      hmc
+      hmc
+      hmc
+        engine = nuts (Default)
+        engine = nuts (Default)
+        engine = nuts (Default)
+          nuts
+          nuts
+          nuts
+            max_depth = 10 (Default)
+            max_depth = 10 (Default)
+            max_depth = 10 (Default)
+        metric = diag_e (Default)
+        metric = diag_e (Default)
+        metric = diag_e (Default)
+        metric_file =  (Default)
+        metric_file =  (Default)
+        metric_file =  (Default)
+        stepsize = 1 (Default)
+        stepsize = 1 (Default)
+        stepsize = 1 (Default)
+        stepsize_jitter = 0 (Default)
+        stepsize_jitter = 0 (Default)
+        stepsize_jitter = 0 (Default)
+id = 0 (Default)
+id = 0 (Default)
+id = 0 (Default)
+data
+data
+data
+  file = /home/juandiaz/covid19_multi/Cmdstan/jer_2modi.json
+  file = /home/juandiaz/covid19_multi/Cmdstan/jer_2modi.json
+  file = /home/juandiaz/covid19_multi/Cmdstan/jer_2modi.json
+init = /home/juandiaz/covid19_multi/Cmdstan/inits_2.json
+init = /home/juandiaz/covid19_multi/Cmdstan/inits_1.json
+init = /home/juandiaz/covid19_multi/Cmdstan/inits_3.json
+random
+random
+random
+  seed = 1110516801 (Default)
+  seed = 1110516804 (Default)
+  seed = 1110516848 (Default)
+output
+output
+output
+  file = /scratch/juandiaz/multi/jer2modi_2.csv
+  file = /scratch/juandiaz/multi/jer2modi_1.csv
+  file = /scratch/juandiaz/multi/jer2modi_3.csv
+  diagnostic_file =  (Default)
+  diagnostic_file =  (Default)
+  diagnostic_file =  (Default)
+  refresh = 100 (Default)
+  refresh = 100 (Default)
+  refresh = 100 (Default)
+  sig_figs = -1 (Default)
+  sig_figs = -1 (Default)
+  sig_figs = -1 (Default)
+  profile_file = profile.csv (Default)
+  profile_file = profile.csv (Default)
+  profile_file = profile.csv (Default)
+num_threads = 48
+num_threads = 48
+num_threads = 48
+
+
+
+
+
+
+Gradient evaluation took 0.269835 seconds
+Gradient evaluation took 0.276924 seconds
+Gradient evaluation took 0.282207 seconds
+1000 transitions using 10 leapfrog steps per transition would take 2698.35 seconds.
+1000 transitions using 10 leapfrog steps per transition would take 2769.24 seconds.
+1000 transitions using 10 leapfrog steps per transition would take 2822.07 seconds.
+Adjust your expectations accordingly!
+Adjust your expectations accordingly!
+Adjust your expectations accordingly!
+
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[4] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[3] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[4] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[2] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[4] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[3] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[2] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,Iteration:    1 / 1250 [  0%]  (Warmup)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[23] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[5] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[2] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[3] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+Iteration:    1 / 1250 [  0%]  (Warmup)
+
+
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+Exception: Exception: weibull_lpdf: Scale parameter[19] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Exception: Exception: weibull_lpdf: Scale parameter[5] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+
+
+
+
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is 0, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[24] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Iteration:    1 / 1250 [  0%]  (Warmup)
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[4] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[1] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: Exception: weibull_lpdf: Scale parameter[24] is inf, but must be positive finite! (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61) (in '/home/juandiaz/covid19_multi/Stan/ModeloJer2QRhosp_reduce.stan', line 6, column 4 to column 61)
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Iteration:  100 / 1250 [  8%]  (Warmup)
+Iteration:  100 / 1250 [  8%]  (Warmup)
+Iteration:  100 / 1250 [  8%]  (Warmup)
+Iteration:  200 / 1250 [ 16%]  (Warmup)
+Iteration:  200 / 1250 [ 16%]  (Warmup)
+Iteration:  200 / 1250 [ 16%]  (Warmup)
+Iteration:  300 / 1250 [ 24%]  (Warmup)
+Iteration:  300 / 1250 [ 24%]  (Warmup)
+Iteration:  300 / 1250 [ 24%]  (Warmup)
+Iteration:  400 / 1250 [ 32%]  (Warmup)
+Iteration:  400 / 1250 [ 32%]  (Warmup)
+Iteration:  400 / 1250 [ 32%]  (Warmup)
+Iteration:  500 / 1250 [ 40%]  (Warmup)
+Iteration:  501 / 1250 [ 40%]  (Sampling)
+Iteration:  500 / 1250 [ 40%]  (Warmup)
+Iteration:  501 / 1250 [ 40%]  (Sampling)
+Iteration:  500 / 1250 [ 40%]  (Warmup)
+Iteration:  501 / 1250 [ 40%]  (Sampling)
+Iteration:  600 / 1250 [ 48%]  (Sampling)
+Iteration:  600 / 1250 [ 48%]  (Sampling)
+Iteration:  600 / 1250 [ 48%]  (Sampling)
+Iteration:  700 / 1250 [ 56%]  (Sampling)
+Iteration:  700 / 1250 [ 56%]  (Sampling)
+Iteration:  700 / 1250 [ 56%]  (Sampling)
+Iteration:  800 / 1250 [ 64%]  (Sampling)
+Iteration:  800 / 1250 [ 64%]  (Sampling)
+Iteration:  800 / 1250 [ 64%]  (Sampling)
+Iteration:  900 / 1250 [ 72%]  (Sampling)
+Iteration:  900 / 1250 [ 72%]  (Sampling)
+Iteration:  900 / 1250 [ 72%]  (Sampling)
+Iteration: 1000 / 1250 [ 80%]  (Sampling)
+Iteration: 1000 / 1250 [ 80%]  (Sampling)
+Iteration: 1000 / 1250 [ 80%]  (Sampling)
+Iteration: 1100 / 1250 [ 88%]  (Sampling)
+Iteration: 1100 / 1250 [ 88%]  (Sampling)
+Iteration: 1100 / 1250 [ 88%]  (Sampling)
+Iteration: 1200 / 1250 [ 96%]  (Sampling)
+Iteration: 1200 / 1250 [ 96%]  (Sampling)
+Iteration: 1200 / 1250 [ 96%]  (Sampling)
+Iteration: 1250 / 1250 [100%]  (Sampling)
+
+ Elapsed Time: 19970.9 seconds (Warm-up)
+               31449.3 seconds (Sampling)
+               51420.1 seconds (Total)
+
+Job 3  finish: Tue Jan 26 01:48:44 PST 2021
+Iteration: 1250 / 1250 [100%]  (Sampling)
+
+ Elapsed Time: 19133.3 seconds (Warm-up)
+               32975.2 seconds (Sampling)
+               52108.5 seconds (Total)
+
+Job 2  finish: Tue Jan 26 02:00:19 PST 2021
+Iteration: 1250 / 1250 [100%]  (Sampling)
+
+ Elapsed Time: 21634.7 seconds (Warm-up)
+               30741.2 seconds (Sampling)
+               52375.9 seconds (Total)
+
+Job 1  finish: Tue Jan 26 02:04:38 PST 2021
