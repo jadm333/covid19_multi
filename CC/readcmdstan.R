@@ -21,14 +21,27 @@ mod_gq <- cmdstan_model("jer2modi/ModeloJer2QRhosp_quant.stan")
 fit_gq <- mod_gq$generate_quantities(c("jer2modi/jer2modi_1.csv","jer2modi/jer2modi_2.csv","jer2modi/jer2modi_3.csv"), data = "jer2modi/jer_2modi.json", 
                                      parallel_chains = 3)
 
+
 json_data <- fromJSON(file="jer2modi/jer_2modi.json")
 
 
 y_rep_hosp=fit_gq$draws("y_hosp_tilde")
 y_rep_hosp=as_draws_matrix(y_rep_hosp)
 
+# Se recomienda haber guardado una iniciación del objeto y_rep_hosp
+# para agilizar actualizaciones a este código
+#
+# y_rep_hosp <- readRDS("jer2modi/y_rep_hosp.rds")
+
+
 y_rep_mort=fit_gq$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
-ppc_dens_overlay(json_data$y_mort,y_rep_mort[1:200,])
+# Se recomienda haber guardado una iniciación del objeto y_rep_mort
+# para agilizar actualizaciones a este código
+#
+# y_rep_mort <- readRDS("jer2modi/y_rep_mort.rds")
 
+loo_plot <- ppc_dens_overlay(json_data$y_mort,y_rep_mort[1:200,])
+
+#ggsave(loo_plot,)
