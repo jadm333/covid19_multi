@@ -7,7 +7,7 @@ library(readr)
 library(rjson)
 library(loo)
 
-#set_cmdstan_path()
+#set working directory to covid19_multi
 
 ###multi
 
