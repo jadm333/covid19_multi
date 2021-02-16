@@ -62,7 +62,7 @@ print(loo_mort_jer1)
 
 #sinjer
 mod_sinjer <- cmdstan_model("./CC/sinjer/ModeloQR_quant.stan")
-fit_sinjer<- mod_jer1$generate_quantities(c("./CC/sinjer/sin_jer_1.csv","./CC/sinjer/sin_jer_2.csv",
+fit_sinjer<- mod_sinjer$generate_quantities(c("./CC/sinjer/sin_jer_1.csv","./CC/sinjer/sin_jer_2.csv",
                                           "./CC/sinjer/sin_jer_3.csv"), data = "./Cmdstan/sin_jer.json",  
                                         parallel_chains = 3)
 
