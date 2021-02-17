@@ -71,7 +71,17 @@ print(loo_hosp_sinjer)
 loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 print(loo_mort_sinjer)
 
+# loo_hosp_jer2modi=readRDS("./CC/loo_hosp_jer2modi.rds")
+# loo_mort_jer2modi=readRDS("./CC/loo_mort_jer2modi.rds")
+# loo_hosp_jer2=readRDS("./CC/loo_hosp_jer2.rds")
+# loo_mort_jer2=readRDS("./CC/loo_mort_jer2.rds")
+# loo_hosp_jer1=readRDS("./CC/loo_hosp_jer1.rds")
+# loo_mort_jer1=readRDS("./CC/loo_mort_jer1.rds")
 
+loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1)
+#el modelo jer2modi dice ser peorsito que el jer2
+loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1)
+#aqui jer2modi es el peor
 
 
 
