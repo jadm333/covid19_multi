@@ -11,6 +11,14 @@ ModeloJer2QRhosp_reduce_threads.exe
 
 *.rds
 !Data/datos.rds
+!loo_hosp_jer2modi.rds
+!loo_mort_jer2modi.rds
+!loo_hosp_jer2.rds
+!loo_mort_jer2.rds
+!loo_hosp_jer1.rds
+!loo_mort_jer1.rds
+!loo_hosp_sinjer.rds
+!loo_mort_sinjer.rds
 # Session Data files
 .RData
 
