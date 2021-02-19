@@ -26,7 +26,7 @@ ppc_plot_modi <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:200,])
 
 loo_hosp_jer2modi=loo(fit_jer2modi$draws("log_lik_hosp"), r_eff = NA)
 print(loo_hosp_jer2modi)
-loo_mort_jer2=loo(fit_jer2modi$draws("log_lik_mort"), r_eff = NA)
+loo_mort_jer2modi=loo(fit_jer2modi$draws("log_lik_mort"), r_eff = NA)
 print(loo_mort_jer2modi)
 
 #loo_compare(loo1, loo2)
@@ -71,6 +71,8 @@ print(loo_hosp_sinjer)
 loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 print(loo_mort_sinjer)
 
+
+# 
 # loo_hosp_jer2modi=readRDS("./CC/loo_hosp_jer2modi.rds")
 # loo_mort_jer2modi=readRDS("./CC/loo_mort_jer2modi.rds")
 # loo_hosp_jer2=readRDS("./CC/loo_hosp_jer2.rds")
@@ -78,12 +80,11 @@ print(loo_mort_sinjer)
 # loo_hosp_jer1=readRDS("./CC/loo_hosp_jer1.rds")
 # loo_mort_jer1=readRDS("./CC/loo_mort_jer1.rds")
 
+
 loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1)
 #el modelo jer2modi dice ser peorsito que el jer2
 loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1)
 #aqui jer2modi es el peor
-
-
 
 
 
