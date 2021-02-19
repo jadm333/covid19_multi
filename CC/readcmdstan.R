@@ -6,73 +6,168 @@ library(tidybayes)
 library(readr)
 library(rjson)
 library(loo)
+library(ggplot2)
 
 #set working directory to covid19_multi
 
-###multi
+################
+### jer2modi ###
+################
 
 mod_jer2modi <- cmdstan_model("./CC/jer2modi/ModeloJer2QRhosp_quant.stan")
-json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
-fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC/jer2modi/jer2modi_1.csv","./CC/jer2modi/jer2modi_2.csv",
-                                       "./CC/jer2modi/jer2modi_3.csv"), data = "./Cmdstan/jer_2modi.json",  
-                                     parallel_chains = 3)
 
-y_rep_hosp=fit_jer2modi$draws("y_hosp_tilde")
-y_rep_hosp=as_draws_matrix(y_rep_hosp)
+json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
+
+fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC/jer2modi/jer2modi_1.csv","./CC/jer2modi/jer2modi_2.csv",
+                                                   "./CC/jer2modi/jer2modi_3.csv"), data = "./Cmdstan/jer_2modi.json",
+                                                 parallel_chains = 3)
+
+
+##########################
+### plots ppc jer2modi ###
+##########################
+
+#y_rep_hosp=fit_jer2modi$draws("y_hosp_tilde")
+#y_rep_hosp=as_draws_matrix(y_rep_hosp)
 y_rep_mort=fit_jer2modi$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
-ppc_plot_modi <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:200,])
+ppc_plot_modi_mort <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:200,])
+
+ggsave("./CC/jer2modi/ppc_plot_modi_mort.png",ppc_plot_modi_mort,width = 23.05,height = 17.57,units="cm")
+
+
+####################
+### loo jer2modi ###
+####################
 
 loo_hosp_jer2modi=loo(fit_jer2modi$draws("log_lik_hosp"), r_eff = NA)
-print(loo_hosp_jer2modi)
+
 loo_mort_jer2modi=loo(fit_jer2modi$draws("log_lik_mort"), r_eff = NA)
-print(loo_mort_jer2modi)
 
 #loo_compare(loo1, loo2)
 
-#jer2
+
+
+############
+### jer2 ###
+############
+
 mod_jer2 <- cmdstan_model("./CC/jer2/ModeloJer2QR_quant.stan")
 
 json_data_jer2 <- fromJSON(file="./Cmdstan/jer_2.json")
 
 fit_jer2 <- mod_jer2$generate_quantities(c("./CC/jer2/jer2_1.csv","./CC/jer2/jer2_2.csv",
-                                                   "./CC/jer2/jer2_3.csv"), data = "./Cmdstan/jer_2.json",  
-                                                 parallel_chains = 3)
+                                           "./CC/jer2/jer2_3.csv"), data = "./Cmdstan/jer_2.json",  
+                                         parallel_chains = 3)
+
+
+######################
+### plots ppc jer2 ###
+######################
+
+#y_rep_hosp=fit_jer2$draws("y_hosp_tilde")
+#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_mort=fit_jer2$draws("y_mort_tilde")
+y_rep_mort=as_draws_matrix(y_rep_mort)
+
+ppc_plot_jer2_mort <- ppc_dens_overlay(json_data_jer2$y_mort,y_rep_mort[1:200,])
+
+ggsave("./CC/jer2/ppc_plot_jer2_mort.png",ppc_plot_jer2_mort,width = 23.05,height = 17.57,units="cm")
+
+
+###########################
+### mcmc intervals jer2 ###
+###########################
+
+intervals_jer2=read_cmdstan_csv(files = c("./CC/jer2/jer2_1.csv","./CC/jer2/jer2_2.csv","./CC/jer2/jer2_3.csv"))
+mu_l2_intervals <- mcmc_intervals(intervals_jer2$post_warmup_draws,regex_pars = c("mu_l2\\W"))
+
+ggsave("./CC/jer2/mu_12_intervals.png",mu_l2_intervals,width = 23.05,height = 17.57,units="cm")
+
+
+################
+### loo jer2 ###
+################
 
 loo_hosp_jer2=loo(fit_jer2$draws("log_lik_hosp"), r_eff = NA)
-print(loo_hosp_jer2)
+
 loo_mort_jer2=loo(fit_jer2$draws("log_lik_mort"), r_eff = NA)
-print(loo_mort_jer2)
 
 
 
-#jer1
+############
+### jer1 ###
+############
+
 mod_jer1 <- cmdstan_model("./CC/jer1/ModeloJerQR_quant.stan")
+
+json_data_jer1 <- fromJSON(file="./Cmdstan/jer_1.json")
+
 fit_jer1<- mod_jer1$generate_quantities(c("./CC/jer1/jer1_1.csv","./CC/jer1/jer1_2.csv",
                                           "./CC/jer1/jer1_3.csv"), data = "./Cmdstan/jer_1.json",  
                                         parallel_chains = 3)
 
+
+######################
+### plots ppc jer1 ###
+######################
+
+#y_rep_hosp=fit_jer1$draws("y_hosp_tilde")
+#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_mort=fit_jer1$draws("y_mort_tilde")
+y_rep_mort=as_draws_matrix(y_rep_mort)
+
+ppc_plot_jer1_mort <- ppc_dens_overlay(json_data_jer1$y_mort,y_rep_mort[1:200,])
+
+ggsave("./CC/jer1/ppc_plot_jer1_mort.png",ppc_plot_jer1_mort,width = 23.05,height = 17.57,units="cm")
+
+################
+### loo jer1 ###
+################
+
 loo_hosp_jer1=loo(fit_jer1$draws("log_lik_hosp"), r_eff = NA)
-print(loo_hosp_jer1)
+
 loo_mort_jer1=loo(fit_jer1$draws("log_lik_mort"), r_eff = NA)
-print(loo_mort_jer1)
 
 
 
-#sinjer
+##############
+### sinjer ###
+##############
+
 mod_sinjer <- cmdstan_model("./CC/sinjer/ModeloQR_quant.stan")
+
+json_data_sinjer <- fromJSON(file="./Cmdstan/sin_jer.json")
+
 fit_sinjer<- mod_sinjer$generate_quantities(c("./CC/sinjer/sin_jer_1.csv","./CC/sinjer/sin_jer_2.csv",
-                                          "./CC/sinjer/sin_jer_3.csv"), data = "./Cmdstan/sin_jer.json",  
-                                        parallel_chains = 3)
+                                              "./CC/sinjer/sin_jer_3.csv"), data = "./Cmdstan/sin_jer.json",  
+                                            parallel_chains = 3)
+
+
+########################
+### plots ppc sinjer ###
+########################
+
+#y_rep_hosp=fit_sinjer$draws("y_hosp_tilde")
+#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_mort=fit_sinjer$draws("y_mort_tilde")
+y_rep_mort=as_draws_matrix(y_rep_mort)
+
+ppc_plot_sinjer_mort <- ppc_dens_overlay(json_data_sinjer$y_mort,y_rep_mort[1:200,])
+
+ggsave("./CC/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.05,height = 17.57,units="cm")
+
+
+##################
+### loo sinjer ###
+##################
 
 loo_hosp_sinjer=loo(fit_sinjer$draws("log_lik_hosp"), r_eff = NA)
-print(loo_hosp_sinjer)
+
 loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
-print(loo_mort_sinjer)
 
 
-# 
 # loo_hosp_jer2modi=readRDS("./CC/loo_hosp_jer2modi.rds")
 # loo_mort_jer2modi=readRDS("./CC/loo_mort_jer2modi.rds")
 # loo_hosp_jer2=readRDS("./CC/loo_hosp_jer2.rds")
