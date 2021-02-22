@@ -205,9 +205,9 @@ ppc_plot_sinjer_mort <- ppc_dens_overlay(json_data_sinjer$y_mort,y_rep_mort[1:20
 ggsave("./CC/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.05,height = 17.57,units="cm")
 
 
-###########################
-### mcmc intervals jer1 ###
-###########################
+#############################
+### mcmc intervals sinjer ###
+#############################
 
 intervals_sinjer=read_cmdstan_csv(files = c("./CC/sinjer/sin_jer_1.csv","./CC/sinjer/sin_jer_2.csv",
                                             "./CC/sinjer/sin_jer_3.csv"))
