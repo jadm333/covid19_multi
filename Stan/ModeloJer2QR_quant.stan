@@ -5,12 +5,12 @@ data {
   int<lower=1,upper=Gniv1> Niv1[N];
   int<lower=0> Gniv2;                  // num de grupos en niv1
   int<lower=1,upper=Gniv2> Niv2[N];
-  vector<lower=0>[N] y_mort; 
-  vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
+  real<lower=0> y_mort[N]; 
+  real<lower=0> y_hosp[N2]; // id de censura (0=obs,1=censd,2=censi)
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
-  matrix[N, M_hosp] x_hosp;// matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
+  matrix[N2, M_hosp] x_hosp;// matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
 }
 transformed data {
   real<lower=0> tau_mu;
@@ -69,9 +69,36 @@ transformed parameters {
 }
 
 generated quantities {
-  real log_lik[N];
-  for(i in 1:N){
-    log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha))+
-    weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
-  }
+  
+  vector[M] beta;
+  vector[M_hosp] beta_h;
+  //real log_lik[N];
+  real log_lik_mort[N];
+  real log_lik_hosp[N2];
+
+  real<lower=0> y_mort_tilde[N];
+  real<lower=0> y_hosp_tilde[N2];
+  
+  beta = R_ast_inverse * theta;
+  beta_h = R_ast_inverse_h * theta_h;
+
+   for(i in 1:N){
+     log_lik_mort[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+     mu_l2[Niv2[i]])/alpha));
+     y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l[Niv1[i]]+
+     mu_l2[Niv2[i]])/alpha));
+   }
+
+  //real log_lik[N];
+  //for(i in 1:N){
+  //  log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1]+mu_l2_raw[Niv2])/alpha))+
+  //  weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+  //}
+  
+  for(i in 1:N2){
+    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+    }
+    
+
 }

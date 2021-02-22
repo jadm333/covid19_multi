@@ -1,12 +1,14 @@
 data {
   int N;
   int N2;
-  vector<lower=0>[N] y_mort; 
-  vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
+  //vector<lower=0>[N] y_mort; 
+  real<lower=0> y_mort[N];
+  //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
+  real<lower=0> y_hosp[N2]; // id de censura (0=obs,1=censd,2=censi)
   int M;                               // n?mero de covariables
   matrix[N, M] x;
   int M_hosp;                               // n?mero de covariables
-  matrix[N, M_hosp] x_hosp; // matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
+  matrix[N2, M_hosp] x_hosp; // matriz de covariables(con Nren y Mcol)            // matrix of covariates (with n rows and H columns)
 }
 transformed data {
   real<lower=0> tau_mu;
@@ -53,11 +55,24 @@ transformed parameters {
 }
 
 generated quantities {
-  
-  real log_lik[N];
+  vector[M] beta;
+  vector[M_hosp] beta_h;
+  real log_lik_mort[N];
+  real log_lik_hosp[N2];
+  real<lower=0> y_mort_tilde[N];
+  real<lower=0> y_hosp_tilde[N2];
+
+
+  beta = R_ast_inverse * theta;
+  beta_h = R_ast_inverse_h * theta_h;
+
   for(i in 1:N){
-    log_lik[i]=weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort)/alpha))+
-    weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
-    
+    log_lik_mort[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort)/alpha));
+    y_mort_tilde[i]=weibull_rng(alpha,exp(-(Q_ast[i]*theta +mu_raw_mort)/alpha));
+  }
+
+  for(i in 1:N2){
+    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
   }
 }
