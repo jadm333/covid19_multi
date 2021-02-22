@@ -10,6 +10,12 @@ library(ggplot2)
 
 #set working directory to covid19_multi
 
+
+color_scheme_set("red")
+datos=readRDS("Data/datos.rds")
+mdat=datos$muerte
+hdat=datos$hosp
+
 ################
 ### jer2modi ###
 ################
@@ -35,6 +41,22 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 ppc_plot_modi_mort <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:200,])
 
 ggsave("./CC/jer2modi/ppc_plot_modi_mort.png",ppc_plot_modi_mort,width = 23.05,height = 17.57,units="cm")
+
+
+###############################
+### mcmc intervals jer2modi ###
+###############################
+
+intervals_jer2modi=read_cmdstan_csv(files = 
+                                      c("./CC/jer2modi/jer2modi_1.csv","./CC/jer2modi/jer2modi_2.csv",
+                                        "./CC/jer2modi/jer2modi_3.csv"))
+int_jer2modi_post=as_draws_matrix(intervals_jer2modi$post_warmup_draws)
+int_jer2modi_post_ml2=data.frame(int_jer2modi_post[,487:651])
+colnames(int_jer2modi_post_ml2)=c(levels(mdat$SECENT))
+
+mu_l2_intervals_jer2modi <- mcmc_intervals(int_jer2modi_post_ml2,regex_pars = (levels(mdat$SECENT)))
+
+
 
 
 ####################
@@ -81,10 +103,19 @@ ggsave("./CC/jer2/ppc_plot_jer2_mort.png",ppc_plot_jer2_mort,width = 23.05,heigh
 ###########################
 
 intervals_jer2=read_cmdstan_csv(files = c("./CC/jer2/jer2_1.csv","./CC/jer2/jer2_2.csv","./CC/jer2/jer2_3.csv"))
-mu_l2_intervals <- mcmc_intervals(intervals_jer2$post_warmup_draws,regex_pars = c("mu_l2\\W"))
+int_jer2_post=as_draws_matrix(intervals_jer2$post_warmup_draws)
 
-ggsave("./CC/jer2/mu_12_intervals.png",mu_l2_intervals,width = 23.05,height = 17.57,units="cm")
+int_jer2_post_ml2=data.frame(int_jer2_post[,95:100])
+colnames(int_jer2_post_ml2)=c(levels(mdat$SECTOR))
+mu_l2_intervals_jer2 <- mcmc_intervals(int_jer2_post_ml2,regex_pars = (levels(mdat$SECTOR)))+
+  ggplot2::labs( x="log hazard ratio", title = "Mu_l2 Jer2")
+ggsave("./CC/jer2/mu_12_intervalsjer2.png",mu_l2_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
+int_jer2_post_ml=data.frame(int_jer2_post[,63:94])
+colnames(int_jer2_post_ml)=c(levels(mdat$ENTIDAD_UM))
+mu_l_intervals_jer2 <- mcmc_intervals(int_jer2_post_ml,regex_pars = (levels(mdat$ENTIDAD_UM)))+
+  ggplot2::labs( x="log hazard ratio", title = "Mu_l Jer2")
+ggsave("./CC/jer2/mu_1_intervalsjer2.png",mu_l_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
 ################
 ### loo jer2 ###
@@ -122,6 +153,21 @@ ppc_plot_jer1_mort <- ppc_dens_overlay(json_data_jer1$y_mort,y_rep_mort[1:200,])
 
 ggsave("./CC/jer1/ppc_plot_jer1_mort.png",ppc_plot_jer1_mort,width = 23.05,height = 17.57,units="cm")
 
+
+###########################
+### mcmc intervals jer1 ###
+###########################
+
+intervals_jer1=read_cmdstan_csv(files = c("./CC/jer1/jer1_1.csv","./CC/jer1/jer1_2.csv","./CC/jer1/jer1_3.csv"))
+int_jer1_post=as_draws_matrix(intervals_jer1$post_warmup_draws)
+
+int_jer1_post_ml=data.frame(int_jer1_post[,55:86])
+colnames(int_jer1_post_ml)=c(levels(mdat$ENTIDAD_UM))
+mu_l_intervals_jer1 <- mcmc_intervals(int_jer1_post_ml,regex_pars = (levels(mdat$ENTIDAD_UM)))+
+  ggplot2::labs( x="log hazard ratio", title = "Mu_l Jer1")
+ggsave("./CC/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,height = 17.57,units="cm")
+
+
 ################
 ### loo jer1 ###
 ################
@@ -157,6 +203,17 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 ppc_plot_sinjer_mort <- ppc_dens_overlay(json_data_sinjer$y_mort,y_rep_mort[1:200,])
 
 ggsave("./CC/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.05,height = 17.57,units="cm")
+
+
+###########################
+### mcmc intervals jer1 ###
+###########################
+
+intervals_sinjer=read_cmdstan_csv(files = c("./CC/sinjer/sin_jer_1.csv","./CC/sinjer/sin_jer_2.csv",
+                                            "./CC/sinjer/sin_jer_3.csv"))
+int_sinjer_post=as_draws_matrix(intervals_sinjer$post_warmup_draws)
+
+
 
 
 ##################
