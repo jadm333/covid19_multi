@@ -178,7 +178,12 @@ One of the main problems is the precarious situation of the public healthcare sy
 
 Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
+<<<<<<< Updated upstream
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
+=======
+XXXXX25/02/2021XXXXXXX
+>>>>>>> Stashed changes
 
 # References {#references .unnumbered}
+
