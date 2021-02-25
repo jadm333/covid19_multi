@@ -1,3 +1,11 @@
+<<<<<<< Updated upstream
+=======
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+>>>>>>> Stashed changes
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
@@ -163,5 +171,7 @@ One of the main problems is the precarious situation of the public healthcare sy
 
 This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
+
+PRUEBA1_XXXXXXXXXXXXXXXX
 
 # References {#references .unnumbered}
