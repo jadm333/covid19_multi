@@ -124,7 +124,7 @@ colnames(beta_m_jer2)=c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" )
 beta_intervals_jer2 <- mcmc_intervals(beta_m_jer2,regex_pars = c("COPD","OBESITY","CHRONIC_KIDNEY",
                                                                  "ASTHMA", "IMMUSUPR" ))+
   ggplot2::labs( x="log hazard ratio", title = "DS Jer2")
-ggsave("./CC/jer2/beta_intervalsjer2.png",beta_intervals_jer22,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC/jer2/beta_intervalsjer2.png",beta_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
 ################
 ### loo jer2 ###
