@@ -117,6 +117,15 @@ mu_l_intervals_jer2 <- mcmc_intervals(int_jer2_post_ml,regex_pars = (levels(mdat
   ggplot2::labs( x="log hazard ratio", title = "Mu_l Jer2")
 ggsave("./CC/jer2/mu_1_intervalsjer2.png",mu_l_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
+beta_m_jer2=fit_jer2$draws("beta")
+beta_m_jer2=as_draws_matrix(beta_m_jer2)
+beta_m_jer2=as.data.frame(beta_m_jer2)
+colnames(beta_m_jer2)=c("COPD","OBESITY","CHRONIC_KIDNEY","ASTHMA", "IMMUSUPR" )
+beta_intervals_jer2 <- mcmc_intervals(beta_m_jer2,regex_pars = c("COPD","OBESITY","CHRONIC_KIDNEY",
+                                                                 "ASTHMA", "IMMUSUPR" ))+
+  ggplot2::labs( x="log hazard ratio", title = "DS Jer2")
+ggsave("./CC/jer2/beta_intervalsjer2.png",beta_intervals_jer22,width = 23.05,height = 17.57,units="cm")
+
 ################
 ### loo jer2 ###
 ################
@@ -233,7 +242,10 @@ loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 # loo_mort_jer1=readRDS("./CC/loo_mort_jer1.rds")
 
 
-loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1)
+loo=loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1)
+loo=as.data.frame(loo)
+rownames(loo)=c("Jer2", "Jer2Modi", "Jer1")
+write.csv(loo, file="./CC/loo_comp.csv",row.names = T, col.names = T)
 #el modelo jer2modi dice ser peorsito que el jer2
 loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1)
 #aqui jer2modi es el peor
