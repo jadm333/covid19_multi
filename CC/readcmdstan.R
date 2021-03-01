@@ -88,8 +88,8 @@ fit_jer2 <- mod_jer2$generate_quantities(c("./CC/jer2/jer2_1.csv","./CC/jer2/jer
 ### plots ppc jer2 ###
 ######################
 
-#y_rep_hosp=fit_jer2$draws("y_hosp_tilde")
-#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_hosp=fit_jer2$draws("y_hosp_tilde")
+y_rep_hosp=as_draws_matrix(y_rep_hosp)
 y_rep_mort=fit_jer2$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
@@ -97,6 +97,11 @@ ppc_plot_jer2_mort <- ppc_dens_overlay(json_data_jer2$y_mort,y_rep_mort[1:200,])
 
 ggsave("./CC/jer2/ppc_plot_jer2_mort.png",ppc_plot_jer2_mort,width = 23.05,height = 17.57,units="cm")
 
+
+
+ppc_plot_jer2_hosp <- ppc_dens_overlay(json_data_jer2$y_hosp,y_rep_hosp[1:200,])
+
+ggsave("./CC/jer2/ppc_plot_jer2_hosp.png",ppc_plot_jer2_hosp,width = 23.05,height = 17.57,units="cm")
 
 ###########################
 ### mcmc intervals jer2 ###
