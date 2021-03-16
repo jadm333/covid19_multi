@@ -249,8 +249,7 @@ loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 
 loo=loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1,loo_mort_sinjer)
 loo=as.data.frame(loo)
-#rownames(loo)=c("Jer2", "Jer2Modi", "Jer1")
-rownames(loo)=c("Jer2", "Jer1", "Jer2Modi") #Me parece que este es el nombramiento correcto
+rownames(loo)=c("jer2", "jer1", "sinjer", "jer2Modi")
 write.csv(loo, file="./CC/loo_comp.csv",row.names = T)
 #el modelo jer2modi dice ser peorsito que el jer2
 loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1,loo_hosp_sinjer)
