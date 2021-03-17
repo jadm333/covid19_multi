@@ -1,11 +1,4 @@
-<<<<<<< Updated upstream
-=======
----
-output:
-  pdf_document: default
-  html_document: default
----
->>>>>>> Stashed changes
+
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
@@ -14,7 +7,6 @@ output:
 \newcommand{\Pro}{\mathbb{P}}
 \newcommand{\var}{\text{Var}}
 \newcommand{\E}{\mathbb{E}}
-
 
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
@@ -74,10 +66,6 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 ### Data Source and Study Population
 
-<<<<<<< Updated upstream
-  We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and XX 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. After applying exclusion criteria the total sample was about XXXX registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico.
-
-  Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, autoimmune diseases and chronic kidney disease were considered and also the interactions between two or more was simulated.
 
   We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and December 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. Additionally patients whose time of initial symptoms was captured as the day the were admitted to hospital were removed, since this time was likely to be unknown. After applying exclusion criteria a total sample of 1200 registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico was selected, preserving the population characteristics. JUAN PABLO ESTE NUMERO DE MUESTRA ES CORRECTO?
 
@@ -87,7 +75,7 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 $$x_{hospitalization} = (\sim COPD+Obesity+Kidney\_Disease+Asthma+Immunosuppression)
 $$
 
-  About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 6 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare provider whithin each statte) this 5 are the public care provider and the sixth sector is private hospitals.
+  About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 6 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare provider within each state) this 5 are the public care provider and the sixth sector is private hospitals.
 
 
 ### Modelling
