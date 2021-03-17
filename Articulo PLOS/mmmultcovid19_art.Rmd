@@ -78,7 +78,7 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
   We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and XX 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. After applying exclusion criteria the total sample was about XXXX registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico.
 
   Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, autoimmune diseases and chronic kidney disease were considered and also the interactions between two or more was simulated.
-=======
+
   We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and December 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. Additionally patients whose time of initial symptoms was captured as the day the were admitted to hospital were removed, since this time was likely to be unknown. After applying exclusion criteria a total sample of 1200 registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico was selected, preserving the population characteristics. JUAN PABLO ESTE NUMERO DE MUESTRA ES CORRECTO?
 
   Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, immunosuppression and chronic kidney disease were cataloged for each health state in the model and so two different matrix were set up as it follows:
@@ -86,29 +86,21 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
   $$x_{death} = (\sim Diabetes+COPD+Obesity+Hypertension+Diabetes*Obesity*Hypertension+Kidney\_Disease)$$
 $$x_{hospitalization} = (\sim COPD+Obesity+Kidney\_Disease+Asthma+Immunosuppression)
 $$
->>>>>>> Stashed changes
 
-  About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 5 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA this 4 are the public care provider and the fifth sector is private hospitals.
+  About 87% of population in Mexico belong to some healthcare institution but during this pandemic mexican government has established a list of hospitals designated to treat COVID-19 patients without any affiliation distinction. In this study we identified 6 different healthcare providers which were classified as sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare provider whithin each statte) this 5 are the public care provider and the sixth sector is private hospitals.
 
 
 ### Modelling
-TWe developed four different Bayesian models  for trajectories of interest namely,  *Symptoms-Hospitalization* and *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, corresponding to the aforementioned comorbidities, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
+We developed four different Bayesian models  for trajectories of interest namely,  *Symptoms-Hospitalization* and *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, corresponding to the aforementioned comorbidities, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
 
 Each model has different levels on it,as more levels were included it was possible to see how different the results were according to the new variable added.The four levels of information  were: 
 1. Data of death and hospitalizations which are assumed independent.
 2. This model is based in the first model, but here the information is slipt up by the different states of Mexico.
-3. Third model takes the information of the second one and adds the type/institution in wich the patitents were treated.
-4. The last models adds the information to the third one by each state of the Mexican republic and so all the variables are accounted in the last one.
+3. Third model takes the information of the second one and adds the type/institution in which the patients were treated.
+4. The last models adds the information to the third one by each state of the Mexican republic and so all the variables are accounted in the last one. 
 
-To choose the model that will describe this analysis, a goodness-of-fit was applied to each one of the models, these adjustments are described in table 1; according to this data  the fourth model was chosen due the best goodness of fit (XXX).
+To choose the model that will describe this analysis, a goodness-of-fit was applied to each one of the models, these adjustments are described in table XX.
 
-<<<<<<< Updated upstream
-The primary outcome was the time between symptoms and hospitalization and from hospitalization to death. The models allows to look at this results from each state of the mexican Republic and the healthcare institutions in them.
-
-We developed four different Bayesian models  for trajectories of interest:  *Symptoms-Hospitalization*, *Hospitalization-Death*, in which non-informative initial distributions were used, located near $0$, to improve convergence. Additionally a \textit{QR} reparameterization for the covariable matrix was used, that is, if  $X$ is an  $n \times m$ covariable matrix, $X=QR$, where $Q$ is an ortogonal  matrix and  $R$ is an upper triangular matrix. In practice,  considering $X=Q'R'$ where $Q'=Q\sqrt{n-1}$ and $R'=\frac{1}{\sqrt{n-1}}R$ is convinient. Hence if  $\zeta$ is the  \textit{N} linear predictor  vector such that $\zeta=X\beta$, with $\beta$ a \textit{K}  coefficient vector, then  $\zeta=X\beta=QR\beta=Q'R'\beta$. We used  $\zeta=Q'R'\beta$  for numerical stability. 
-=======
-
->>>>>>> Stashed changes
 
 #### Model I: One level
 
@@ -183,19 +175,14 @@ Based as well on  Modelo II, however, we consider index $j=(l,k)$ where $l$ acco
 # Tabla ejemplo
 
 # Results
-
-<<<<<<< Updated upstream
-# Disscusion
-Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study who analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
-=======
 We show results for model four which performed better, both in convergence and goodness of fit criteria (¿PODRIAMOS AGREGAR QUIZÁ LA MAXIMA ESTADÍSTICA DE CONVERGENCIA O EL PROMEDIO PARA LOS PARAMETROS DEL MODELO O DE TODOS LOS MODELOS?) . We show the posterior 0.95 credibility intervals for parameters of interest at different levels of the model. It is worth pointing out that we are displaying the log hazard ratio, hence positive values for parameters will point to increasing risks for the corresponding transition and level.   
 
 Increased risk for hospitalization was observed at the global population level for chronic renal disease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity.
 
-This study has shown that there are  differences in mortality between the states without accounting for institution, if $\beta>0$ the risk of a prompt death increases in time whereas $\beta<0$ decreases the risk of the event. Image Mu_1Jer1 shows the states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz.
+This study has shown that there are  differences in mortality between the states without accounting for institution, if $\beta>0$ the risk increases in time whereas $\beta<0$ decreases the risk of the event, and this can be seen as a sooner death. Image Mu_1Jer1 shows the states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz.
 
-
-
+# Disscusion
+Through time it has been proved that the presence of comorbidities such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, inmmuno-suppression and chronic kidney disease are associated to a worse outcome for the patient diagnosed with COVID-19, specially those who are hospitalized and ICU due intubation; but to our knowledge this is the first study who analyzed the time elapsed between the patient first symptoms, hospitalization and death; all this analysis can break down to the different states of the republic and the healthcare institution in them. Because of this it is possible to distinguish those for which the risk of hospitalization and death increases.
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
 
@@ -203,10 +190,8 @@ One of the main problems is the precarious situation of the public healthcare sy
 
 This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
-
-One of the main limitations was due the 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
 
-XXXXPRUEBAXXX
+One of the main limitations was due the lack of hospitalization
 
 # References {#references .unnumbered}
