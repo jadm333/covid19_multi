@@ -1,4 +1,3 @@
-
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
@@ -65,8 +64,7 @@ Here are two sample references: @Feynman1963118 [@Dirac1953888].
 ## Methods and materials
 
 ### Data Source and Study Population
-
-
+=======
   We conducted a prevalence study the official database from the Mexican Ministry of Health, this data provides a overview of hospital admissions, deaths and the period of time between hospitalizations and first symptoms between March and December 2020. The data analyzed included mexican adult population diagnosed with COVID-19 in the whole country; the exclusion criteria were the observations with incomplete data about hospital admission, symptoms or comorbidities. Additionally patients whose time of initial symptoms was captured as the day the were admitted to hospital were removed, since this time was likely to be unknown. After applying exclusion criteria a total sample of 1200 registers of adult patients belonging to any healthcare institution, either private or public in the 32 states of Mexico was selected, preserving the population characteristics. JUAN PABLO ESTE NUMERO DE MUESTRA ES CORRECTO?
 
   Comorbidities that could worsen the patient outcome such as diabetes, hypertension, obesity, chronic obstructive pulmonary disease (COPD), asthma, immunosuppression and chronic kidney disease were cataloged for each health state in the model and so two different matrix were set up as it follows:
@@ -165,7 +163,7 @@ Based as well on  Modelo II, however, we consider index $j=(l,k)$ where $l$ acco
 # Results
 We show results for model four which performed better, both in convergence and goodness of fit criteria (¿PODRIAMOS AGREGAR QUIZÁ LA MAXIMA ESTADÍSTICA DE CONVERGENCIA O EL PROMEDIO PARA LOS PARAMETROS DEL MODELO O DE TODOS LOS MODELOS?) . We show the posterior 0.95 credibility intervals for parameters of interest at different levels of the model. It is worth pointing out that we are displaying the log hazard ratio, hence positive values for parameters will point to increasing risks for the corresponding transition and level.   
 
-Increased risk for hospitalization was observed at the global population level for chronic renal disease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity.
+Increased risk for hospitalization was observed at the global population level for chronic renal disease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity..
 
 This study has shown that there are  differences in mortality between the states without accounting for institution, if $\beta>0$ the risk increases whereas $\beta<0$ decreases the risk of the event, and it is related to the prompt time of death or viceversa. Image Mu_1Jer1 shows the states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz.
 
