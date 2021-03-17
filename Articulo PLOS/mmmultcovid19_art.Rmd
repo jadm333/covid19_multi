@@ -194,7 +194,7 @@ Increased risk for hospitalization was observed at the global population level f
 
 This study has shown that there are  differences in mortality between the states without accounting for institution, if $\beta>0$ the risk of a prompt death increases in time whereas $\beta<0$ decreases the risk of the event. Image Mu_1Jer1 shows the states in which the overall rate of mortality is higher possibly due the late hospitalization of patients such as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco and Veracruz.
 
->>>>>>> Stashed changes
+
 
 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
@@ -203,14 +203,10 @@ One of the main problems is the precarious situation of the public healthcare sy
 
 This study has show that the differences in mortality between the different states of the republic; there are those states in which the overall rate of mortality is higher due the late hospitalization of patients such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and Mexico City. Breaking down this analysis to level state we can deduce a higher risk of hospitalization, specifically in Veracruz HR which historically has been unsteady regarding the public healthcare system in sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
 
-<<<<<<< Updated upstream
 
-PRUEBA1_XXXXXXXXXXXXXXXX
-XXX
-=======
 One of the main limitations was due the 
 This analysis can be helpful to a regional level to improve healthcare assistance, additionally it could be useful to inform statistical estimation of parameters for an epidemiological model ADD REFERENCE. 
 
->>>>>>> Stashed changes
+XXXXPRUEBAXXX
 
 # References {#references .unnumbered}
