@@ -249,47 +249,56 @@ pulvinar, volutpat risus.
 
 \section{Introduction}\label{introduction}
 
-The SARS-CoV-2 pandemic was declared a Public Health Emergency of
-International Concern on January 30, 2020 by the World Health
-Organization.The Mexican Health Authorithies declared the first lockdown
-on March 26 with 585 cases and 8 deaths reported for COVID-19 {[}1{]};
-at the end of the lockdown (june 5th 2020) the total cases were 110,026
-and 13 170 deaths. Until November 1, Mexico is the fourth country in
-death rates of SARS-CoV-19 (106,765 deaths), with 1,122,362 incident
-cases {[}2{]} .
+The severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)
+pandemic was declared a Public Health Emergency of International Concern
+on January 30, 2020 by the World Health Organization.The Mexican Health
+Authorithies declared the first lockdown on March 26 with 585 cases and
+8 deaths reported for COVID-19 {[}1{]}; by the end of the lockdown (June
+5th, 2020) total number of cases and deaths were 110,026 and 13,170,
+respectively. By November 1, Mexico became the fourth country in number
+of deaths of SARS-CoV-19 (106,765 deaths), with 1,122,362 incident cases
+{[}2{]}; by April 15th 2021 the number of deaths had raised to 214,372
+with 2,309,099 incident cases.
 
-Over time it has become clear that the presence of comorbidities such as
-hypertension, diabetes, obesity and smoking are factors that increase
-the serious illness that leads to hospitalization and in 25\% of the
-cases they required admission and intubation to the intensive care unit
-{[}3{]}. Mexico ranks second in obesity among OECD countries, with
-almost 72.5\% obesity among the adult population, which is associated
-with the high prevalence of type 2 diabetes, estimated at 13\% of the
-adult population in 2017, which is the highest rate among OECD
-countries; hypertension is also one of the higher chronic diseases among
-adult population 30\% {[}4{]}. The high prevalence of this comorbidities
-besides the lack of a functional health care system is believed to be
-the main reason why the severe cases and deaths rates in the country are
-so high.
+Over time it has become clear that comorbidy factors such as
+hypertension, diabetes, obesity and smoking increase the seriousness of
+the disease, leading to a higher rate of hospitalizations with an
+additional 25\% of the cases requiring intensive care unit (ICU)
+admission and ultimately, intubation {[}3{]}. Mexico ranks second in
+obesity among OECD countries, with an obesity rate of 72.5\% among the
+adult population, which is associated with the high prevalence of type 2
+diabetes, estimated at 13\% of the adult population in 2017, the highest
+rate among OECD countries; the rate of hypertension is also one of the
+highest chronic diseases among adult population with 30\% {[}4{]}. The
+high prevalence of these comorbidities besides the precarious health
+care system could be among the main main reasons of the elevated
+severity of the number of cases and deaths rates in the country.
 
-There have been different efforts to understand how patients with
-comorbilities may face the COVID-19 disease; the work by {[}5{]} aims to
-identify the risk factors in order to propose a clinical score to
-predict COVID-19 lethality, including the different factors like
-diabetes and obesity among mexican population. This lead to believe that
+In Mexico the health institutions are divided in public and private
+services. There are different public institutions which provide care to
+different sets of the population: the state employees, the army and
+naval members, the oil state company (PEMEX) employees and private
+companies employees. There are also public hospitals for population with
+no health service coverage. In general, the care withing different
+healthcare providers cannot be considered homogeneous, therefore it
+should be relevant for the final outcome of a COVID-19 patient.
+
+There have been efforts to understand how patients with comorbilities
+are affected by COVID-19; the work by {[}5{]} proposed a clinical score
+to predict COVID-19 lethality, including different factors like diabetes
+and obesity among mexican population. This work lead to believe that
 obesity mediates 49.5\% of the effect of diabetes on COVID-19 lethality.
-Early-onset diabetes conferred an increased risk of hospitalization and
-obesity conferred an increased risk for intensive care unit admission
-and intubation.
+Early-onset diabetes conferred an increased risk of hospitalization
+while obesity increased the risk ICU for admission and intubation.
 
 After onset of infection there is a period of time between symptom
 detection and hospitalization. The time elapsed before patients approach
 hospitals could be excessively long. Once patients are admitted to
 hospital, there is also a period of time between the admission and
-death. Estimation of lengths of these times through a multilevel model
+death. Estimation of these lengths of time through a multilevel model
 could enable a better information system to estimate incidence and
-transmission rates, particularly at regional level since differences
-have already been established.
+transmission rates, particularly at regional level where differences can
+be apparent.
 
 This work considers a multi-state model under a Bayesian framework to
 estimate times between symptom detection and hospitalization and between
@@ -299,63 +308,63 @@ provides of general overview of hospitalizations in each state of the
 country and the different health institutions within. Variables
 affecting the patient's final outcome such as the aforementioned
 comorbidites are included in the model. Additionally regional
-heterogeneity is accounted trough nested models that consider the
+heterogeneity is accounted for trough nested models that consider the
 regional contribution and also the health service provider. Other
 efforts in recent literature {[}6{]} have considered more states
-(hospitalization-ICU, ICU-death, ICU-discharged). They were able to
-asses whether improvements in patient outcomes have been sustained,
-finding evidence that median hospital stays have lengthened.
-Unfortunately the data available for Mexico does not have the required
-information to include such states. Nevertheless, we believe this model
-could provide a better information system to estimate incidence and
-transmission rates, particularly important while new variants and
-increased transmission rates are present.
-
-The fact that different final outcomes could be related to patient's
-late hospitalization, hence suggesting that the average patient waits
-until the symptoms are severe to seek professional healthcare, needs to
-be further investigated.
+(hospitalization-ICU, ICU-death, ICU-discharged), which allows
+researchers to asses whether improvements in patient outcomes have been
+sustained, finding evidence that median hospital stays have lengthened.
+Unfortunately the data available for Mexico lacks the necessary
+granularity to determine such states. Nevertheless, we believe this
+model could better inform the estimation of the incidence and
+transmission rates, which is particularly important while new variants
+and increased transmission rates are present.
 
 \section{Methods and materials}\label{methods-and-materials}
 
 \subsection{Data Source and Study
 Population}\label{data-source-and-study-population}
 
-We conducted a prevalence study the official database from the Mexican
-Ministry of Health, this data provides a overview of hospital
+We conducted a prevalence study of the official database from the
+Mexican Ministry of Health, these data provide an overview of hospital
 admissions, deaths and the period of time between hospitalizations and
-first symptoms between March and December 2020. The data analyzed
-included mexican adult population diagnosed with COVID-19 in the whole
-country; the exclusion criteria were the observations with incomplete
-data about hospital admission, symptoms or comorbidities. Additionally
-patients whose time of initial symptoms was captured as the day the were
-admitted to hospital were removed, since this time was likely to be
-unknown. After applying exclusion criteria a total sample of 1200
-registers of adult patients belonging to any healthcare institution,
-either private or public in the 32 states of Mexico was selected,
-preserving the population characteristics. JUAN PABLO ESTE NUMERO DE
-MUESTRA ES CORRECTO?
+first COVID-19 symptoms between March and December 2020. The data
+analyzed included mexican adult population diagnosed with COVID-19 in
+the whole country. Exclusion criteria were the observations with
+incomplete data about hospital admission, symptoms or comorbidities.
+Additionally, patients whose time of initial symptoms was captured as
+the day they were admitted to hospital were removed, since this time was
+likely to be unknown. After applying exclusion criteria a total sample
+of 1200 registers of adult patients belonging to any healthcare
+provider, either private or public in the 32 states of Mexico was
+selected, preserving the population characteristics.
+\textcolor{red}{JUAN PABLO ESTE NUMERO DE
+MUESTRA ES CORRECTO?}
 
 Comorbidities that could worsen the patient outcome, affecting the times
 we aim to model; such as diabetes, hypertension, obesity, chronic
 obstructive pulmonary disease (COPD), asthma, immunosuppression and
 chronic kidney disease were included as linear predictors for each state
-in the model and so two different relevant groups were statistically
-significant:
+in the model and so two different relevant groups of variables were
+statistically significant for each state:
 
 \[x_{death} = (\sim Diabetes+COPD+Obesity+Hypertension+Diabetes*Obesity*Hypertension+Kidney\_Disease)\]
-\[x_{hospitalization} = (\sim COPD+Obesity+Kidney\_Disease+Asthma+Immunosuppression)\]
 
-About 87\% of the population in Mexico belongs to some healthcare
-institution, but during this pandemic mexican government has established
-a list of hospitals designated to treat COVID-19 patients without any
-affiliation distinction. In this study we identified 6 different
-healthcare providers which were classified as sectors IMSS, ISSSTE,
-SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare provider within each
-state) this 5 are the public care provider and the sixth sector is
-private hospitals. It is worth mentioning that following the national
-hospital transformation plan {[}7{]}, IMSS alone has transformed about
-260 medical units to treat Covid-19 patients {[}8{]}.
+\[
+  x_{hospitalization} = (\sim COPD+Obesity + Kidney\_Disease+Asthma+Immunosuppression)\]
+
+\textcolor{red}{NO SE SI SEA CLARO LO ANTERIOR PUESTO DE ESTA MANERA (HAY QUE ARREGLAR LA EXPRESION); O SI MEJOR SE DESCRIBA CON PALABRAS}
+
+About 87\% of the population in Mexico is affiliated to some healthcare
+provider, but during this pandemic the mexican government has
+established a list of hospitals designated to treat COVID-19 patients
+without any affiliation distinction. In this study we identified 6
+different healthcare providers which were classified according to their
+sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare
+provider within each state) these 5 are public care providers while the
+sixth sector is private hospitals. It is worth mentioning that following
+the national hospital transformation plan {[}7{]}, IMSS alone has
+transformed about 260 medical units to treat COVID-19 patients {[}8{]}.
 
 \subsection{Modelling}\label{modelling}
 
@@ -363,53 +372,31 @@ We developed four different Bayesian models for trajectories of interest
 namely, \emph{Symptoms-Hospitalization} and
 \emph{Hospitalization-Death}, in which non-informative initial
 distributions were used, located near \(0\), to improve convergence.
-Additionally a \textit{QR} reparameterization for the covariable matrix
-was used, that is, if \(X\) is an \(n \times m\) covariable matrix,
+
+\textbf{Figure 1}. Graphical representation of the model: directed
+acyclic grph (DAG).
+
+Additionally a \textit{QR} reparameterization for the covariate matrix
+was used, that is, if \(X\) is an \(n \times m\) covariate matrix,
 corresponding to the aforementioned comorbidities, \(X=QR\), where \(Q\)
 is an ortogonal matrix and \(R\) is an upper triangular matrix. In
 practice, considering \(X=Q'R'\) where \(Q'=Q\sqrt{n-1}\) and
-\(R'=\frac{1}{\sqrt{n-1}}R\) is convinient. Hence if \(\zeta\) is the
+\(R'=\frac{1}{\sqrt{n-1}}R\) is convenient. Hence if \(\zeta\) is the
 \textit{N} linear predictor vector such that \(\zeta=X\beta\), with
-\(\beta\) a \textit{K} coefficient vector, then
+\(\beta\) an \textit{M} coefficient vector, then
 \(\zeta=X\beta=QR\beta=Q'R'\beta\). We used \(\zeta=Q'R'\beta\) for
 numerical stability.
 
-Each model has different levels on it,as more levels were included it
-was possible to see how different the results were according to the new
-variable added. The four levels of information were:
-
-\begin{enumerate}
-  \item Data of death and hospitalizations which are assumed independent.
-  \item This model is based in the first model, but here the information is slipt up by the different states of Mexico.
-  \item Third model takes the information of the second one and adds the type/institution in which the patients were treated.
-  \item The last models adds the information to the third one by each state of the Mexican republic and so all the variables are accounted in the last one
-\end{enumerate}
-
-To choose the model that we will describe in this analysis we considered
-the leave-one-out cross-validation (LOO) proposed by {[}6{]}, which
-estimates pointwise out-of-sample prediction accuracy, using the
-log-likelihood evaluated at the posterior simulations of the parameter
-values, Table 1.
-
-\begin{table}[!htb]
-\centering
-\begin{tabular}{lcc}
-\hline
-{\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\
-\hline Model 1  &  -75473.3 (187.8) & 26.9 (2.2) \\
-Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\
-Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\
-\hline
-\end{tabular}
-\caption{\label{tab:gof} Expected log pointwise predictive density for a new data set and effective number of parameters (standard deviation).}
-\end{table}
+Each model captures different levels of information, as more levels were
+included it was possible to differentiate the results according to the
+added information. The four levels were:
 
 \subsubsection{Model I: One level}\label{model-i-one-level}
 
-Patient \(i\) corresponds to the \(i\)-th row of vectors \(M\) and \(H\)
-for deaths and hospitalizations, respectively. We considered a different
-set of covariables in each case and we assumed deaths and
-hospitalizations are independent and the model is given as
+Vectors \(M\) and \(H\) correspond to survival times for deaths and
+hospitalizations, respectively. We considered a different set of
+covariables in each case and assumed deaths and hospitalizations are
+independent, we then define the model as
 
 \[
 \begin{aligned}
@@ -426,16 +413,16 @@ hospitalizations are independent and the model is given as
 
 where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables for
 deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values. This model is described in
-grey in Figure REF.
+\(\tau_{\mu}\) are given positive values
+\textcolor{red}{QUIZA AQUI PONER LOS VALORES}. This model is described
+in grey in Figure REF.
 
 \subsubsection{Model II: two levels}\label{model-ii-two-levels}
 
 The second model is based on the first one, an additional level is added
 to account for each state of Mexico to model deaths. The hospitalization
-\(H\) remains unchanged and for each state \(l= 1,\ldots, 32\) and
-patient \(i\), deaths are summarized in matriz \(M_{l}\) the model is
-defined as
+\(H\) remains unchanged and for each state \(l= 1,\ldots, 32\), deaths
+are summarized in matrix \(M_{l}\) the model is defined as
 
 \[
 \begin{aligned}
@@ -458,10 +445,9 @@ green in Figure REF.
 
 \paragraph{Model III: Three levels}\label{model-iii-three-levels}
 
-Based on Model II, we consider a third level to include the type of
-health service where patients are hospitalized, \(k\), for patient \(i\)
-in state \(l\) we have \(M_{l,k}\) for the corresponding death matrix
-and the model is given as
+Based on Model II, we consider a third level to include the healthcare
+provider where patients are hospitalized, \(k\), in state \(l\) we have
+\(M_{l,k}\)for the corresponding death matrix and the model is given as
 
 \[
 \begin{aligned}
@@ -485,101 +471,149 @@ yellow in Figure REF.
 
 \subsubsection{Model IV:}\label{model-iv}
 
-Based as well on Modelo II, however, we consider index \(j=(l,k)\) where
-\(l\) accounts for the \(l\)-th state and \(k\) for the type of health
-service, \(j \in \{1,...,153\}\) where the distribution for deaths is
-given by
+Based as well on Modelo II, we consider index \(j=(l,k)\) where \(l\)
+accounts for the \(l\)-th state and \(k\) for the healthcare provider,
+\(j \in \{1,...,153\}\) where the distribution for deaths is given by
 
-\[M_j \sim Weibull\left(\alpha, exp\left(-\frac{Q^{**}\theta^m+\mu_k+\mu_l}{\alpha} \right) \right)\]
+\[
+\begin{aligned}
+ M_j &\sim Weibull\left(\alpha, \mathbf{\eta} \right) \\
+ H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
+ \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_j^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\\
+ \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
+ \mathbf{\mu}_j&=\sigma_j*\mathbf{\mu}_j^r \\
+ \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha^r&\sim N(0,1) \\
+ \mu^r_l,\mu^r_k &\sim N(0,1) \\
+ \sigma_j&\sim t^+_3(0,1) \\
+ \mu_j &\sim N(0,\tau_\mu) \\
+ \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+\end{aligned}
+\]
+
+where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables for
+deaths and hospitalizations respectively and \(\tau_\alpha\) and
+\(\tau_{\mu}\) are given positive values.
+
+\textcolor{red}{JUAN PABLO, EL ULTIMO MODELO HAY QUE CHECARLO PARA VER QUE SEA CORRECTO.}
+
+To choose the model that best fits the data we considered the
+leave-one-out cross-validation (LOO) proposed by {[}9{]}, which
+estimates pointwise out-of-sample prediction accuracy, using the
+log-likelihood evaluated at the posterior simulations of the parameter
+values, Table 1.
+
+\begin{table}[!htb]
+\centering
+\begin{tabular}{lcc}
+\hline
+{\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\
+\hline Model 1  &  -75473.3 (187.8) & 26.9 (2.2) \\
+Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\
+Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\
+\hline
+\end{tabular}
+\caption{\label{tab:gof} Expected log-pointwise predictive density (ELPD) for a new data set and effective number of parameters (standard deviation).}
+\end{table}
 
 \section{Results}\label{results}
 
-The parameters were estimated using Stan DAR QUIZA MÁS DETALLES. We show
-results for model threes which performed better in terms of the
-likelihood and showed good convergence of all parameters. The posterior
-0.95 credibility intervals for parameters of interest at different
-levels of the model are shown in Figures xx and xx. It is worth pointing
-out that we are displaying the log hazard ratio, hence positive values
-for parameters will point to increasing risks for the corresponding
-transition and level.
+The parameters were estimated using Stan
+\textcolor{red}{DAR QUIZA MÁS DETALLES}. We show results for model III
+which performed better in terms of the likelihood and showed good
+convergence of all parameteres. The posterior 0.95 credibility intervals
+for parameters of interest at different levels of the model are shown in
+Figures 2 and 3. It is worth pointing out that we are displaying the log
+hazard ratio, hence positive values for parameters will point to
+increasing risks for the corresponding transition and level.
+
+\textbf{Figure 2}. Hazard rate in logarithmic scale by state, credible
+interval of 95\%.
+
+\textbf{Figure 3}. Hazard rate in logarithmic scale by health
+institution, credible interval of 95\%.
 
 Increased risk for hospitalization was observed at the global population
 level for chronic renal disease, whereas for death such was the case for
 COPD and the interaction of diabetes:hypertension:obesity.
 
-This study has shown that there are differences in mortality between the
-states without accounting for institution, if \(\beta>0\) the risk
-increases whereas \(\beta<0\) decreases the risk of the event, and it is
-related to the prompt time of death or viceversa. (Image Mu\_1Jer1)
-shows the states in which the overall rate of mortality is higher such
-as Campeche, Colima, Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit,
-Oaxaca, Puebla, Tabasco and Veracruz. The difference might be linked to
-the late hospitalization of patients
+\textbf{Figure 4}. Predictive distribution for deaths.
 
-fig(JER1\_mort) displays evidence that 5 days after hospitalization
-there is a peak on mortality rate, which could be related due the late
+Our results show that there are differences in mortality between the
+states without accounting for institution and it is related to the
+prompt time of death or viceversa. Figure 2 shows the states in which
+the overall rate of mortality is higher such as Campeche, Colima,
+Guanajuato, Hidalgo, Jalisco, Morelos, Nayarit, Oaxaca, Puebla, Tabasco
+and Veracruz. The difference might be linked to the late hospitalization
+of patients.
+
+Figure 4 displays evidence that 5 days after hospitalization there is a
+peak on mortality rate, which could be related due the late
 hospitalization of patients with mild symptoms who developed ``happy
-hypoxemia'', that is extremely low blood oxygenation, but without
-sensation of dyspnea {[}9{]}; in Wuhan a cohort of patients infected
-with severe acute respiratory syndrome coronavirus 2 (SARS-COV-2) among
-of 62\% with severe disease and 46\% who ended up intubated, ventilated
-or dead did not present dyspnea {[}10{]}.
+hypoxemia,'' that is extremely low blood oxygenation, but without
+sensation of dyspnea {[}10{]}. In Wuhan, within a cohort of patients
+infected with (SARS-COV-2) who id not present dyspnea 62\% showed severe
+disease and 46\% ended up intubated, ventilated or dead {[}11{]}.
 
-Regarding the 6 helth provider sectors included in the analysis
-differences were also found. While State managed hospitals and private
+Regarding the 6 healthcare providers included in the analysis
+differences were also found. While state-managed hospitals and private
 sector showed lower risks, in contrast the IMSS seems to be the one with
-the highest risk (fig Mu\_12Jer2). Although it is worth mentioning that
+the highest risk (Figure 3). Although it is worth mentioning that
 following the national hospital transformation plan {[}7{]}, IMSS alone
 has transformed about 260 medical units to treat Covid-19 patients
-{[}8{]}.
+{[}8{]}. Additionaly it has the largest number of affiliations and they
+are liklely to have higher risk exposure.
 
 \section{Disscusion}\label{disscusion}
 
-Through time it has been proved that the presence of comorbidities such
-as diabetes, hypertension, obesity, chronic obstructive pulmonary
-disease (COPD), asthma, inmmuno-suppression and chronic kidney disease
-are associated to a worse outcome for the patients diagnosed with
-COVID-19. Particularly to those who are hospitalized in the ICU due
-intubation. To our knowledge this is the first study in Mexico which
-analyzed the time elapsed between the patient´s first symptoms,
-hospitalization and death; all this analysis can break down to the
-different states of the republic and the healthcare institutions within
-them. Because of this it is possible to distinguish those for which the
-risk of hospitalization and death increases. Mexican population is the
-third place in obesity among the OCDE countries such thing as this one
-is one of the main reason why the severe cases due COVID-19 are so high.
+Multiple sources have shownthat the presence of comorbidities such as
+diabetes, hypertension, obesity, chronic obstructive pulmonary disease
+(COPD), asthma, inmmuno-suppression and chronic kidney disease are
+associated to a worse outcome for the patients diagnosed with COVID-19.
+Particularly for those who are hospitalized in the ICU due intubation.
+To our knowledge this is the first study in Mexico which analyzed the
+time elapsed between the patient´s first symptoms, hospitalization and
+death; these analyses were further broken down to the different states
+of the republic and the healthcare providers within them. Thus it is
+possible to identify providers and states with an increased risk of
+hospitalization and death. Mexico is the third place in obesity among
+the OCDE countries, which could be the main reason of the high number of
+severe cases of COVID-19.
+\textcolor{red}{JUAN PABLO, AQUI SE PUEDEN AGREGAR REFERENCIAS.}
 
-One of the main problems is the precarious situation of the public
-healthcare system which universal coverage is estimated about 87\% of
-the mexican population. It´s clear that mexican healthcare has overrun
-during this pandemic and has appealed to private health providers to
-cope with the treatment of COVID-19 patients. Among all health care
-providers (sectors) the IMSS is the one with the highest risk, however
+One problem that aggravates the situation is the precarious state of the
+public healthcare system which universal coverage is estimated about
+87\% of the mexican population. It is clear that mexican healthcare has
+overrun during this pandemic and has appealed to private health
+providers to cope with the treatment of COVID-19 patients. Among all
+health care providers the IMSS is the one with the highest risk, however
 it is the largest healthcare provider across Mexico with hospitals from
-level 2-level 4 of which ``Siglo XXI'' is a country-leader in
-investigation and innovative treatments and procedures. In March, 2020 a
-list of hospitals that were ``converted'' {[}7{]} to the treatment of
-COVID-19 were listed 38 hospital among which 18 were IMSS hospitals
-only; after one year 960 hospitals across the country were converted to
-treat patients with COVID-19 of these 289 (30.10\%) belongs to IMSS
-{[}8{]}.
+level 2-level 4 of which ``Siglo XXI'' is a country-leader in research
+and innovative treatments and procedures. In March, 2020 38 hospitals
+were ``converted'' {[}7{]} to exclusively treat COVID-19 among which 18
+were IMSS hospitals only; after one year 960 hospitals across the
+country were converted to treat patients with COVID-19 of these 289
+(30.10\%) belong to IMSS {[}8{]}.
 
-This analysis can be helpful to a regional level to improve healthcare
-assistance, additionally it could be useful to inform statistical
-estimation of parameters for an epidemiological model.
+The proposed modelling can be helpful to a regional level to improve
+healthcare assistance, it could additionally be useful to inform
+statistical estimation of parameters for an epidemiological model.
 
 This study has shown that there are differences in mortality between the
 different states of the republic; there are states in which the overall
 rate of mortality is higher due the late hospitalization of patients
-such as Veracruz, Nuevo Leon, San Luis Potosi, Guanajuato, Chiapas and
+such as Veracruz, Nuevo Leon, San Luis Potosí, Guanajuato, Chiapas and
 Mexico City. Breaking down this analysis to state level we found a
-higher risk of hospitalization, specifically in Veracruz HR which
-historically has been unsteady regarding the public healthcare system in
-sectors like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX.
+higher risk of hospitalization, specifically in Veracruz which has been
+historically unsteady regarding the public healthcare system in sectors
+like IMSS, ISSSTE, SEDENA/SEMAR/PEMEX. The fact that different final
+outcomes could be related to patient's late hospitalization, hence
+suggesting that the average patient waits until the symptoms are severe
+to seek professional healthcare, needs to be further investigated.
 
-One of the main limitations of the study is the reduced number of states
-we were able to include in the models due to the lack of information
-regarding dates of dismissal of recovered patient´s from
+One of the limitations of the study is the reduced number of states we
+were able to include in the modls due to the lack of information
+regarding dates of disccharged of recovered patient´s after
 hospitalization.
 
 \section*{References}\label{references}
@@ -617,11 +651,12 @@ COVID-19 Outcomes in Mexico. Journal of Clinical Endocrinology and
 Metabolism. 2020;105: 2752--2761.
 doi:\href{https://doi.org/10.1210/clinem/dgaa346}{10.1210/clinem/dgaa346}
 
-\hypertarget{ref-Vehtari2017}{}
-6. Vehtari A, Gelman A, Gabry J. Practical Bayesian model evaluation
-using leave-one-out cross-validation and WAIC. Statistics and Computing.
-2017;27: 1413--1432.
-doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}
+\hypertarget{ref-Kirwan}{}
+6. Kirwan PD, Elgohari S, Jackson CH, Tom BDM, Angelis DD, Presanis AM.
+Trends in risks of severe events and lengths of stay for COVID- 19
+hospitalisations in England over the pre-vaccination era : results from
+the Public Health England SARI-Watch surveillance scheme.: 1--45.
+Available: \url{https://arxiv.org/ftp/arxiv/papers/2103/2103.04867.pdf}
 
 \hypertarget{ref-Mendoza-Popoca2020}{}
 7. Mendoza-Popoca CÚ, Suárez-Morales M. Hospital reconversion in
@@ -634,14 +669,20 @@ doi:\href{https://doi.org/10.35366/92875}{10.35366/92875}
 Red IRAG {[}Internet{]}. 2021. Available:
 \url{https://www.gits.igg.unam.mx/red-irag-dashboard/reviewHome}
 
+\hypertarget{ref-Vehtari2017}{}
+9. Vehtari A, Gelman A, Gabry J. Practical Bayesian model evaluation
+using leave-one-out cross-validation and WAIC. Statistics and Computing.
+2017;27: 1413--1432.
+doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}
+
 \hypertarget{ref-Gonzalez-Duarte2020}{}
-9. González-Duarte A, Norcliffe-Kaufmann L. Is 'happy hypoxia' in
+10. González-Duarte A, Norcliffe-Kaufmann L. Is 'happy hypoxia' in
 COVID-19 a disorder of autonomic interoception? A hypothesis. Clinical
 Autonomic Research. Springer Berlin Heidelberg; 2020;30: 331--333.
 doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}
 
 \hypertarget{ref-Guan2020}{}
-10. Guan W-j, Ni Z-y, Hu Y, Liang W-h, Ou C-q, He J-x, et al. Clinical
+11. Guan W-j, Ni Z-y, Hu Y, Liang W-h, Ou C-q, He J-x, et al. Clinical
 Characteristics of Coronavirus Disease 2019 in China. New England
 Journal of Medicine. 2020;382: 1708--1720.
 doi:\href{https://doi.org/10.1056/nejmoa2002032}{10.1056/nejmoa2002032}
