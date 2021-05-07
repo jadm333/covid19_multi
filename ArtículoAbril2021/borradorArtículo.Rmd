@@ -270,9 +270,10 @@ values, Table 1.
 \begin{tabular}{lcc}
 \hline
 {\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\
-\hline Model 1  &  -75473.3 (187.8) & 26.9 (2.2) \\
+\hline Model I  &  -75473.3 (187.8) & 26.9 (2.2) \\
 Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\
 Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\
+Model IV & 75612.0(194.4) & 239.4(15.0) \\
 \hline
 \end{tabular}
 \caption{\label{tab:gof} Expected log-pointwise predictive density (ELPD) for a new data set and effective number of parameters (standard deviation).}
