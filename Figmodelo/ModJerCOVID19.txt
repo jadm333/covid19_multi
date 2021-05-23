@@ -1,0 +1,100 @@
+\documentclass[margin=5pt]{standalone}
+\usepackage{graphicx,adjustbox}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{relsize}
+\usetikzlibrary{shapes,arrows, fit}
+\usetikzlibrary{positioning}
+
+% Define block styles
+\tikzstyle{response} = [ square, fill=red!75, 
+    text width=7em, text centered,  minimum height=7em]
+
+\tikzstyle{level1} = [cloud, circle, fill=red!75, 
+    text width=3em, text centered,  minimum height=2em]  
+    
+\tikzstyle{level1b} = [square, fill=red!75, 
+    text width=5em, text centered,  minimum height=7em]   
+    
+ \tikzstyle{level3} = [cloud, circle, fill=red!30, 
+   text width=3em, text centered,  minimum height=2em]
+   
+\tikzstyle{level4} = [cloud, circle, fill=red!15, 
+   text width=3em, text centered,  minimum height=2em]
+    
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{every node}=[font=\big]
+
+\begin{document}
+
+\begin{tikzpicture}[thick, every node/.style={transform shape}, every node/.style={auto, font=\fontsize{37}\selectfont}]
+
+% Place nodes
+
+%%level1 
+\node [level1b] (Q1) {\pmb{$Q^{\mathsmaller{\ast}}_{\mathsmaller{ij}}$}};
+\node [level1, right =0.7 cm of  Q1] (upsi) {$\vartheta$};
+\node [level1, right =0.7 cm of  upsi] (mum) {$\mu^{\mathsmaller{r}}$};
+\node [level1, right =0.7cm of  mum] (alphar) {$\alpha_{\mathsmaller{r}}$};
+\node [level1, below =1 cm and 3 cm of alphar] (alpha) {$\alpha$};
+\node [level1, right =1 cm of  alphar] (mum2) {$\mu^{\mathsmaller{h}}$};
+\node [level1, right =1 cm of  mum2] (the) {$\theta$};
+\node [level1b, right =1 cm of  the] (Q2) {\pmb{$Q^{\mathsmaller{\ast\ast}}_{\mathsmaller{ij}}$}};
+
+%%level2
+\node [response, below =2cm of mum2] (resp2) {\pmb{$H_{\mathsmaller{i}}$}};
+\node [response, below =2cm of mum] (resp3) {\pmb{$M_{\mathsmaller{i}}$}};
+
+%%level3
+%node [response, right = 4.5cm of  resp] (resp2) {$\upsilon_{(ij)}$};
+\node [level3, above = 2cm and 0.5cm of upsi] (mu) {$\mu_{\mathsmaller{k}}$};
+\node [level3, above right = 1cm and 0.5cm of mu] (sigm31) {$\sigma_{\mathsmaller{1}}$};
+\node [level3, above left = 1cm and 0.5cm of mu] (mu32) {$\mu^{\mathsmaller{r}}_{\mathsmaller{k}}$};
+
+%%level4
+\node [level4, above = 2cm and 0.5cm of alphar] (mu3) {$\mu_{\mathsmaller{l}}$};
+\node [level4, above right = 1cm and 0.5cm of mu3] (sigm) {$\sigma_{\mathsmaller{2}}$};
+\node [level4, above left = 1cm and 0.05cm of mu3] (mu31) {$\mu^{\mathsmaller{r}}_{\mathsmaller{l}}$};
+
+\draw [arrow] (upsi) -- (resp3);
+\draw [arrow] (Q1) -- (resp3);
+\draw [arrow] (mum) -- (resp3);
+\draw [arrow] (mu) -- (resp3);
+\draw [arrow] (mu3) -- (resp3);
+
+\draw [arrow] (mum2) -- (resp2);
+\draw [arrow] (the) -- (resp2);
+\draw [arrow] (Q2) -- (resp2);
+
+\draw [arrow] (alpha) -- (resp2);
+\draw [arrow] (alpha) -- (resp3);
+
+\draw [arrow] (alphar) -- (alpha);
+
+\draw [arrow] (sigm) -- (mu3);
+\draw [arrow] (mu31) -- (mu3);
+
+\draw [arrow] (sigm31) -- (mu);
+\draw [arrow] (mu32) -- (mu);
+
+	% Boxing and labelling noise shapers
+	\draw [color=gray,thick](-0.1,6.8) rectangle (4.85,2.7);
+	\node at (1.5,7) [above=5mm, right=0mm] {\text{Model 2}};
+	\node at (0,2.9) [above=5mm, right=0mm] {\text{k= 1,2,..,32}};
+	\draw [color=gray,thick](9.5,6.8) rectangle (4.86,2.7);
+	\node at (6.3,7) [above=5mm, right=0mm] {\text{Model 3}};
+	\node at (4.86,2.9) [above=5mm, right=0mm] {\text{l= 1,2,..,6}};
+	\draw [color=gray,thick](-1.5,1.7) rectangle (16.7,-6);
+	\node at (-1.3,1.9) [above=5mm, right=0mm] {\text{Model 1}};
+	\node at (14,-5.3) [above=5mm, right=0mm] {\text{i= 1,2,..,n}};
+	\node at (14,-5.7) [above=5mm, right=0mm] {\text{j= 1,2,..,m}};
+
+\end{tikzpicture}
+
+\end{document}
