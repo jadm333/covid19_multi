@@ -82,8 +82,8 @@ generated quantities {
   
   real log_lik[N];
   for(i in 1:N){
-    log_lik[i]=weibull_lpdf(y_mort | alpha, exp(-(Q_ast*theta +mu_raw_mort+mu_l_raw[Niv1])/alpha))+
-    weibull_lpdf(y_hosp | alpha, exp(-(Q_ast_h*theta_h +mu_raw_hosp)/alpha));
+    log_lik[i]=weibull_lpdf(y_mort[i] | alpha, exp(-(Q_ast[i]*theta +mu_raw_mort+mu_l_raw[Niv1])/alpha))+
+    weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
   }
 
 //generated quantities {
@@ -106,3 +106,4 @@ generated quantities {
 //         }
 //     }
 // }
+}
