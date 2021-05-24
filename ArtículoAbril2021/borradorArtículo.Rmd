@@ -1,28 +1,23 @@
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
 author:
-  - name: Diaz Martinez Juan
-    email: juan.diaz.martinez@mail.utoronto.ca
-    affiliation: HPME, University of Toronto.
-    corresponding: juan.diaz.martinez@mail.utoronto.ca
-  - name: Fuentes-Garcia Ruth 
-    email: rfuentes@ciencias.unam.mx
-    affiliation: Science Faculty, UNAM.
+  - name: Juan Pablo Diaz Martinez^[Institute of Health, Policy & Management, University of Toronto]
+  - name: Karen Janik Orozco Becerril
+  - name: Marco Antonio Gallegos Herrada
+  - name: Mayra Alejandra Gutierrez Garcia
+  - name: Osvaldo Espin-Garcia^[Dalla Lana School of Public Health, University of Toronto]
+  - name: Ruth Fuentes Garcia^[Facultad de Ciencias, UNAM]
     corresponding: rfuentes@ciencias.unam.mx
-address:
-  - code: HPME, University of Toronto
-    address: Department 1, Street, City, State, Zip
-  - code: Science Faculty, UNAM.
-    address: Department 2, Street, City, State, Zip
+    email: rfuentes@ciencias.unam.mx
+
 abstract: |
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
-  
-author_summary: |
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+  Since the beginning of the SARS-CoV 2 pandemic, healthcare authorities have made clear that it is crucial to track and identify COVID-19 symptoms and seek medical attention in the presence of the first warning signs, as immediate medical attention can improve the patient's prognosis. Therefore the present work aims to analyze the risks associated with the time between the patient’s first symptoms and hospitalization followed by death. A cross-sectional study was performed among Mexican population diagnosed with COVID-19 and hospitalized  from March to January 2021. Four different Bayesian models were developed to asses the risk associated with different patient trajectories:   symptoms-hospitalization and hospitalization-death. Comorbidities that could worsen the patient outcome were included as linear predictions; these analyses were further broken down to the different states of the Mexican Republic  and the healthcare providers within. Model III was chosen as the best performance through a validation of leaving one out (LOO). Increased risk for hospitalization was observed at the global population level for chronic renal disease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity. Our results show that there are differences in mortality between the states without accounting for institution and it is related to the prompt time of death or viceversa.  Regarding the 6 healthcare providers included in the analysis differences were also found. While state-managed hospitals and private sector showed lower risks, in contrast the IMSS seems to be the one with the highest risk. The proposed modelling can be helpful  to improve healthcare assistance at a regional level , additionally it could inform statistical parameter inference in epidemiological models.
 
 bibliography: bibliografia.bib
 output: rticles::plos_article
 csl: plos.csl
+header-includes:
+  - \usepackage{bm}
 ---
 
 \newcommand{\N}{\mathbb{N}}
@@ -70,9 +65,13 @@ About 87\% of the population in Mexico is affiliated to some healthcare provider
 ## Modelling
 
 We developed four different models for the trajectories of interest, \emph{Symptoms-Hospitalization} and \emph{Hospitalization-Death}. 
+\vspace{5mm}
 
+\begin{center}
+\textbf{Figure 1 goes here.}
+\end{center}
 
-\textbf{Figure 1}. Graphical representation of the model: directed acyclic grph (DAG).
+\vspace{5mm}
 
 We used a $\mathbf{QR}$ reparameterization for the predictor matrix $\mathbf{X}$, i.e.  $\mathbf{X}=\mathbf{QR}$ , where $\mathbf{Q}$ is an orthogonal matrix and $\mathbf{R}$ is an upper triangular matrix. This parameterization is recommended when no prior information is available on the location of the predictors' coefficients @stanmanual. Moreover, we used a noncentered parameterization @papaspiliopoulos2007general by shifting the data's correlation with the parameters to the hyperparameters.
 
@@ -96,11 +95,12 @@ $$
 \end{aligned}
 $$
 
-where $\mathbf{Q}^*$ and $\mathbf{Q}^{**}$ are the orthogonal matrices from the  $\mathbf{QR}$ reparameterization, $\mathbf{\theta}$ and $\mathbf{\vartheta}$ are the coefficient vectors for deaths and hospitalizations, $\mu_m$ and $\mu_h$ represent the global intercepts for deaths and hospitalizations, $alpha$ denotes the shape of the Weibull distribution, and $\alpha_r$  is an extra parameter for the noncentered parameterization This model is described in red in Figure XXX.
+where $\mathbf{Q}^*$ and $\mathbf{Q}^{**}$ are the orthogonal matrices from the  $\mathbf{QR}$ reparameterization, $\mathbf{\theta}$ and $\mathbf{\vartheta}$ are the coefficient vectors for deaths and hospitalizations, $\mu_m$ and $\mu_h$ represent the global intercepts for deaths and hospitalizations, $alpha$ denotes the shape of the Weibull distribution, and $\alpha_r$  is an extra parameter for the noncentered parameterization This part of the model is described in red in Figure 1.
 
 ### Model II: Two levels
 
-The second model adds an additional level to account for each state of Mexico as random effect to explain deaths, such that, 
+The second model adds an additional level to account for each state of Mexico as a random effect to explain deaths, such that, 
+
 $$
 \begin{aligned}
  M_l   &\sim Weibull(\alpha,\mathbf{\eta})\\
@@ -116,65 +116,45 @@ $$
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 $$
-where $\mathbf{\mu}_l, \space l=1,...,32$ represents a local intercept per state (random effect), $\mathbf{\mu}^r_l$ denote the extra paramateres for the noncentered parameterization, and $\sigma$ is the dispersion parameter of the local intercepts. This model is described in light red in Figure XXXX.
+where $\mathbf{\mu}_l, \space l=1,...,32$ represents a local intercept per state (random effect), $\mathbf{\mu}^r_l$ denotes the extra paramateres for the noncentered parameterization, and $\sigma$ is the dispersion parameter of the local intercepts. This part of the model is described in light red in Figure 1.
 
 #### Model III: Three levels
 
-Based on Model II, we consider a third level to include the healthcare provider where patients are hospitalized,  $k$,  in state $l$ we have $M_{l,k}$for the corresponding death matrix and the model is given as
-
+Based on Model II, we considered an extra random effect $\mathbf{\mu}_k, \space l=1,...,6$ which take into account the healthcare provider previously described. Because of this, an extra dispersion parameter $\sigma$ is added. This part of the model is described in light pink in Figure 1.
 
 
 $$
 \begin{aligned}
- M_{l,k}   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ M   &\sim Weibull(\alpha,\mathbf{\eta})\\
  H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
  \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{\mu}_k^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\space l=1,...,32,\space k=1,...,5\\
  \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
   \mathbf{\mu}_l&=\sigma_l*\mathbf{\mu}_l^r, \space\space l=1,2 \\
  \mathbf{\mu}_k&=\sigma_l*\mathbf{\mu}_k^r \\
- \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
  \mu^r_l,\mu^r_k &\sim N(0,1) \\
  \sigma_l&\sim t^+_3(0,1) \\
- \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mu_m,\mu_h &\sim N(0,10) \\
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 $$
-where $Q^*$ and $Q^{**}$ are matrices of standarized covariables for deaths and hospitalizations respectively  and $\tau_\alpha$ and  $\tau_{\mu}$ are given positive values. This model is described in yellow in Figure REF.
 
 ### Model IV:
 
-Based as well on  Modelo II, we consider index $j=(l,k)$ where $l$ accounts for the $l$-th state  and $k$ for the healthcare provider, $j \in \{1,...,153\}$ where the distribution for deaths is given by
+The final model uses the same structure as Model III but nests healthcare provider within each state. 
+
+## Model fit
+
+As mentioned before, we considered a Bayesian approach to fit the model to the observed data corresponding to times between symptoms and hospitalization, $H$, and time between hospitalization and death, $M$. The associated model parameters are given by $\bm{\theta}=\{\alpha^r,\mathbf{\eta},\mathbf{\upsilon},\mu_m,\mu_h,\theta,\vartheta,\mu^r_l,\mu^r_k\}$. We form the joint posteriordistribution over both the model parameters and auxiliary variables, given the observed data:
 
 $$
-\begin{aligned}
- M_j &\sim Weibull\left(\alpha, \mathbf{\eta} \right) \\
- H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
- \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_j^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\\
- \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
- \mathbf{\mu}_j&=\sigma_j*\mathbf{\mu}_j^r \\
- \alpha&=\exp(\alpha^r*\tau_\alpha) \\
- \alpha^r&\sim N(0,1) \\
- \mu^r_l,\mu^r_k &\sim N(0,1) \\
- \sigma_j&\sim t^+_3(0,1) \\
- \mu_j &\sim N(0,\tau_\mu) \\
- \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
-\end{aligned}
+\pi(\bm{\theta}|H,M)\propto f(H,M|\bm{\theta})p(\bm{\theta})
 $$
 
-where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables
-for deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values. 
+Inference is carried out using Markov chain Monte Carlo (MCMC), obtaining a sample from the joint posterior distribution over the parameters given the observed data. All Markov chains were generated with `CmdStan` @standevelopment, using the No-U-Turn sampler @hoffman2014no.
 
-\textcolor{red}{JUAN PABLO, EL ULTIMO MODELO HAY QUE CHECARLO PARA VER QUE SEA CORRECTO.}
-
-in which non-informative initial distributions were used, located near \(0\), to improve convergence.
-
-To choose the model that best fits the data we considered
-the leave-one-out cross-validation (LOO) proposed by @Vehtari2017, which
-estimates pointwise out-of-sample prediction accuracy, using the
-log-likelihood evaluated at the posterior simulations of the parameter
-values, Table 1. 
+A check on the posterior predictive distributions is essential for validating results. Additionaly, to choose the model that best fits the data we considered the leave-one-out cross-validation (LOO) proposed by Vehtari et al. @Vehtari2017, which estimates pointwise out-of-sample prediction accuracy, using the log-likelihood evaluated at the posterior simulations of the parameter values.
  
 \begin{table}[!htb]
 \centering
@@ -191,18 +171,14 @@ Model IV & 75612.0(194.4) & 239.4(15.0) \\
 \end{table}
 
 
-
-
 # Results
 
 After applying exclusion criteria a total sample of 1200
 registers of adult patients belonging to any healthcare provider,
 either private or public in the 32 states of Mexico was selected,
-preserving the population characteristics. \textcolor{red}{JUAN PABLO ESTE NUMERO DE
-MUESTRA ES CORRECTO?}
+preserving the population characteristics. 
 
-The parameters were estimated using Stan \textcolor{red}{DAR QUIZA MÁS DETALLES}. We show
-results for model III which performed better in terms of the
+We show results for model III which performed better in terms of the
 likelihood and showed good convergence of all parameteres. The posterior
 0.95 credibility intervals for parameters of interest at different
 levels of the model are shown in Figures 2 and 3. It is worth pointing
@@ -211,20 +187,34 @@ for parameters will point to increasing risks for the corresponding
 transition and level.
 
 
-\textbf{Figure 2}. Hazard rate in logarithmic scale by state, credible interval of 95\%.
+\vspace{5mm}
+
+\begin{center}
+\textbf{Figure 2 goes here.}
+\end{center}
+
+\vspace{5mm}
 
 
 
+\begin{center}
+\textbf{Figure 3 goes here.}
+\end{center}
 
-\textbf{Figure 3}. Hazard rate in logarithmic scale by health institution, credible interval of 95\%.
-  
+\vspace{5mm}
 
 Increased risk for hospitalization was observed at the global population
 level for chronic renal disease, whereas for death such was the case for
 COPD and the interaction of diabetes:hypertension:obesity.
 
 
-\textbf{Figure 4}. Predictive distribution for deaths.
+\vspace{5mm}
+
+\begin{center}
+\textbf{Figure 4 goes here.}
+\end{center}
+
+\vspace{5mm}
 
 
 Our results show that there are differences in mortality between the
@@ -255,7 +245,8 @@ has transformed about 260 medical units to treat Covid-19 patients
 
 
 # Disscusion
-Multiple sources have shownthat the presence of comorbidities such
+
+Multiple sources have shown that the presence of comorbidities such
 as diabetes, hypertension, obesity, chronic obstructive pulmonary
 disease (COPD), asthma, inmmuno-suppression and chronic kidney disease
 are associated to a worse outcome for the patients diagnosed with
@@ -266,7 +257,7 @@ hospitalization and death; these analyses were further broken down to the
 different states of the republic and the healthcare providers within
 them. Thus it is possible to identify providers and states with an increased
 risk of hospitalization and death. Mexico is the
-third place in obesity among the OCDE countries, which could be the main reason of the high number of severe cases of COVID-19. \textcolor{red}{JUAN PABLO, AQUI SE PUEDEN AGREGAR REFERENCIAS.}
+third place in obesity among the OCDE countries, which could be the main reason of the high number of severe cases of COVID-19.
 
  
 One problem that aggravates the situation is the precarious state of the public
