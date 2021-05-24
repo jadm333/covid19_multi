@@ -197,6 +197,7 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{bm}
 
 
 
@@ -209,7 +210,7 @@
 \setcounter{secnumdepth}{0}
 
 \newcommand{\getAff}[1]{
-  \getIndex{#1}{HPME, University of Toronto,Science Faculty, UNAM.}
+  \getIndex{#1}{}
 }
 
 \providecommand{\tightlist}{%
@@ -228,17 +229,20 @@ COVID-19} % Please use "sentence case" for title and headings (capitalize only t
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Diaz Martinez Juan\textsuperscript{\getAff{HPME, University of
-Toronto.}}\textsuperscript{*},
-Fuentes-Garcia Ruth\textsuperscript{\getAff{Science Faculty,
-UNAM.}}\textsuperscript{*}\\
+Juan Pablo Diaz Martinez\textsuperscript{\getAff{Institute of Health,
+Policy \& Management, University of Toronto}},
+Karen Janik Orozco Becerril\textsuperscript{\getAff{Facultad de
+Ciencias, UNAM}},
+Marco Antonio Gallegos Herrada\textsuperscript{\getAff{Facultad de
+Ciencias, UNAM}},
+Mayra Alejandra Gutierrez Garcia\textsuperscript{\getAff{Facultad de
+Ciencias, UNAM}},
+Osvaldo Espin-Garcia\textsuperscript{\getAff{Dalla Lana School of Public
+Health, University of Toronto}},
+Ruth Fuentes Garcia\textsuperscript{\getAff{Facultad de Ciencias,
+UNAM}}\textsuperscript{*}\\
 \bigskip
-\textbf{\getAff{HPME, University of Toronto}}Department 1, Street, City,
-State, Zip\\
-\textbf{\getAff{Science Faculty, UNAM.}}Department 2, Street, City,
-State, Zip\\
 \bigskip
-* Corresponding author: juan.diaz.martinez@mail.utoronto.ca\\
 * Corresponding author: rfuentes@ciencias.unam.mx\\
 \end{flushleft}
 % Please keep the abstract below 300 words
@@ -255,15 +259,6 @@ pulvinar, volutpat risus.
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step.
 % Author Summary not valid for PLOS ONE submissions.
-\section*{Author summary}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget
-porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut
-dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id
-velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus
-finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium
-diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut
-ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit
-pulvinar, volutpat risus.
 
 \linenumbers
 
@@ -415,9 +410,13 @@ transformed about 260 medical units to treat COVID-19 patients {[}14{]}.
 
 We developed four different models for the trajectories of interest,
 \emph{Symptoms-Hospitalization} and \emph{Hospitalization-Death}.
+\vspace{5mm}
 
-\textbf{Figure 1}. Graphical representation of the model: directed
-acyclic grph (DAG).
+\begin{center}
+\textbf{Figure 1 goes here.}
+\end{center}
+
+\vspace{5mm}
 
 We used a \(\mathbf{QR}\) reparameterization for the predictor matrix
 \(\mathbf{X}\), i.e.~\(\mathbf{X}=\mathbf{QR}\) , where \(\mathbf{Q}\)
@@ -458,13 +457,15 @@ vectors for deaths and hospitalizations, \(\mu_m\) and \(\mu_h\)
 represent the global intercepts for deaths and hospitalizations,
 \(alpha\) denotes the shape of the Weibull distribution, and
 \(\alpha_r\) is an extra parameter for the noncentered parameterization
-This model is described in red in Figure XXX.
+This part of the model is described in red in Figure XXX.
 
 \hypertarget{model-ii-two-levels}{%
 \subsubsection{Model II: Two levels}\label{model-ii-two-levels}}
 
 The second model adds an additional level to account for each state of
-Mexico as random effect to explain deaths, such that, \[
+Mexico as a random effect to explain deaths, such that,
+
+\[
 \begin{aligned}
  M_l   &\sim Weibull(\alpha,\mathbf{\eta})\\
  H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
@@ -479,75 +480,69 @@ Mexico as random effect to explain deaths, such that, \[
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 \] where \(\mathbf{\mu}_l, \space l=1,...,32\) represents a local
-intercept per state (random effect), \(\mathbf{\mu}^r_l\) denote the
+intercept per state (random effect), \(\mathbf{\mu}^r_l\) denotes the
 extra paramateres for the noncentered parameterization, and \(\sigma\)
-is the dispersion parameter of the local intercepts. This model is
-described in light red in Figure XXXX.
+is the dispersion parameter of the local intercepts. This part of the
+model is described in light red in Figure XXXX.
 
 \hypertarget{model-iii-three-levels}{%
 \paragraph{Model III: Three levels}\label{model-iii-three-levels}}
 
-Based on Model II, we consider a third level to include the healthcare
-provider where patients are hospitalized, \(k\), in state \(l\) we have
-\(M_{l,k}\)for the corresponding death matrix and the model is given as
+Based on Model II, we considered an extra random effect
+\(\mathbf{\mu}_k, \space l=1,...,6\) which take into account the
+healthcare provider previously described. Because of this, an extra
+dispersion parameter \(\sigma\) is added. This part of the model is
+described in light pink in Figure XXXX.
 
 \[
 \begin{aligned}
- M_{l,k}   &\sim Weibull(\alpha,\mathbf{\eta})\\
+ M   &\sim Weibull(\alpha,\mathbf{\eta})\\
  H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
  \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{\mu}_k^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\space l=1,...,32,\space k=1,...,5\\
  \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
   \mathbf{\mu}_l&=\sigma_l*\mathbf{\mu}_l^r, \space\space l=1,2 \\
  \mathbf{\mu}_k&=\sigma_l*\mathbf{\mu}_k^r \\
- \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
  \mu^r_l,\mu^r_k &\sim N(0,1) \\
  \sigma_l&\sim t^+_3(0,1) \\
- \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
- \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
-\end{aligned}
-\] where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables
-for deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values. This model is described in
-yellow in Figure REF.
-
-\hypertarget{model-iv}{%
-\subsubsection{Model IV:}\label{model-iv}}
-
-Based as well on Modelo II, we consider index \(j=(l,k)\) where \(l\)
-accounts for the \(l\)-th state and \(k\) for the healthcare provider,
-\(j \in \{1,...,153\}\) where the distribution for deaths is given by
-
-\[
-\begin{aligned}
- M_j &\sim Weibull\left(\alpha, \mathbf{\eta} \right) \\
- H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
- \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_j^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\\
- \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
- \mathbf{\mu}_j&=\sigma_j*\mathbf{\mu}_j^r \\
- \alpha&=\exp(\alpha^r*\tau_\alpha) \\
- \alpha^r&\sim N(0,1) \\
- \mu^r_l,\mu^r_k &\sim N(0,1) \\
- \sigma_j&\sim t^+_3(0,1) \\
- \mu_j &\sim N(0,\tau_\mu) \\
+ \mu_m,\mu_h &\sim N(0,10) \\
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 \]
 
-where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables for
-deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values.
+\hypertarget{model-iv}{%
+\subsubsection{Model IV:}\label{model-iv}}
 
-\textcolor{red}{JUAN PABLO, EL ULTIMO MODELO HAY QUE CHECARLO PARA VER QUE SEA CORRECTO.}
+The final model uses the same structure as Model III but nests
+healthcare provider within each state.
 
-in which non-informative initial distributions were used, located near
-\(0\), to improve convergence.
+\hypertarget{model-fit}{%
+\subsection{Model fit}\label{model-fit}}
 
-To choose the model that best fits the data we considered the
-leave-one-out cross-validation (LOO) proposed by {[}17{]}, which
-estimates pointwise out-of-sample prediction accuracy, using the
-log-likelihood evaluated at the posterior simulations of the parameter
-values, Table 1.
+As mentioned before, we considered a Bayesian approach to fit the model
+to the observed data corresponding to times between symptoms and
+hospitalization, \(H\), and time between hospitalization and death,
+\(M\). The associated model parameters are given by
+\(\bm{\theta}=\{\alpha^r,\mathbf{\eta},\mathbf{\upsilon},\mu_m,\mu_h,\theta,\vartheta,\mu^r_l,\mu^r_k\}\).
+We form the joint posteriordistribution over both the model parameters
+and auxiliary variables, given the observed data:
+
+\[
+\pi(\bm{\theta}|H,M)\propto f(H,M|\bm{\theta})p(\bm{\theta})
+\]
+
+Inference is carried out using Markov chain Monte Carlo (MCMC),
+obtaining a sample from the joint posterior distribution over the
+parameters given the observed data. All Markov chains were generated
+with \texttt{CmdStan} {[}17{]}, using the No-U-Turn sampler {[}18{]}.
+
+A check on the posterior predictive distributions is essential for
+validating results. Additionaly, to choose the model that best fits the
+data we considered the leave-one-out cross-validation (LOO) proposed by
+Vehtari et al. {[}19{]}, which estimates pointwise out-of-sample
+prediction accuracy, using the log-likelihood evaluated at the posterior
+simulations of the parameter values.
 
 \begin{table}[!htb]
 \centering
@@ -569,29 +564,41 @@ Model IV & 75612.0(194.4) & 239.4(15.0) \\
 After applying exclusion criteria a total sample of 1200 registers of
 adult patients belonging to any healthcare provider, either private or
 public in the 32 states of Mexico was selected, preserving the
-population characteristics. \textcolor{red}{JUAN PABLO ESTE NUMERO DE
-MUESTRA ES CORRECTO?}
+population characteristics.
 
-The parameters were estimated using Stan
-\textcolor{red}{DAR QUIZA MÁS DETALLES}. We show results for model III
-which performed better in terms of the likelihood and showed good
-convergence of all parameteres. The posterior 0.95 credibility intervals
-for parameters of interest at different levels of the model are shown in
-Figures 2 and 3. It is worth pointing out that we are displaying the log
-hazard ratio, hence positive values for parameters will point to
-increasing risks for the corresponding transition and level.
+We show results for model III which performed better in terms of the
+likelihood and showed good convergence of all parameteres. The posterior
+0.95 credibility intervals for parameters of interest at different
+levels of the model are shown in Figures 2 and 3. It is worth pointing
+out that we are displaying the log hazard ratio, hence positive values
+for parameters will point to increasing risks for the corresponding
+transition and level.
 
-\textbf{Figure 2}. Hazard rate in logarithmic scale by state, credible
-interval of 95\%.
+\vspace{5mm}
 
-\textbf{Figure 3}. Hazard rate in logarithmic scale by health
-institution, credible interval of 95\%.
+\begin{center}
+\textbf{Figure 2 goes here.}
+\end{center}
+
+\vspace{5mm}
+
+\begin{center}
+\textbf{Figure 3 goes here.}
+\end{center}
+
+\vspace{5mm}
 
 Increased risk for hospitalization was observed at the global population
 level for chronic renal disease, whereas for death such was the case for
 COPD and the interaction of diabetes:hypertension:obesity.
 
-\textbf{Figure 4}. Predictive distribution for deaths.
+\vspace{5mm}
+
+\begin{center}
+\textbf{Figure 4 goes here.}
+\end{center}
+
+\vspace{5mm}
 
 Our results show that there are differences in mortality between the
 states without accounting for institution and it is related to the
@@ -605,9 +612,9 @@ Figure 4 displays evidence that 5 days after hospitalization there is a
 peak on mortality rate, which could be related due the late
 hospitalization of patients with mild symptoms who developed ``happy
 hypoxemia,'\,' that is extremely low blood oxygenation, but without
-sensation of dyspnea {[}18{]}. In Wuhan, within a cohort of patients
+sensation of dyspnea {[}20{]}. In Wuhan, within a cohort of patients
 infected with (SARS-COV-2) who id not present dyspnea 62\% showed severe
-disease and 46\% ended up intubated, ventilated or dead {[}19{]}.
+disease and 46\% ended up intubated, ventilated or dead {[}21{]}.
 
 Regarding the 6 healthcare providers included in the analysis
 differences were also found. While state-managed hospitals and private
@@ -621,7 +628,7 @@ are liklely to have higher risk exposure.
 \hypertarget{disscusion}{%
 \section{Disscusion}\label{disscusion}}
 
-Multiple sources have shownthat the presence of comorbidities such as
+Multiple sources have shown that the presence of comorbidities such as
 diabetes, hypertension, obesity, chronic obstructive pulmonary disease
 (COPD), asthma, inmmuno-suppression and chronic kidney disease are
 associated to a worse outcome for the patients diagnosed with COVID-19.
@@ -634,7 +641,6 @@ possible to identify providers and states with an increased risk of
 hospitalization and death. Mexico is the third place in obesity among
 the OCDE countries, which could be the main reason of the high number of
 severe cases of COVID-19.
-\textcolor{red}{JUAN PABLO, AQUI SE PUEDEN AGREGAR REFERENCIAS.}
 
 One problem that aggravates the situation is the precarious state of the
 public healthcare system which universal coverage is estimated about
@@ -787,15 +793,27 @@ Available:
 framework for the parametrization of hierarchical models. Statistical
 Science. JSTOR; 2007; 59--73. }
 
-\leavevmode\hypertarget{ref-Vehtari2017}{}%
+\leavevmode\hypertarget{ref-standevelopment}{}%
 \CSLLeftMargin{17. }
+\CSLRightInline{Team SD. CmdStan: The command-line interface to stan
+{[}Internet{]}. CmdStan. Available:
+\url{https://mc-stan.org/users/interfaces/cmdstan}}
+
+\leavevmode\hypertarget{ref-hoffman2014no}{}%
+\CSLLeftMargin{18. }
+\CSLRightInline{Hoffman MD, Gelman A. The no-u-turn sampler: Adaptively
+setting path lengths in hamiltonian monte carlo. J Mach Learn Res.
+2014;15: 1593--1623. }
+
+\leavevmode\hypertarget{ref-Vehtari2017}{}%
+\CSLLeftMargin{19. }
 \CSLRightInline{Vehtari A, Gelman A, Gabry J. {Practical Bayesian model
 evaluation using leave-one-out cross-validation and WAIC}. Statistics
 and Computing. 2017;27: 1413--1432.
 doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}}
 
 \leavevmode\hypertarget{ref-Gonzalez-Duarte2020}{}%
-\CSLLeftMargin{18. }
+\CSLLeftMargin{20. }
 \CSLRightInline{González-Duarte A, Norcliffe-Kaufmann L. {Is 'happy
 hypoxia' in COVID-19 a disorder of autonomic interoception? A
 hypothesis}. Clinical Autonomic Research. Springer Berlin Heidelberg;
@@ -803,7 +821,7 @@ hypothesis}. Clinical Autonomic Research. Springer Berlin Heidelberg;
 doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}}
 
 \leavevmode\hypertarget{ref-Guan2020}{}%
-\CSLLeftMargin{19. }
+\CSLLeftMargin{21. }
 \CSLRightInline{Guan W, Ni Z, Hu Y, Liang W, Ou C, He J, et al.
 {Clinical Characteristics of Coronavirus Disease 2019 in China}. New
 England Journal of Medicine. 2020;382: 1708--1720.
