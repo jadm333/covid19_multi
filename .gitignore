@@ -2,6 +2,7 @@
 .Rhistory
 .Rapp.history
 *.DS_Store
+
 201212COVID19MEXICO.csv
 201104COVID19MEXICO.csv
 210107COVID19MEXICO.csv
@@ -19,8 +20,11 @@ ModeloJer2QRhosp_reduce_threads.exe
 !loo_mort_jer1.rds
 !loo_hosp_sinjer.rds
 !loo_mort_sinjer.rds
+data/*.csv
+
 # Session Data files
 .RData
+
 
 # User-specific files
 .Ruserdata

@@ -1,3 +1,13 @@
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\vac}{\varnothing}
+\newcommand{\Pro}{\mathbb{P}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\E}{\mathbb{E}}
+
+
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
 author:
@@ -56,10 +66,81 @@ hospitalizations in each state of the country and the different health instituti
 
 Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
+#Methods and materials
+We considered four different Bayesian models  for trajectories of interest:  \textit{Symptoms-Hospitalization}, \textit{Hospitalization-Death}, in which non-informative initial distributions were used, located near $$0$$, to improve convergence. Additionally a  \textit{QR} reparameterization for the covariable matrix was used, that is, if  $$X$$ is an  $$N \times K$$ covariable matrix, $$X=QR$$, where $$Q$$ is an ortogonal  matrix and  $$R$$ is an upper triangular matriz. In practice,  considering $$X=Q'R'$$ where $$Q'=Q*\sqrt{n-1}$$ and $$R'=\frac{1}{\sqrt{n-1}}*R$$ is convinient. Hence if  $$\zeta$$ is the  \textit{N} linear predictor  vector such that $$\zeta=X\beta$$, with $$\beta$$ a \textit{K}  coefficient vector, then  $$\zeta=X\beta=QR\beta=Q'R'\beta$$. We used  $$\zeta=Q'R'\beta$$  for numerical stability. 
+
+
+\textbf{Modelo I: One level}
+
+For patient  $$i$$, with $$M$$ covariables, we assumed deaths and hospitalizations, $$M_i$$ y $$H_i$$ respectively,  are independent and follow  distributions: 
+\begin{center}
+    \begin{equation}\nonumber
+        M_i \sim Weibull(\alpha, exp\{-(\frac{(Q^m\theta^m)+\mu^m}{\alpha})\}) \:\:\:\:\:\: y \:\:\: \:\:\:  H_i \sim Weibull(\alpha, exp\{-(\frac{(Q^h\theta^h)+\mu^h}{\alpha})\})
+    \end{equation}
+\end{center}
+
+where  
+\begin{itemize}
+    \item $$\alpha=\tau_\alpha \beta$$ for $$\tau_\alpha$$ a given positive value and $$\beta\sim Normal(0,1)$$.\\
+    \item $$\theta^m$$ and $$\theta^h$$ are $M$-dimensional vectors.\\
+    \item $$Q^m$$ and $$Q^h$$ are matrices of standarized covariables for deaths and hospitalizations respectively.\\
+    \item Hyperparameters $$\mu ^{m}$$ and $$\mu ^{h}$$, for deaths and hospitalizations correspondingly, with a given $$\tau_{\mu}$$ follow a normal distribution
+    
+       \begin{center}
+          \begin{equation} \nonumber 
+              \mu^m, \mu ^h \sim Normal (0, \tau_{\mu}) \\
+          \end{equation}
+       \end{center}
+       
+  \end{itemize}
+
+\textbf{Model II: two levels}
+Using the first model an additional level is added to account for each state of Mexico to model deaths. The hospitalization  $$H_i$$  remains  unchanged and for each state  $$j= 1,\ldots, 32$$ and  patient $$i$$,  $$M_{i,j}$$ has distribution:
+
+\begin{center}
+    \begin{equation}\nonumber
+        M_{i,j} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})\\
+    \end{equation}
+\end{center}
+
+Where  $$\mu^{L_1}=\nu^{L_1}*\frac{\sigma^{L_1}}{\tau^{L_1}}$$, have the following distributions
+\begin{itemize}
+     
+    \item $$\nu^{L1} \sim Normal(0,1)$$
+    \item $$\sigma^{L1} \sim Normal(0,1)$$
+    \item $$\tau^{L1} \sim Gamma(a,a)$$ with  $$a0$$ a given positive value.
+\end{itemize}
+
+
+
+\subsection{Model III: Three levels}
+Based on  Model II, we consider a third level to include the type of health service where patients are hospitalized, $$k$$ for patient
+ $$i$$ in state  $$j$$ we have $$M_{i,j,k}$$ distributed as
+
+
+\begin{center}
+    \begin{equation}\nonumber
+        M_{i,j,k} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}+\mu^{L_2}}{\alpha} \})
+    \end{equation}
+\end{center}
+Where $$\mu^{L_2}=\nu^{L_2}*\frac{\sigma^{L_2}}{\tau^{L_2}}$$, with distributions: 
+\begin{itemize}
+     
+    \item $$\nu^{L_2} \sim Normal(0,1)$$
+    \item $$\sigma^{L_2} \sim Normal(0,1)$$
+    \item $$\tau^{L_2} \sim Gamma(a,a)$$ with $$a$$ a given positive value.
+\end{itemize}
+
+\subsection{Model IV:}
+Based as well in  \textit{Modelo II}, however, we consider index� $$l=(j,k)$$ where $$j$$ accounts for the $$j-$$-th state  and $$k$$ for the type of health service, �$$j \in \{1,...,153\}$$ where the distribution for deaths is given by
+
+\begin{center}
+    \begin{equation}\nonumber
+        M_{i,l} \sim Weibull(\alpha, exp\{- \frac{(Q^m\theta^m)+\mu^m+\mu^{L_1}}{\alpha} \})\\
+    \end{equation}
+
 # Tabla ejemplo
 
-hola mundo
-
--
+- estamos probando
 
 # References {#references .unnumbered}
