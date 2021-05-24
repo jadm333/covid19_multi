@@ -171,6 +171,31 @@
 
 
 % Pandoc citation processing
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc} % for calculating minipage widths
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 
 
@@ -196,17 +221,22 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{Multi-level multi-state modelling applied to hospital admission in
-mexican patients with COVID-19} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+\textbf\newline{Multi-level multi-state modelling applied to hospital
+admission in mexican patients with
+COVID-19} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
 }
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Diaz Martinez Juan\textsuperscript{\getAff{HPME, University of Toronto.}}\textsuperscript{*},
-Fuentes-García Ruth\textsuperscript{\getAff{Science Faculty, UNAM.}}\textsuperscript{*}\\
+Diaz Martinez Juan\textsuperscript{\getAff{HPME, University of
+Toronto.}}\textsuperscript{*},
+Fuentes-Garcia Ruth\textsuperscript{\getAff{Science Faculty,
+UNAM.}}\textsuperscript{*}\\
 \bigskip
-\textbf{\getAff{HPME, University of Toronto}}Department 1, Street, City, State, Zip\\
-\textbf{\getAff{Science Faculty, UNAM.}}Department 2, Street, City, State, Zip\\
+\textbf{\getAff{HPME, University of Toronto}}Department 1, Street, City,
+State, Zip\\
+\textbf{\getAff{Science Faculty, UNAM.}}Department 2, Street, City,
+State, Zip\\
 \bigskip
 * Corresponding author: juan.diaz.martinez@mail.utoronto.ca\\
 * Corresponding author: rfuentes@ciencias.unam.mx\\
@@ -247,49 +277,58 @@ pulvinar, volutpat risus.
 \newcommand{\var}{\text{Var}}
 \newcommand{\E}{\mathbb{E}}
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 The severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)
 pandemic was declared a Public Health Emergency of International Concern
 on January 30, 2020 by the World Health Organization.The Mexican Health
-Authorithies declared the first lockdown on March 26 with 585 cases and
-8 deaths reported for COVID-19 {[}1{]}; by the end of the lockdown (June
-5th, 2020) total number of cases and deaths were 110,026 and 13,170,
-respectively. By November 1, Mexico became the fourth country in number
-of deaths of SARS-CoV-19 (106,765 deaths), with 1,122,362 incident cases
-{[}2{]}; by April 15th 2021 the number of deaths had raised to 214,372
-with 2,309,099 incident cases.
+Authorities declared the first lockdown on March 26 with 585 cases and 8
+deaths reported for COVID-19 {[}1{]}; by the end of the first lockdown
+(June 5th, 2020) total number of cases and deaths were 110,026 and
+13,170, respectively. By November 1, Mexico became the fourth country in
+number of deaths of SARS-CoV-19 (106,765 deaths), with 1,122,362
+incident cases {[}2{]}; by April 15th 2021 the number of deaths had
+raised to 214,372 with 2,309,099 incident cases {[}3{]}.
 
-Over time it has become clear that comorbidy factors such as
-hypertension, diabetes, obesity and smoking increase the seriousness of
-the disease, leading to a higher rate of hospitalizations with an
-additional 25\% of the cases requiring intensive care unit (ICU)
-admission and ultimately, intubation {[}3{]}. Mexico ranks second in
-obesity among OECD countries, with an obesity rate of 72.5\% among the
-adult population, which is associated with the high prevalence of type 2
-diabetes, estimated at 13\% of the adult population in 2017, the highest
-rate among OECD countries; the rate of hypertension is also one of the
-highest chronic diseases among adult population with 30\% {[}4{]}. The
-high prevalence of these comorbidities besides the precarious health
-care system could be among the main main reasons of the elevated
-severity of the number of cases and deaths rates in the country.
+Over time it has become clear that comorbidity factors such as
+hypertension, type 2 diabetes mellitus, obesity and smoking increase the
+seriousness of the disease, leading to a higher rate of hospitalizations
+with an additional 25\% of the cases requiring intensive care unit (ICU)
+admission and ultimately, intubation and death {[}4,5{]}.
 
-In Mexico the health institutions are divided in public and private
+Mexico ranks second in obesity among OECD countries, with an obesity
+rate of 72.5\% among the adult population, which is associated with the
+high prevalence of type 2 diabetes mellitus, estimated at 13\% of the
+adult population in 2017, the highest rate among OECD countries; the
+rate of hypertension is also one of the highest chronic diseases among
+adult population with 30\% {[}6{]}. The high prevalence of these
+comorbidities besides the precarious healthcare system could be among
+the main reasons of the elevated severity of the number of cases and
+deaths rates in the country {[}7,8{]}.
+
+In Mexico, healthcare providers are divided in public and private
 services. There are different public institutions which provide care to
-different sets of the population: the state employees, the army and
-naval members, the oil state company (PEMEX) employees and private
-companies employees. There are also public hospitals for population with
-no health service coverage. In general, the care withing different
-healthcare providers cannot be considered homogeneous, therefore it
-should be relevant for the final outcome of a COVID-19 patient.
+different sets of the population: the state employees (ISSSTE), the army
+(SEDENA) and naval members (SEMAR), the oil state company (PEMEX)
+employees and private companies employees (IMSS). There are also public
+hospitals for population with no health service coverage (SSA adn). In
+general, the care withing different healthcare providers cannot be
+considered homogeneous, therefore it should be relevant for the final
+outcome of a COVID-19 patient.
 
-There have been efforts to understand how patients with comorbilities
-are affected by COVID-19; the work by {[}5{]} proposed a clinical score
-to predict COVID-19 lethality, including different factors like diabetes
-and obesity among mexican population. This work lead to believe that
-obesity mediates 49.5\% of the effect of diabetes on COVID-19 lethality.
-Early-onset diabetes conferred an increased risk of hospitalization
-while obesity increased the risk ICU for admission and intubation.
+There have been many efforts using local data to understand how patients
+with comorbidities are affected by COVID-19; the work by Bello-Chavolla
+et al. {[}9{]} proposed a clinical score to predict COVID-19 lethality,
+including different factors like type 2 diabetes mellitus and obesity
+among confirmed and negative COVID-19 cases in Mexico. This work lead to
+believe that obesity mediates 49.5\% of the effect of diabetes on
+COVID-19 lethality. Also, early-onset diabetes conferred an increased
+risk of hospitalization while obesity increased the risk ICU for
+admission and intubation. Moreover, Olivas-Mart\{'i\}nez et al. {[}5{]}
+found that main risk factors associated with in-hospital death were male
+sex, obesity and oxygen saturation \textless{} 80\% on admission using
+data from a SARS-CoV-2 referral center in Mexico City.
 
 After onset of infection there is a period of time between symptom
 detection and hospitalization. The time elapsed before patients approach
@@ -298,62 +337,67 @@ hospital, there is also a period of time between the admission and
 death. Estimation of these lengths of time through a multilevel model
 could enable a better information system to estimate incidence and
 transmission rates, particularly at regional level where differences can
-be apparent.
+be apparent. In addition, these times are useful for estimating
+hospitalisations and deaths in COVID-19 epidemiological models
+{[}10,11{]}.
 
 This work considers a multi-state model under a Bayesian framework to
 estimate times between symptom detection and hospitalization and between
-hospitalization and death. Data used in the modeling comes from the
-official database by the Mexican Ministry of Health; the analysis
-provides of general overview of hospitalizations in each state of the
-country and the different health institutions within. Variables
+hospitalization and death. We used data of confirmed and negative
+COVID-19 cases and their demographic and health characteristics from the
+General Directorate of Epidemiology of the Mexican Ministry of Health;
+the analysis provides of general overview of these times in each state
+of the country and the different health institutions within. Variables
 affecting the patient's final outcome such as the aforementioned
-comorbidites are included in the model. Additionally regional
-heterogeneity is accounted for trough nested models that consider the
-regional contribution and also the health service provider. Other
-efforts in recent literature {[}6{]} have considered more states
-(hospitalization-ICU, ICU-death, ICU-discharged), which allows
-researchers to asses whether improvements in patient outcomes have been
-sustained, finding evidence that median hospital stays have lengthened.
-Unfortunately the data available for Mexico lacks the necessary
-granularity to determine such states. Nevertheless, we believe this
-model could better inform the estimation of the incidence and
-transmission rates, which is particularly important while new variants
-and increased transmission rates are present.
+comorbidites are included in the model as fixed effects. Additionally,
+regional heterogeneity is accounted for as random effects through nested
+models that consider the regional contribution and also the health
+service provider. Other efforts in recent literature {[}12{]} have
+considered more states (hospitalization-ICU, ICU-death, ICU-discharged),
+which allows researchers to asses whether improvements in patient
+outcomes have been sustained, finding evidence that median hospital
+stays have lengthened. Unfortunately, data available for Mexico lacks
+the necessary granularity to determine such states. Nevertheless, we
+believe this model could better inform the estimation of the incidence
+and transmission rates, which is particularly important while new
+variants and increased transmission rates are present.
 
-\section{Methods and materials}\label{methods-and-materials}
+\hypertarget{methods-and-materials}{%
+\section{Methods and materials}\label{methods-and-materials}}
 
+\hypertarget{data-source-and-study-population}{%
 \subsection{Data Source and Study
-Population}\label{data-source-and-study-population}
+Population}\label{data-source-and-study-population}}
 
-We conducted a prevalence study of the official database from the
+We conducted an observation study using the official database from the
 Mexican Ministry of Health, these data provide an overview of hospital
 admissions, deaths and the period of time between hospitalizations and
-first COVID-19 symptoms between March and December 2020. The data
-analyzed included mexican adult population diagnosed with COVID-19 in
-the whole country. Exclusion criteria were the observations with
-incomplete data about hospital admission, symptoms or comorbidities.
-Additionally, patients whose time of initial symptoms was captured as
-the day they were admitted to hospital were removed, since this time was
-likely to be unknown. After applying exclusion criteria a total sample
-of 1200 registers of adult patients belonging to any healthcare
-provider, either private or public in the 32 states of Mexico was
-selected, preserving the population characteristics.
-\textcolor{red}{JUAN PABLO ESTE NUMERO DE
-MUESTRA ES CORRECTO?}
+first COVID-19 symptoms between March and January 2020. The data
+analyzed included confirmed individuals with a positive test for
+SARS-CoV-2 {[}3{]}; in late 2020, the Mexican Ministry of Health change
+its confirmed definition with the objective of including postmortem
+cases. The information recorded on every individual includes: sex, age,
+nationality, place of residence, migratory status, and different
+comorbidites. Data registered on the COVID-19 event includes: type of
+first contact medical unit, management received (either hospitalization
+or outpatient), and dates of onset of COVID-19 symptoms, admission to
+hospitalization, and death. Data on the evolution during the stay in the
+medical units were not released for public use, such as date of
+recovery. Exclusion criteria were the observations with incomplete data
+about hospital admission, symptoms or comorbidities. Additionally,
+patients whose time of initial symptoms was captured as the day they
+were admitted to hospital were removed, since this time was likely to be
+unknown. Finally, we only included patients who experienced either
+hospitalization or death due to the lack of date of recovery in the
+dataset.
 
-Comorbidities that could worsen the patient outcome, affecting the times
-we aim to model; such as diabetes, hypertension, obesity, chronic
-obstructive pulmonary disease (COPD), asthma, immunosuppression and
-chronic kidney disease were included as linear predictors for each state
-in the model and so two different relevant groups of variables were
-statistically significant for each state:
-
-\[x_{death} = (\sim Diabetes+COPD+Obesity+Hypertension+Diabetes*Obesity*Hypertension+Kidney\_Disease)\]
-
-\[
-  x_{hospitalization} = (\sim COPD+Obesity + Kidney\_Disease+Asthma+Immunosuppression)\]
-
-\textcolor{red}{NO SE SI SEA CLARO LO ANTERIOR PUESTO DE ESTA MANERA (HAY QUE ARREGLAR LA EXPRESION); O SI MEJOR SE DESCRIBA CON PALABRAS}
+The following variables were included as linear predictors for modeling
+time from symptoms to hospitalization: presence of chronic obstructive
+pulmonary disease (COPD), obesity, chronic kidney disease (CKD), asthma
+and immune-suppression. For time from hospitalization to death, we
+included the next variables: presence of type 2 diabetes mellitus, COPD,
+obesity, hypertension, CKD and the interaction between obesity, diabetes
+and hypertension. Both times also included age and sex as predictors.
 
 About 87\% of the population in Mexico is affiliated to some healthcare
 provider, but during this pandemic the mexican government has
@@ -363,40 +407,36 @@ different healthcare providers which were classified according to their
 sectors IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare
 provider within each state) these 5 are public care providers while the
 sixth sector is private hospitals. It is worth mentioning that following
-the national hospital transformation plan {[}7{]}, IMSS alone has
-transformed about 260 medical units to treat COVID-19 patients {[}8{]}.
+the national hospital transformation plan {[}13{]}, IMSS alone has
+transformed about 260 medical units to treat COVID-19 patients {[}14{]}.
 
-\subsection{Modelling}\label{modelling}
+\hypertarget{modelling}{%
+\subsection{Modelling}\label{modelling}}
 
-We developed four different Bayesian models for trajectories of interest
-namely, \emph{Symptoms-Hospitalization} and
-\emph{Hospitalization-Death}, in which non-informative initial
-distributions were used, located near \(0\), to improve convergence.
+We developed four different models for the trajectories of interest,
+\emph{Symptoms-Hospitalization} and \emph{Hospitalization-Death}.
 
 \textbf{Figure 1}. Graphical representation of the model: directed
 acyclic grph (DAG).
 
-Additionally a \textit{QR} reparameterization for the covariate matrix
-was used, that is, if \(X\) is an \(n \times m\) covariate matrix,
-corresponding to the aforementioned comorbidities, \(X=QR\), where \(Q\)
-is an ortogonal matrix and \(R\) is an upper triangular matrix. In
-practice, considering \(X=Q'R'\) where \(Q'=Q\sqrt{n-1}\) and
-\(R'=\frac{1}{\sqrt{n-1}}R\) is convenient. Hence if \(\zeta\) is the
-\textit{N} linear predictor vector such that \(\zeta=X\beta\), with
-\(\beta\) an \textit{M} coefficient vector, then
-\(\zeta=X\beta=QR\beta=Q'R'\beta\). We used \(\zeta=Q'R'\beta\) for
-numerical stability.
+We used a \(\mathbf{QR}\) reparameterization for the predictor matrix
+\(\mathbf{X}\), i.e.~\(\mathbf{X}=\mathbf{QR}\) , where \(\mathbf{Q}\)
+is an orthogonal matrix and \(\mathbf{R}\) is an upper triangular
+matrix. This parameterization is recommended when no prior information
+is available on the location of the predictors' coefficients {[}15{]}.
+Moreover, we used a noncentered parameterization {[}16{]} by shifting
+the data's correlation with the parameters to the hyperparameters.
 
 Each model captures different levels of information, as more levels were
 included it was possible to differentiate the results according to the
-added information. The four levels were:
+added information.
 
-\subsubsection{Model I: One level}\label{model-i-one-level}
+\hypertarget{model-i-one-level}{%
+\subsubsection{Model I: One level}\label{model-i-one-level}}
 
-Vectors \(M\) and \(H\) correspond to survival times for deaths and
-hospitalizations, respectively. We considered a different set of
-covariables in each case and assumed deaths and hospitalizations are
-independent, we then define the model as
+Let \(M\) and \(H\) correspond to survival times for deaths and
+hospitalizations, respectively. We assumed that these times are
+observations from two independent Weibull distributions, such that,
 
 \[
 \begin{aligned}
@@ -404,46 +444,48 @@ independent, we then define the model as
  {H}  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
  \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right) \\
  \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
- \alpha&=\exp(\alpha_r*\tau_\alpha) \\
+ \alpha&=\exp(\alpha_r*10) \\
  \alpha_r&\sim N(0,1) \\
- \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mu_m,\mu_h &\sim N(0,10) \\
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 \]
 
-where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables for
-deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values
-\textcolor{red}{QUIZA AQUI PONER LOS VALORES}. This model is described
-in grey in Figure REF.
+where \(\mathbf{Q}^*\) and \(\mathbf{Q}^{**}\) are the orthogonal
+matrices from the \(\mathbf{QR}\) reparameterization,
+\(\mathbf{\theta}\) and \(\mathbf{\vartheta}\) are the coefficient
+vectors for deaths and hospitalizations, \(\mu_m\) and \(\mu_h\)
+represent the global intercepts for deaths and hospitalizations,
+\(alpha\) denotes the shape of the Weibull distribution, and
+\(\alpha_r\) is an extra parameter for the noncentered parameterization
+This model is described in red in Figure XXX.
 
-\subsubsection{Model II: two levels}\label{model-ii-two-levels}
+\hypertarget{model-ii-two-levels}{%
+\subsubsection{Model II: Two levels}\label{model-ii-two-levels}}
 
-The second model is based on the first one, an additional level is added
-to account for each state of Mexico to model deaths. The hospitalization
-\(H\) remains unchanged and for each state \(l= 1,\ldots, 32\), deaths
-are summarized in matrix \(M_{l}\) the model is defined as
-
-\[
+The second model adds an additional level to account for each state of
+Mexico as random effect to explain deaths, such that, \[
 \begin{aligned}
  M_l   &\sim Weibull(\alpha,\mathbf{\eta})\\
  H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
  \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right),\space\space l=1,...,32\\
- \mathbf{\upsilon} &= \exp(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}) \\
+ \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
  \mathbf{\mu}_l&=\sigma*\mathbf{\mu}_l^r \\
- \alpha&=\exp(\alpha^r*\tau_\alpha) \\
+ \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
  \mu^r_l&\sim N(0,1) \\
  \sigma&\sim t^+_3(0,1) \\
- \mu_m,\mu_h &\sim N(0,\tau_\mu) \\
+ \mu_m,\mu_h &\sim N(0,10) \\
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
-\] where \(Q^*\) and \(Q^{**}\) are matrices of standarized covariables
-for deaths and hospitalizations respectively and \(\tau_\alpha\) and
-\(\tau_{\mu}\) are given positive values. This model is described in
-green in Figure REF.
+\] where \(\mathbf{\mu}_l, \space l=1,...,32\) represents a local
+intercept per state (random effect), \(\mathbf{\mu}^r_l\) denote the
+extra paramateres for the noncentered parameterization, and \(\sigma\)
+is the dispersion parameter of the local intercepts. This model is
+described in light red in Figure XXXX.
 
-\paragraph{Model III: Three levels}\label{model-iii-three-levels}
+\hypertarget{model-iii-three-levels}{%
+\paragraph{Model III: Three levels}\label{model-iii-three-levels}}
 
 Based on Model II, we consider a third level to include the healthcare
 provider where patients are hospitalized, \(k\), in state \(l\) we have
@@ -469,7 +511,8 @@ for deaths and hospitalizations respectively and \(\tau_\alpha\) and
 \(\tau_{\mu}\) are given positive values. This model is described in
 yellow in Figure REF.
 
-\subsubsection{Model IV:}\label{model-iv}
+\hypertarget{model-iv}{%
+\subsubsection{Model IV:}\label{model-iv}}
 
 Based as well on Modelo II, we consider index \(j=(l,k)\) where \(l\)
 accounts for the \(l\)-th state and \(k\) for the healthcare provider,
@@ -497,8 +540,11 @@ deaths and hospitalizations respectively and \(\tau_\alpha\) and
 
 \textcolor{red}{JUAN PABLO, EL ULTIMO MODELO HAY QUE CHECARLO PARA VER QUE SEA CORRECTO.}
 
+in which non-informative initial distributions were used, located near
+\(0\), to improve convergence.
+
 To choose the model that best fits the data we considered the
-leave-one-out cross-validation (LOO) proposed by {[}9{]}, which
+leave-one-out cross-validation (LOO) proposed by {[}17{]}, which
 estimates pointwise out-of-sample prediction accuracy, using the
 log-likelihood evaluated at the posterior simulations of the parameter
 values, Table 1.
@@ -517,7 +563,14 @@ Model IV & 75612.0(194.4) & 239.4(15.0) \\
 \caption{\label{tab:gof} Expected log-pointwise predictive density (ELPD) for a new data set and effective number of parameters (standard deviation).}
 \end{table}
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+After applying exclusion criteria a total sample of 1200 registers of
+adult patients belonging to any healthcare provider, either private or
+public in the 32 states of Mexico was selected, preserving the
+population characteristics. \textcolor{red}{JUAN PABLO ESTE NUMERO DE
+MUESTRA ES CORRECTO?}
 
 The parameters were estimated using Stan
 \textcolor{red}{DAR QUIZA MÁS DETALLES}. We show results for model III
@@ -551,21 +604,22 @@ of patients.
 Figure 4 displays evidence that 5 days after hospitalization there is a
 peak on mortality rate, which could be related due the late
 hospitalization of patients with mild symptoms who developed ``happy
-hypoxemia,'' that is extremely low blood oxygenation, but without
-sensation of dyspnea {[}10{]}. In Wuhan, within a cohort of patients
+hypoxemia,'\,' that is extremely low blood oxygenation, but without
+sensation of dyspnea {[}18{]}. In Wuhan, within a cohort of patients
 infected with (SARS-COV-2) who id not present dyspnea 62\% showed severe
-disease and 46\% ended up intubated, ventilated or dead {[}11{]}.
+disease and 46\% ended up intubated, ventilated or dead {[}19{]}.
 
 Regarding the 6 healthcare providers included in the analysis
 differences were also found. While state-managed hospitals and private
 sector showed lower risks, in contrast the IMSS seems to be the one with
 the highest risk (Figure 3). Although it is worth mentioning that
-following the national hospital transformation plan {[}7{]}, IMSS alone
+following the national hospital transformation plan {[}13{]}, IMSS alone
 has transformed about 260 medical units to treat Covid-19 patients
-{[}8{]}. Additionaly it has the largest number of affiliations and they
+{[}14{]}. Additionaly it has the largest number of affiliations and they
 are liklely to have higher risk exposure.
 
-\section{Disscusion}\label{disscusion}
+\hypertarget{disscusion}{%
+\section{Disscusion}\label{disscusion}}
 
 Multiple sources have shownthat the presence of comorbidities such as
 diabetes, hypertension, obesity, chronic obstructive pulmonary disease
@@ -591,10 +645,10 @@ health care providers the IMSS is the one with the highest risk, however
 it is the largest healthcare provider across Mexico with hospitals from
 level 2-level 4 of which ``Siglo XXI'' is a country-leader in research
 and innovative treatments and procedures. In March, 2020 38 hospitals
-were ``converted'' {[}7{]} to exclusively treat COVID-19 among which 18
+were ``converted'' {[}13{]} to exclusively treat COVID-19 among which 18
 were IMSS hospitals only; after one year 960 hospitals across the
 country were converted to treat patients with COVID-19 of these 289
-(30.10\%) belong to IMSS {[}8{]}.
+(30.10\%) belong to IMSS {[}14{]}.
 
 The proposed modelling can be helpful to a regional level to improve
 healthcare assistance, it could additionally be useful to inform
@@ -617,79 +671,153 @@ were able to include in the modls due to the lack of information
 regarding dates of disccharged of recovered patient´s after
 hospitalization.
 
-\section*{References}\label{references}
+\hypertarget{references}{%
+\section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\hypertarget{ref-Carrillo-Vega2020}{}
-1. Carrillo-Vega MF, Salinas-Escudero G, García-Peña C,
-Gutiérrez-Robledo LM, Parra-Rodríguez L. Early estimation of the risk
-factors for hospitalization and mortality by COVID-19 in Mexico. PLOS
+\begin{CSLReferences}{0}{0}
+\leavevmode\hypertarget{ref-Carrillo-Vega2020}{}%
+\CSLLeftMargin{1. }
+\CSLRightInline{Carrillo-Vega MF, Salinas-Escudero G, García-Peña C,
+Gutiérrez-Robledo LM, Parra-Rodríguez L. {Early estimation of the risk
+factors for hospitalization and mortality by COVID-19 in Mexico}. PLOS
 ONE. Public Library of Science; 2020;15: e0238905. Available:
-\url{https://doi.org/10.1371/journal.pone.0238905}
+\url{https://doi.org/10.1371/journal.pone.0238905}}
 
-\hypertarget{ref-OrganizacionPanamericanadelaSalud2021}{}
-2. Organización Panamericana de la Salud O. Documentos técnicos de la
-OPS - Enfermedad por el Coronavirus (COVID-19) {[}Internet{]}. 2021.
+\leavevmode\hypertarget{ref-OrganizacionPanamericanadelaSalud2021}{}%
+\CSLLeftMargin{2. }
+\CSLRightInline{Organización Panamericana de la Salud O. {Documentos
+t{é}cnicos de la OPS - Enfermedad por el Coronavirus (COVID-19)}
+{[}Internet{]}. 2021. Available:
+\url{https://www.paho.org/es/documentos-tecnicos-ops-enfermedad-por-coronavirus-covid-19}}
+
+\leavevmode\hypertarget{ref-covidgob}{}%
+\CSLLeftMargin{3. }
+\CSLRightInline{Sitio oficial COVID-19 M{é}xico Direcci{ó}n General de
+Epidemiolog{í}a - Gobierno Federal. Available:
+\url{https://covid19.sinave.gob.mx/}}
+
+\leavevmode\hypertarget{ref-SEDESA2021}{}%
+\CSLLeftMargin{4. }
+\CSLRightInline{SEDESA. {Base del Sistema Nacional de Vigilancia
+Epidemiologica para el seguimiento a posibles casos de COVID-19 en la
+Ciudad de M{é}xico} {[}Internet{]}. 2021. Available:
+\url{http://sinave.gob.mx/}}
+
+\leavevmode\hypertarget{ref-olivas2021hospital}{}%
+\CSLLeftMargin{5. }
+\CSLRightInline{Olivas-Martínez A, Cárdenas-Fragoso JL, Jiménez JV,
+Lozano-Cruz OA, Ortiz-Brizuela E, Tovar-Méndez VH, et al. In-hospital
+mortality from severe COVID-19 in a tertiary care center in mexico city;
+causes of death, risk factors and the impact of hospital saturation.
+Plos one. Public Library of Science San Francisco, CA USA; 2021;16:
+e0245772. }
+
+\leavevmode\hypertarget{ref-OCDE2019}{}%
+\CSLLeftMargin{6. }
+\CSLRightInline{OCDE. {Health at a Glance 2019: OECD Indicators.}
+{[}Internet{]}. OCDE; 2019 p. 4. Available:
+\url{https://www.oecd.org/mexico/health-at-a-glance-mexico-ES.pdf}}
+
+\leavevmode\hypertarget{ref-burki2020covid}{}%
+\CSLLeftMargin{7. }
+\CSLRightInline{Burki T. COVID-19 in latin america. The Lancet
+Infectious Diseases. Elsevier; 2020;20: 547--548. }
+
+\leavevmode\hypertarget{ref-ji2020potential}{}%
+\CSLLeftMargin{8. }
+\CSLRightInline{Ji Y, Ma Z, Peppelenbosch MP, Pan Q. Potential
+association between COVID-19 mortality and health-care resource
+availability. The Lancet Global Health. Elsevier; 2020;8: e480. }
+
+\leavevmode\hypertarget{ref-Bello-Chavolla2020}{}%
+\CSLLeftMargin{9. }
+\CSLRightInline{Bello-Chavolla OY, Bahena-López JP, Antonio-Villa NE,
+Vargas-Vázquez A, González-Díaz A, Márquez-Salinas A, et al. {Predicting
+Mortality Due to SARS-CoV-2: A Mechanistic Score Relating Obesity and
+Diabetes to COVID-19 Outcomes in Mexico}. Journal of Clinical
+Endocrinology and Metabolism. 2020;105: 2752--2761.
+doi:\href{https://doi.org/10.1210/clinem/dgaa346}{10.1210/clinem/dgaa346}}
+
+\leavevmode\hypertarget{ref-flaxman2020estimating}{}%
+\CSLLeftMargin{10. }
+\CSLRightInline{Flaxman S, Mishra S, Gandy A, Unwin HJT, Mellan TA,
+Coupland H, et al. Estimating the effects of non-pharmaceutical
+interventions on COVID-19 in europe. Nature. Nature Publishing Group;
+2020;584: 257--261. }
+
+\leavevmode\hypertarget{ref-unwin2020state}{}%
+\CSLLeftMargin{11. }
+\CSLRightInline{Unwin HJT, Mishra S, Bradley VC, Gandy A, Mellan TA,
+Coupland H, et al. State-level tracking of COVID-19 in the united
+states. Nature communications. Nature Publishing Group; 2020;11: 1--9. }
+
+\leavevmode\hypertarget{ref-Kirwan}{}%
+\CSLLeftMargin{12. }
+\CSLRightInline{Kirwan PD, Elgohari S, Jackson CH, Tom BDM, Angelis DD,
+Presanis AM. {Trends in risks of severe events and lengths of stay for
+COVID- 19 hospitalisations in England over the pre-vaccination era :
+results from the Public Health England SARI-Watch surveillance scheme}.
+: 1--45. Available:
+\url{https://arxiv.org/ftp/arxiv/papers/2103/2103.04867.pdf}}
+
+\leavevmode\hypertarget{ref-Mendoza-Popoca2020}{}%
+\CSLLeftMargin{13. }
+\CSLRightInline{Mendoza-Popoca CÚ, Suárez-Morales M. {Hospital
+reconversion in response to the COVID-19 pandemic}. Revista Mexicana de
+Anestesiologia. 2020;43: 151--156.
+doi:\href{https://doi.org/10.35366/92875}{10.35366/92875}}
+
+\leavevmode\hypertarget{ref-UNAM2021}{}%
+\CSLLeftMargin{14. }
+\CSLRightInline{UNAM LI de TeIE(iSTARL del I de G de la. {Sistema de
+Informaci{ó}n de la Red IRAG} {[}Internet{]}. 2021. Available:
+\url{https://www.gits.igg.unam.mx/red-irag-dashboard/reviewHome}}
+
+\leavevmode\hypertarget{ref-stanmanual}{}%
+\CSLLeftMargin{15. }
+\CSLRightInline{Team SD. Stan user's guide {[}Internet{]}. Stan.
 Available:
-\url{https://www.paho.org/es/documentos-tecnicos-ops-enfermedad-por-coronavirus-covid-19}
+\url{https://mc-stan.org/docs/2_26/stan-users-guide/index.html}}
 
-\hypertarget{ref-SEDESA2021}{}
-3. SEDESA. Base del Sistema Nacional de Vigilancia Epidemiologica para
-el seguimiento a posibles casos de COVID-19 en la Ciudad de México
-{[}Internet{]}. 2021. Available: \url{http://sinave.gob.mx/}
+\leavevmode\hypertarget{ref-papaspiliopoulos2007general}{}%
+\CSLLeftMargin{16. }
+\CSLRightInline{Papaspiliopoulos O, Roberts GO, Sköld M. A general
+framework for the parametrization of hierarchical models. Statistical
+Science. JSTOR; 2007; 59--73. }
 
-\hypertarget{ref-OCDE2019}{}
-4. OCDE. Health at a Glance 2019: OECD Indicators. {[}Internet{]}. OCDE;
-2019 p. 4. Available:
-\url{https://www.oecd.org/mexico/health-at-a-glance-mexico-ES.pdf}
+\leavevmode\hypertarget{ref-Vehtari2017}{}%
+\CSLLeftMargin{17. }
+\CSLRightInline{Vehtari A, Gelman A, Gabry J. {Practical Bayesian model
+evaluation using leave-one-out cross-validation and WAIC}. Statistics
+and Computing. 2017;27: 1413--1432.
+doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}}
 
-\hypertarget{ref-Bello-Chavolla2020}{}
-5. Bello-Chavolla OY, Bahena-López JP, Antonio-Villa NE, Vargas-Vázquez
-A, González-Díaz A, Márquez-Salinas A, et al. Predicting Mortality Due
-to SARS-CoV-2: A Mechanistic Score Relating Obesity and Diabetes to
-COVID-19 Outcomes in Mexico. Journal of Clinical Endocrinology and
-Metabolism. 2020;105: 2752--2761.
-doi:\href{https://doi.org/10.1210/clinem/dgaa346}{10.1210/clinem/dgaa346}
+\leavevmode\hypertarget{ref-Gonzalez-Duarte2020}{}%
+\CSLLeftMargin{18. }
+\CSLRightInline{González-Duarte A, Norcliffe-Kaufmann L. {Is 'happy
+hypoxia' in COVID-19 a disorder of autonomic interoception? A
+hypothesis}. Clinical Autonomic Research. Springer Berlin Heidelberg;
+2020;30: 331--333.
+doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}}
 
-\hypertarget{ref-Kirwan}{}
-6. Kirwan PD, Elgohari S, Jackson CH, Tom BDM, Angelis DD, Presanis AM.
-Trends in risks of severe events and lengths of stay for COVID- 19
-hospitalisations in England over the pre-vaccination era : results from
-the Public Health England SARI-Watch surveillance scheme.: 1--45.
-Available: \url{https://arxiv.org/ftp/arxiv/papers/2103/2103.04867.pdf}
+\leavevmode\hypertarget{ref-Guan2020}{}%
+\CSLLeftMargin{19. }
+\CSLRightInline{Guan W, Ni Z, Hu Y, Liang W, Ou C, He J, et al.
+{Clinical Characteristics of Coronavirus Disease 2019 in China}. New
+England Journal of Medicine. 2020;382: 1708--1720.
+doi:\href{https://doi.org/10.1056/nejmoa2002032}{10.1056/nejmoa2002032}}
 
-\hypertarget{ref-Mendoza-Popoca2020}{}
-7. Mendoza-Popoca CÚ, Suárez-Morales M. Hospital reconversion in
-response to the COVID-19 pandemic. Revista Mexicana de Anestesiologia.
-2020;43: 151--156.
-doi:\href{https://doi.org/10.35366/92875}{10.35366/92875}
+\end{CSLReferences}
 
-\hypertarget{ref-UNAM2021}{}
-8. UNAM LI de T e IE(L del I de G de la. Sistema de Información de la
-Red IRAG {[}Internet{]}. 2021. Available:
-\url{https://www.gits.igg.unam.mx/red-irag-dashboard/reviewHome}
+\newpage
 
-\hypertarget{ref-Vehtari2017}{}
-9. Vehtari A, Gelman A, Gabry J. Practical Bayesian model evaluation
-using leave-one-out cross-validation and WAIC. Statistics and Computing.
-2017;27: 1413--1432.
-doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}
-
-\hypertarget{ref-Gonzalez-Duarte2020}{}
-10. González-Duarte A, Norcliffe-Kaufmann L. Is 'happy hypoxia' in
-COVID-19 a disorder of autonomic interoception? A hypothesis. Clinical
-Autonomic Research. Springer Berlin Heidelberg; 2020;30: 331--333.
-doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}
-
-\hypertarget{ref-Guan2020}{}
-11. Guan W-j, Ni Z-y, Hu Y, Liang W-h, Ou C-q, He J-x, et al. Clinical
-Characteristics of Coronavirus Disease 2019 in China. New England
-Journal of Medicine. 2020;382: 1708--1720.
-doi:\href{https://doi.org/10.1056/nejmoa2002032}{10.1056/nejmoa2002032}
+\hypertarget{figures}{%
+\section*{Figures}\label{figures}}
+\addcontentsline{toc}{section}{Figures}
 
 \nolinenumbers
 
 
 \end{document}
-
