@@ -300,32 +300,28 @@ regarding dates of disccharged of recovered patient´s after hospitalization.
 
 \newpage 
 
-# Figures {.unnumbered}
 
-
-```{r,out.width="350px", echo=FALSE}
+```{r,out.width="350px", echo=FALSE,fig.align='center'}
 knitr::include_graphics("JerModCOVID19_ROJO.pdf")
-
 ```
-\textbf{Figure 1}. Graphical representation of the model: directed acyclic grph (DAG).
+\textbf{Figure 1}. Graphical representation of the model: directed acyclic grph (DAG)
 
-```{r,out.width="350px", echo=FALSE}
+
+```{r,out.width="350px", echo=FALSE,fig.align='center'}
 knitr::include_graphics("mu_1_intervalsjer2.png")
-
 ```
-\textbf{Figure 2}. Hazard rate in logarithmic scale by state, credible interval of 95\%.
+\textbf{Figure 2}. Log hazard rate for state random effect (95% Credible Interval)
 
-```{r,out.width="350px", echo =FALSE}
+
+```{r,out.width="350px", echo =FALSE,fig.align='center'}
 knitr::include_graphics("mu_12_intervalsjer2.png")
-
 ```
-\textbf{Figure 3}. Hazard rate in logarithmic scale by health institution, credible interval of 95\%.
+\textbf{Figure 3}. Log hazard rate for healthcare provider random effect (95% Credible Interval)
 
-```{r,out.width="350px", echo =FALSE}
+```{r,out.width="350px", echo =FALSE,fig.align='center'}
 knitr::include_graphics("ppc_plot_jer2_mort.png")
-
 ```
-\textbf{Figure 4}. Predictive distribution for deaths.
+\textbf{Figure 4}. Posterior predictive distribution density plot for deaths
 
 
 
