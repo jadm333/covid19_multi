@@ -1,23 +1,17 @@
 ---
 title: Multi-level multi-state modelling applied to hospital admission in mexican patients with COVID-19
 author:
-  - name: Juan Pablo Diaz Martinez
-    affiliation: "Institute of Health, Policy & Management, University of Toronto"
+  - name: Juan Pablo Diaz Martinez^[Institute of Health, Policy & Management, University of Toronto]
   - name: Karen Janik Orozco Becerril
-    affiliation: Facultad de Ciencias, UNAM
   - name: Marco Antonio Gallegos Herrada
-    affiliation: Facultad de Ciencias, UNAM
   - name: Mayra Alejandra Gutierrez Garcia
-    affiliation: Facultad de Ciencias, UNAM
-  - name: Osvaldo Espin-Garcia
-    affiliation: Dalla Lana School of Public Health, University of Toronto
-  - name: Ruth Fuentes Garcia
+  - name: Osvaldo Espin-Garcia^[Dalla Lana School of Public Health, University of Toronto]
+  - name: Ruth Fuentes Garcia^[Facultad de Ciencias, UNAM]
     corresponding: rfuentes@ciencias.unam.mx
     email: rfuentes@ciencias.unam.mx
-    affiliation: Facultad de Ciencias, UNAM
 
 abstract: |
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+  Since the beginning of the SARS-CoV 2 pandemic, healthcare authorities have made clear that it is crucial to track and identify COVID-19 symptoms and seek medical attention in the presence of the first warning signs, as immediate medical attention can improve the patient's prognosis. Therefore the present work aims to analyze the risks associated with the time between the patient’s first symptoms and hospitalization followed by death. A cross-sectional study was performed among Mexican population diagnosed with COVID-19 and hospitalized  from March to January 2021. Four different Bayesian models were developed to asses the risk associated with different patient trajectories:   symptoms-hospitalization and hospitalization-death. Comorbidities that could worsen the patient outcome were included as linear predictions; these analyses were further broken down to the different states of the Mexican Republic  and the healthcare providers within. Model III was chosen as the best performance through a validation of leaving one out (LOO). Increased risk for hospitalization was observed at the global population level for chronic renal disease, whereas for death such was the case for COPD and the interaction of diabetes:hypertension:obesity. Our results show that there are differences in mortality between the states without accounting for institution and it is related to the prompt time of death or viceversa.  Regarding the 6 healthcare providers included in the analysis differences were also found. While state-managed hospitals and private sector showed lower risks, in contrast the IMSS seems to be the one with the highest risk. The proposed modelling can be helpful  to improve healthcare assistance at a regional level , additionally it could inform statistical parameter inference in epidemiological models.
 
 bibliography: bibliografia.bib
 output: rticles::plos_article
@@ -101,7 +95,7 @@ $$
 \end{aligned}
 $$
 
-where $\mathbf{Q}^*$ and $\mathbf{Q}^{**}$ are the orthogonal matrices from the  $\mathbf{QR}$ reparameterization, $\mathbf{\theta}$ and $\mathbf{\vartheta}$ are the coefficient vectors for deaths and hospitalizations, $\mu_m$ and $\mu_h$ represent the global intercepts for deaths and hospitalizations, $alpha$ denotes the shape of the Weibull distribution, and $\alpha_r$  is an extra parameter for the noncentered parameterization This part of the model is described in red in Figure XXX.
+where $\mathbf{Q}^*$ and $\mathbf{Q}^{**}$ are the orthogonal matrices from the  $\mathbf{QR}$ reparameterization, $\mathbf{\theta}$ and $\mathbf{\vartheta}$ are the coefficient vectors for deaths and hospitalizations, $\mu_m$ and $\mu_h$ represent the global intercepts for deaths and hospitalizations, $alpha$ denotes the shape of the Weibull distribution, and $\alpha_r$  is an extra parameter for the noncentered parameterization This part of the model is described in red in Figure 1.
 
 ### Model II: Two levels
 
@@ -122,11 +116,11 @@ $$
  \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
 \end{aligned}
 $$
-where $\mathbf{\mu}_l, \space l=1,...,32$ represents a local intercept per state (random effect), $\mathbf{\mu}^r_l$ denotes the extra paramateres for the noncentered parameterization, and $\sigma$ is the dispersion parameter of the local intercepts. This part of the model is described in light red in Figure XXXX.
+where $\mathbf{\mu}_l, \space l=1,...,32$ represents a local intercept per state (random effect), $\mathbf{\mu}^r_l$ denotes the extra paramateres for the noncentered parameterization, and $\sigma$ is the dispersion parameter of the local intercepts. This part of the model is described in light red in Figure 1.
 
 #### Model III: Three levels
 
-Based on Model II, we considered an extra random effect $\mathbf{\mu}_k, \space l=1,...,6$ which take into account the healthcare provider previously described. Because of this, an extra dispersion parameter $\sigma$ is added. This part of the model is described in light pink in Figure XXXX.
+Based on Model II, we considered an extra random effect $\mathbf{\mu}_k, \space l=1,...,6$ which take into account the healthcare provider previously described. Because of this, an extra dispersion parameter $\sigma$ is added. This part of the model is described in light pink in Figure 1.
 
 
 $$
