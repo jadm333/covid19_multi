@@ -81,8 +81,9 @@ library(posterior)
 library(tidybayes)
 
 
-df=read_csv("Data/210107COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
-corte=ymd("2021-01-07")
+#df=read_csv("Data/210107COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+df=read_csv("Data/210617COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
+corte=ymd("2021-06-17")
 
 #df=cambioCVE(df)
 df=cambioCVE_nombreEstado_completo(df)
@@ -116,12 +117,12 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
 
 set.seed(12345)
 
-hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),
+hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),!is.na(EDAD),!is.na(SEXO),
                     tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
                     !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR),tiempo_hosp>1) %>% 
   group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
 
-muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,
+muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),evento==0,!is.na(EDAD),!is.na(SEXO),
                       tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
                       !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
   group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
@@ -129,8 +130,8 @@ muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),eve
 
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
-                 SEXO+RENAL_CRONICA,data=muerte)
-x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hosp)
+                 SEXO+RENAL_CRONICA+EDAD,data=muerte)
+x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hosp)
 
 
 

@@ -2,6 +2,7 @@
 .Rhistory
 .Rapp.history
 *.DS_Store
+*.Rproj
 
 201212COVID19MEXICO.csv
 201104COVID19MEXICO.csv
