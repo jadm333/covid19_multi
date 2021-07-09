@@ -148,27 +148,20 @@ ppc_plot_modi_mort <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort_jer2
 ppc_plot_modi_mort
 ```
 
-```{r,fig.cap="Hazard rate by logarithmic scale by state, credible interval 95%"}
+```{r eval=FALSE, include=FALSE}
 knitr::include_graphics("./CC/jer2/mu_1_intervalsjer2.png")
 
 ```
 
-```{r,fig.cap="Hazard rate by logarithmic scale by health institution, credible interval 95%"}
+```{r eval=FALSE, include=FALSE}
 knitr::include_graphics("./CC/jer2/mu_12_intervalsjer2.png")
 
 ```
 
-```{r,fig.cap="Predictive distribution for deaths jer2"}
+```{r eval=FALSE, include=FALSE}
 knitr::include_graphics("./CC/jer2/ppc_plot_jer2_mort.png")
 
 ```
-
-```{r}
-
-knitr::include_graphics("./CC/jer2modi/mu_l_intervalsjer2modi.png")
-```
-
-
 
 ```{r,fig.cap="Caption ENTIDAD_UM"}
 knitr::include_graphics("./CC/jer2modi/mu_l_intervalsjer2modi.png")

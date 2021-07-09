@@ -127,7 +127,7 @@ muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),eve
                       !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR)) %>% 
   group_by(ENTIDAD_UM,SECTOR) %>% sample_frac(0.20) %>% ungroup()
 
-
+#saveRDS(list(hosp=hosp,muerte=muerte),"./Data/datos.rds")
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
                  SEXO+RENAL_CRONICA+EDAD,data=muerte)
