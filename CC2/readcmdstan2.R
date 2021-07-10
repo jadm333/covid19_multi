@@ -17,6 +17,7 @@ datos=readRDS("Data/datos.rds")
 mdat=datos$muerte
 hdat=datos$hosp
 
+#options(mc.cores = parallel::detectCores())
 
 ################
 ### jer2modi ###
@@ -150,8 +151,8 @@ mu_l_intervals_jer2 = mcmc_intervals(int_jer2_post,regex_pars = "mu_l\\W",prob_o
 ggsave("./CC2/jer2/mu_1_intervalsjer2.png",mu_l_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
 
-#x = model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
-#                 SEXO+RENAL_CRONICA,data=mdat)
+#x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
+#                 SEXO+RENAL_CRONICA+EDAD,data=mdat)
 
 beta_m_jer2=as_draws_df(fit_jer2$draws("beta"))
 
@@ -172,10 +173,11 @@ beta_intervals_jer2 = mcmc_intervals(exp(-beta_m_jer2),regex_pars = "beta",prob_
              "beta[4]"="Hypertension",
              "beta[5]"="Male/Female",
              "beta[6]"="Chronic Kidney",
-             "beta[7]"="Diabetes : obesity",
-             "beta[8]"="Diabetes : Hypertension",
-             "beta[9]"="Obesity : Hypertension",
-             "beta[10]"="Diabetes : Obesity : Hypertension"
+             "beta[7]"="Age",
+             "beta[8]"="Diabetes : obesity",
+             "beta[9]"="Diabetes : Hypertension",
+             "beta[10]"="Obesity : Hypertension",
+             "beta[11]"="Diabetes : Obesity : Hypertension"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -189,8 +191,7 @@ beta_intervals_jer2 = mcmc_intervals(exp(-beta_m_jer2),regex_pars = "beta",prob_
 ggsave("./CC2/jer2/beta_intervalsjer2.png",beta_intervals_jer2,width = 23.05,height = 17.57,units="cm")
 
 
-
-#x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR,data=hdat)
+#x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hdat)
 
 beta_h_m_jer2=as_draws_df(fit_jer2$draws("beta_h"))
 
@@ -209,7 +210,9 @@ beta_h_intervals_jer2 = mcmc_intervals(exp(-beta_h_m_jer2),regex_pars = "beta_h"
              "beta_h[2]"="Obesity",
              "beta_h[3]"="Chronic Kidney",
              "beta_h[4]"="Asthma",
-             "beta_h[5]"="Immunosuppression"
+             "beta_h[5]"="Immunosuppression",
+             "beta_h[6]"="Male/Female",
+             "beta_h[7]"="Age"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -220,7 +223,7 @@ beta_h_intervals_jer2 = mcmc_intervals(exp(-beta_h_m_jer2),regex_pars = "beta_h"
     hjust = "inward"
   )
 
-ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05,height = 17.57,units="cm",device = "png")
 
 ################
 ### loo jer2 ###
@@ -229,7 +232,7 @@ ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05
 loo_hosp_jer2=loo(fit_jer2$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_jer2=loo(fit_jer2$draws("log_lik_mort"), r_eff = NA)
-
+#saveRDS(loo_mort_jer2,"./CC2/jer2/loo_mort_jer2.rds")
 
 
 ############
@@ -287,7 +290,7 @@ ggsave("./CC2/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,hei
 loo_hosp_jer1=loo(fit_jer1$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_jer1=loo(fit_jer1$draws("log_lik_mort"), r_eff = NA)
-
+#saveRDS(loo_mort_jer1,"./CC2/jer1/loo_mort_jer1.rds")
 
 
 ##############
@@ -334,14 +337,16 @@ ggsave("./CC2/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.0
 loo_hosp_sinjer=loo(fit_sinjer$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
+#saveRDS(loo_mort_sinjer,"./CC2/sinjer/loo_mort_sinjer.rds")
 
-
-# loo_hosp_jer2modi=readRDS("./CC2/loo_hosp_jer2modi.rds")
-# loo_mort_jer2modi=readRDS("./CC2/loo_mort_jer2modi.rds")
-# loo_hosp_jer2=readRDS("./CC2/loo_hosp_jer2.rds")
-# loo_mort_jer2=readRDS("./CC2/loo_mort_jer2.rds")
-# loo_hosp_jer1=readRDS("./CC2/loo_hosp_jer1.rds")
-# loo_mort_jer1=readRDS("./CC2/loo_mort_jer1.rds")
+# loo_hosp_jer2modi=readRDS("./CC2/jer2modi/loo_hosp_jer2modi.rds")
+# loo_mort_jer2modi=readRDS("./CC2/jer2modi/loo_mort_jer2modi.rds")
+# loo_hosp_jer2=readRDS("./CC2/jer2/loo_hosp_jer2.rds")
+# loo_mort_jer2=readRDS("./CC2/jer2/loo_mort_jer2.rds")
+# loo_hosp_jer1=readRDS("./CC2/jer2/loo_hosp_jer1.rds")
+# loo_mort_jer1=readRDS("./CC2/jer1/loo_mort_jer1.rds")
+# loo_hosp_sinjer=readRDS("./CC2/jer2/loo_hosp_jer1.rds")
+# loo_mort_sinjer=readRDS("./CC2/jer1/loo_mort_jer1.rds")
 
 
 loo=loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1,loo_mort_sinjer)
