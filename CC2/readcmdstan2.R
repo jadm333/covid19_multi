@@ -116,13 +116,13 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 ppc_plot_jer2_mort <- ppc_dens_overlay(json_data_jer2$y_mort,y_rep_mort[1:200,]) + 
   labs(x="Days from hospitalization to death")
 
-ggsave("./CC2/jer2/ppc_plot_jer2_mort.png",ppc_plot_jer2_mort,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2/ppc_plot_jer2_mort.png",ppc_plot_jer2_mort,width = 23.05,height = 17.57,units="cm",bg = "white")
 
 
 
 ppc_plot_jer2_hosp <- ppc_dens_overlay(json_data_jer2$y_hosp,y_rep_hosp[1:200,])
 
-ggsave("./CC2/jer2/ppc_plot_jer2_hosp.png",ppc_plot_jer2_hosp,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2/ppc_plot_jer2_hosp.png",ppc_plot_jer2_hosp,width = 23.05,height = 17.57,units="cm",bg="white")
 
 ###########################
 ### mcmc intervals jer2 ###
@@ -181,14 +181,14 @@ beta_intervals_jer2 = mcmc_intervals(exp(-beta_m_jer2),regex_pars = "beta",prob_
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
-  xlim(c(.74,1.4)) +
+  xlim(c(.74,1.45)) +
   geom_text(
     data = out_all_beta_m_jer2,
-    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.4),
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.45),
     hjust = "inward"
   )
 
-ggsave("./CC2/jer2/beta_intervalsjer2.png",beta_intervals_jer2,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2/beta_intervalsjer2.png",beta_intervals_jer2,width = 23.05,height = 17.57,units="cm",bg="white")
 
 
 #x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hdat)
@@ -216,14 +216,14 @@ beta_h_intervals_jer2 = mcmc_intervals(exp(-beta_h_m_jer2),regex_pars = "beta_h"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
-  xlim(c(.9,1.25)) +
+  xlim(c(.9,1.3)) +
   geom_text(
     data = out_all_beta_h_m_jer2,
-    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.25),
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.3),
     hjust = "inward"
   )
 
-ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05,height = 17.57,units="cm",device = "png")
+ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05,height = 17.57,units="cm",bg = "white")
 
 ################
 ### loo jer2 ###
@@ -259,7 +259,7 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 
 ppc_plot_jer1_mort <- ppc_dens_overlay(json_data_jer1$y_mort,y_rep_mort[1:200,])
 
-ggsave("./CC2/jer1/ppc_plot_jer1_mort.png",ppc_plot_jer1_mort,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer1/ppc_plot_jer1_mort.png",ppc_plot_jer1_mort,width = 23.05,height = 17.57,units="cm",bg="white")
 
 
 ###########################
@@ -280,7 +280,7 @@ mu_l_intervals_jer1 = mcmc_intervals(int_jer1_post,regex_pars =  "mu_l\\W")+
 #colnames(int_jer1_post_ml)=c(levels(mdat$ENTIDAD_UM))
 #mu_l_intervals_jer1 <- mcmc_intervals(int_jer1_post_ml,regex_pars = (levels(mdat$ENTIDAD_UM)))+
 #  ggplot2::labs( x="log hazard ratio", title = "Mu_l Jer1")
-ggsave("./CC2/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,height = 17.57,units="cm",bg="white")
 
 
 ################
@@ -317,7 +317,7 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 
 ppc_plot_sinjer_mort <- ppc_dens_overlay(json_data_sinjer$y_mort,y_rep_mort[1:200,])
 
-ggsave("./CC2/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.05,height = 17.57,units="cm", bg = "white")
 
 
 #############################
