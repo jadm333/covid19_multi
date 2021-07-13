@@ -5,10 +5,10 @@ data {
   int<lower=1,upper=Gniv1> Niv1[N];
   int<lower=0> Gniv2;                  // num de grupos en niv1
   int<lower=1,upper=Gniv2> Niv2[N];
-  int<lower=0> Gnivh1;                  // num de grupos en niv1
-  int<lower=1,upper=Gnivh1> Nivh1[N2];
-  int<lower=0> Gnivh2;                  // num de grupos en niv1
-  int<lower=1,upper=Gnivh2> Nivh2[N2];
+  // int<lower=0> Gnivh1;                  // num de grupos en niv1
+  // int<lower=1,upper=Gnivh1> Nivh1[N2];
+  // int<lower=0> Gnivh2;                  // num de grupos en niv1
+  // int<lower=1,upper=Gnivh2> Nivh2[N2];
   //vector<lower=0>[N] y_mort; 
   real<lower=0> y_mort[N];
   //vector<lower=0>[N2] y_hosp; // id de censura (0=obs,1=censd,2=censi)
@@ -50,9 +50,9 @@ parameters {
   real mu_raw_mort;
   real mu_raw_hosp;
   vector[Gniv1] mu_l_raw;
-  vector[Gnivh1] mu_l_raw_h;
+  // vector[Gnivh1] mu_l_raw_h;
   vector[Gniv2] mu_l2_raw;
-  vector[Gnivh2] mu_l2_raw_h;// Coeficientes en el predictor lineal
+  // vector[Gnivh2] mu_l2_raw_h;// Coeficientes en el predictor lineal
   real<lower=0> alpha_raw;
   vector[M] theta;
   vector[M_hosp] theta_h;// parametro de escala
@@ -64,9 +64,9 @@ transformed parameters {
   //vector[N] linpred;
   real alpha;
   vector[Gniv1] mu_l;
-  vector[Gnivh1] mu_l_h;
+  // vector[Gnivh1] mu_l_h;
   vector[Gniv2] mu_l2;
-  vector[Gnivh2] mu_l2_h;
+  // vector[Gnivh2] mu_l2_h;
   vector<lower=0>[4] sigma;
 
   for (j in 1:4)
@@ -75,8 +75,8 @@ transformed parameters {
   alpha=exp(tau_al*alpha_raw);
   mu_l=sigma[1]*mu_l_raw;
   mu_l2=sigma[2]*mu_l2_raw;
-  mu_l_h=sigma[3]*mu_l_raw_h;
-  mu_l2_h=sigma[4]*mu_l2_raw_h;
+  // mu_l_h=sigma[3]*mu_l_raw_h;
+  // mu_l2_h=sigma[4]*mu_l2_raw_h;
   //linpred = x*beta;
  // mu = exp(linpred);
 
@@ -103,10 +103,8 @@ generated quantities {
   }
 
   for(i in 1:N2){
-    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+
-    mu_l_h[Nivh1[i]]+mu_l2_h[Nivh2[i]])/alpha));
-    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp+
-    mu_l_h[Nivh1[i]]+mu_l2_h[Nivh2[i]])/alpha));
+    log_lik_hosp[i]=weibull_lpdf(y_hosp[i] | alpha, exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
+    y_hosp_tilde[i]=weibull_rng(alpha,exp(-(Q_ast_h[i]*theta_h +mu_raw_hosp)/alpha));
   }
 
 }
