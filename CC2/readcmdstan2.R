@@ -44,7 +44,7 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 ppc_plot_modi_mort <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:200,]) + 
   labs(x="Days from hospitalization to death")
 
-ggsave("./CC2/jer2modi/ppc_plot_modi_mort.png",ppc_plot_modi_mort,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2modi/ppc_plot_modi_mort.png",ppc_plot_modi_mort,width = 23.05,height = 17.57,units="cm", bg="white")
 
 
 ###############################
@@ -66,7 +66,7 @@ mu_l2_intervals_jer2modi <- mcmc_intervals(intervals_jer2modi$post_warmup_draws,
                  ) +
   scale_y_discrete(labels=rev(ylabs_mu_l2_intervals_jer2modi),limits=rev)
 
-ggsave("./CC2/jer2modi/mu_12_intervalsjer2modi.png",mu_l2_intervals_jer2modi,width = 23.05,height = 52.71,units="cm")
+ggsave("./CC2/jer2modi/mu_12_intervalsjer2modi.png",mu_l2_intervals_jer2modi,width = 23.05,height = 52.71,units="cm",bg="white")
 
 
 mu_l_intervals_jer2modi <- mcmc_intervals(intervals_jer2modi$post_warmup_draws,regex_pars = c("mu_l\\W"),prob_outer = .95) +
@@ -75,7 +75,7 @@ mu_l_intervals_jer2modi <- mcmc_intervals(intervals_jer2modi$post_warmup_draws,r
   ) +
   scale_y_discrete(labels=rev(levels(mdat$ENTIDAD_UM)),limits=rev)
 
-ggsave("./CC2/jer2modi/mu_l_intervalsjer2modi.png",mu_l_intervals_jer2modi,width = 23.05,height = 17.57,units="cm")
+ggsave("./CC2/jer2modi/mu_l_intervalsjer2modi.png",mu_l_intervals_jer2modi,width = 23.05,height = 17.57,units="cm",bg="white")
 
 
 
@@ -83,9 +83,10 @@ ggsave("./CC2/jer2modi/mu_l_intervalsjer2modi.png",mu_l_intervals_jer2modi,width
 ### loo jer2modi ###
 ####################
 
-loo_hosp_jer2modi=loo(fit_jer2modi$draws("log_lik_hosp"), r_eff = NA)
+#loo_hosp_jer2modi=loo(fit_jer2modi$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_jer2modi=loo(fit_jer2modi$draws("log_lik_mort"), r_eff = NA)
+#saveRDS(loo_mort_jer2modi,"./CC2/jer2modi/loo_mort_jer2modi.rds")
 
 #loo_compare(loo1, loo2)
 
@@ -229,7 +230,7 @@ ggsave("./CC2/jer2/beta_h_intervalsjer2.png",beta_h_intervals_jer2,width = 23.05
 ### loo jer2 ###
 ################
 
-loo_hosp_jer2=loo(fit_jer2$draws("log_lik_hosp"), r_eff = NA)
+#loo_hosp_jer2=loo(fit_jer2$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_jer2=loo(fit_jer2$draws("log_lik_mort"), r_eff = NA)
 #saveRDS(loo_mort_jer2,"./CC2/jer2/loo_mort_jer2.rds")
@@ -287,7 +288,7 @@ ggsave("./CC2/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,hei
 ### loo jer1 ###
 ################
 
-loo_hosp_jer1=loo(fit_jer1$draws("log_lik_hosp"), r_eff = NA)
+#loo_hosp_jer1=loo(fit_jer1$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_jer1=loo(fit_jer1$draws("log_lik_mort"), r_eff = NA)
 #saveRDS(loo_mort_jer1,"./CC2/jer1/loo_mort_jer1.rds")
@@ -334,29 +335,26 @@ ggsave("./CC2/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.0
 ### loo sinjer ###
 ##################
 
-loo_hosp_sinjer=loo(fit_sinjer$draws("log_lik_hosp"), r_eff = NA)
+#loo_hosp_sinjer=loo(fit_sinjer$draws("log_lik_hosp"), r_eff = NA)
 
 loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 #saveRDS(loo_mort_sinjer,"./CC2/sinjer/loo_mort_sinjer.rds")
 
 # loo_hosp_jer2modi=readRDS("./CC2/jer2modi/loo_hosp_jer2modi.rds")
-# loo_mort_jer2modi=readRDS("./CC2/jer2modi/loo_mort_jer2modi.rds")
 # loo_hosp_jer2=readRDS("./CC2/jer2/loo_hosp_jer2.rds")
-# loo_mort_jer2=readRDS("./CC2/jer2/loo_mort_jer2.rds")
 # loo_hosp_jer1=readRDS("./CC2/jer2/loo_hosp_jer1.rds")
-# loo_mort_jer1=readRDS("./CC2/jer1/loo_mort_jer1.rds")
 # loo_hosp_sinjer=readRDS("./CC2/jer2/loo_hosp_jer1.rds")
+
+# loo_mort_jer2modi=readRDS("./CC2/jer2modi/loo_mort_jer2modi.rds")
+# loo_mort_jer2=readRDS("./CC2/jer2/loo_mort_jer2.rds")
+# loo_mort_jer1=readRDS("./CC2/jer1/loo_mort_jer1.rds")
 # loo_mort_sinjer=readRDS("./CC2/jer1/loo_mort_jer1.rds")
 
 
 loo=loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1,loo_mort_sinjer)
 loo=as.data.frame(loo)
-rownames(loo)=c("jer2", "jer1", "sinjer", "jer2Modi")
+rownames(loo)=c("jer2modi", "jer2", "jer1", "sinjer")
 write.csv(loo, file="./CC2/loo_comp.csv",row.names = T)
 #el modelo jer2modi dice ser peorsito que el jer2
-loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1,loo_hosp_sinjer)
+#loo_compare(loo_hosp_jer2modi,loo_hosp_jer2,loo_hosp_jer1,loo_hosp_sinjer)
 #aqui jer2modi es el peor
-
-
-
-#
