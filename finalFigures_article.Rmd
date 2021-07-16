@@ -32,12 +32,12 @@ hdat=datos$hosp
 ### jer2 ###
 ############
 
-mod_jer2 <- cmdstan_model("./CC/jer2/ModeloJer2QR_quant.stan")
+mod_jer2 <- cmdstan_model("./CC2/jer2/ModeloJer2QR_quant.stan")
 
 json_data_jer2 <- fromJSON(file="./Cmdstan/jer_2.json")
 
-fit_jer2 <- mod_jer2$generate_quantities(c("./CC/jer2/jer2_1.csv","./CC/jer2/jer2_2.csv",
-                                           "./CC/jer2/jer2_3.csv"), data = "./Cmdstan/jer_2.json",  
+fit_jer2 <- mod_jer2$generate_quantities(c("./CC2/jer2/jer2_1.csv","./CC2/jer2/jer2_2.csv",
+                                           "./CC2/jer2/jer2_3.csv"), data = "./Cmdstan/jer_2.json",  
                                          parallel_chains = 3)
 
 y_rep_mort=fit_jer2$draws("y_mort_tilde")
@@ -45,7 +45,7 @@ y_rep_mort=as_draws_matrix(y_rep_mort)
 ```
 
 ```{r loaded data, eval=FALSE, cache=TRUE, include=FALSE}
-ppc = read_rds("./CC/ppc_m_jer2_&_jer2modi.rds")
+ppc = read_rds("./CC2/ppc_m_jer2_&_jer2modi.rds")
 y_rep_mort_jer2 = ppc$jer2
 y_rep_mort_jer2modi = ppc$jer2modi
 
@@ -61,9 +61,9 @@ ppc_plot_jer2_mort
 ```{r mcmc_intervals jer2, eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE, include=FALSE}
 color_scheme_set("red")
 
-intervals_jer2=read_cmdstan_csv(files=c("./CC/jer2/jer2_1.csv",
-                                        "./CC/jer2/jer2_2.csv",
-                                        "./CC/jer2/jer2_3.csv"))
+intervals_jer2=read_cmdstan_csv(files=c("./CC2/jer2/jer2_1.csv",
+                                        "./CC2/jer2/jer2_2.csv",
+                                        "./CC2/jer2/jer2_3.csv"))
 
 int_jer2_post=as_draws_matrix(intervals_jer2$post_warmup_draws)
 
@@ -107,8 +107,8 @@ ppc_plot_modi_mort <- ppc_dens_overlay(json_data_jer2modi$y_mort,y_rep_mort[1:20
 ###############################
 
 intervals_jer2modi=read_cmdstan_csv(files = 
-                                      c("./CC/jer2modi/jer2modi_1.csv","./CC/jer2modi/jer2modi_2.csv",
-                                        "./CC/jer2modi/jer2modi_3.csv"))
+                                      c("./CC2/jer2modi/jer2modi_1.csv","./CC2/jer2modi/jer2modi_2.csv",
+                                        "./CC2/jer2modi/jer2modi_3.csv"))
 
 ylabs_mu_l2_intervals_jer2modi = str_replace_all(levels(mdat$SECENT),c("ESTATAL" = "State managed",
                                                                        "SE_MAR_PE" = "SEDENA/SEMAR/PEMEX", 
@@ -149,30 +149,30 @@ ppc_plot_modi_mort
 ```
 
 ```{r eval=FALSE, include=FALSE}
-knitr::include_graphics("./CC/jer2/mu_1_intervalsjer2.png")
+knitr::include_graphics("./CC2/jer2/mu_1_intervalsjer2.png")
 
 ```
 
 ```{r eval=FALSE, include=FALSE}
-knitr::include_graphics("./CC/jer2/mu_12_intervalsjer2.png")
+knitr::include_graphics("./CC2/jer2/mu_12_intervalsjer2.png")
 
 ```
 
 ```{r eval=FALSE, include=FALSE}
-knitr::include_graphics("./CC/jer2/ppc_plot_jer2_mort.png")
+knitr::include_graphics("./CC2/jer2/ppc_plot_jer2_mort.png")
 
 ```
 
 ```{r,fig.cap="Caption ENTIDAD_UM"}
-knitr::include_graphics("./CC/jer2modi/mu_l_intervalsjer2modi.png")
+knitr::include_graphics("./CC2/jer2modi/mu_l_intervalsjer2modi.png")
 ```
 
 ```{r,fig.cap="Caption SECENT"}
-knitr::include_graphics("./CC/jer2modi/mu_12_intervalsjer2modi.png")
+knitr::include_graphics("./CC2/jer2modi/mu_12_intervalsjer2modi.png")
 
 ```
 
 ```{r,fig.cap="Predictive distribution for deaths jer2modi"}
-knitr::include_graphics("./CC/jer2modi/ppc_plot_modi_mort.png")
+knitr::include_graphics("./CC2/jer2modi/ppc_plot_modi_mort.png")
 
 ```
