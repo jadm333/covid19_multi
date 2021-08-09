@@ -77,7 +77,79 @@ mu_l_intervals_jer2modi <- mcmc_intervals(intervals_jer2modi$post_warmup_draws,r
 
 ggsave("./CC2/jer2modi/mu_l_intervalsjer2modi.png",mu_l_intervals_jer2modi,width = 23.05,height = 17.57,units="cm",bg="white")
 
+#x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
+#                 SEXO+RENAL_CRONICA+EDAD,data=mdat)
 
+beta_m_jer2modi=as_draws_df(fit_jer2modi$draws("beta"))
+
+out_all_beta_m_jer2modi = beta_m_jer2modi %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_intervals_jer2modi = mcmc_intervals(exp(-beta_m_jer2modi),regex_pars = "beta",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta[1]"="Diabetes",
+             "beta[2]"="COPD",
+             "beta[3]"="Obesity",
+             "beta[4]"="Hypertension",
+             "beta[5]"="Male/Female",
+             "beta[6]"="Chronic Kidney",
+             "beta[7]"="Age",
+             "beta[8]"="Diabetes : obesity",
+             "beta[9]"="Diabetes : Hypertension",
+             "beta[10]"="Obesity : Hypertension",
+             "beta[11]"="Diabetes : Obesity : Hypertension"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.74,1.45)) +
+  geom_text(
+    data = out_all_beta_m_jer2modi,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.45),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/jer2modi/beta_intervalsjer2modi.png",beta_intervals_jer2modi,width = 23.05,height = 17.57,units="cm",bg="white")
+
+
+#x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hdat)
+
+beta_h_m_jer2modi=as_draws_df(fit_jer2modi$draws("beta_h"))
+
+out_all_beta_h_m_jer2modi = beta_h_m_jer2modi %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_h_intervals_jer2modi = mcmc_intervals(exp(-beta_h_m_jer2modi),regex_pars = "beta_h",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta_h[1]"="COPD",
+             "beta_h[2]"="Obesity",
+             "beta_h[3]"="Chronic Kidney",
+             "beta_h[4]"="Asthma",
+             "beta_h[5]"="Immunosuppression",
+             "beta_h[6]"="Male/Female",
+             "beta_h[7]"="Age"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.9,1.3)) +
+  geom_text(
+    data = out_all_beta_h_m_jer2modi,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.3),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/jer2modi/beta_h_intervalsjer2modi.png",beta_h_intervals_jer2modi,width = 23.05,height = 17.57,units="cm",bg = "white")
 
 ####################
 ### loo jer2modi ###
