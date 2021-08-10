@@ -97,7 +97,7 @@ beta_intervals_jer2modi = mcmc_intervals(exp(-beta_m_jer2modi),regex_pars = "bet
              "beta[2]"="COPD",
              "beta[3]"="Obesity",
              "beta[4]"="Hypertension",
-             "beta[5]"="Male/Female",
+             "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
              "beta[8]"="Diabetes : obesity",
@@ -137,7 +137,7 @@ beta_h_intervals_jer2modi = mcmc_intervals(exp(-beta_h_m_jer2modi),regex_pars = 
              "beta_h[3]"="Chronic Kidney",
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
-             "beta_h[6]"="Male/Female",
+             "beta_h[6]"="Female",
              "beta_h[7]"="Age"
     ),
     limits=rev)+
@@ -244,7 +244,7 @@ beta_intervals_jer2 = mcmc_intervals(exp(-beta_m_jer2),regex_pars = "beta",prob_
              "beta[2]"="COPD",
              "beta[3]"="Obesity",
              "beta[4]"="Hypertension",
-             "beta[5]"="Male/Female",
+             "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
              "beta[8]"="Diabetes : obesity",
@@ -284,7 +284,7 @@ beta_h_intervals_jer2 = mcmc_intervals(exp(-beta_h_m_jer2),regex_pars = "beta_h"
              "beta_h[3]"="Chronic Kidney",
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
-             "beta_h[6]"="Male/Female",
+             "beta_h[6]"="Female",
              "beta_h[7]"="Age"
     ),
     limits=rev)+
