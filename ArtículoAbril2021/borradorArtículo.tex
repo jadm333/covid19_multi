@@ -171,31 +171,6 @@
 
 
 % Pandoc citation processing
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc} % for calculating minipage widths
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage{bm}
 
@@ -222,9 +197,8 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{Multi-level multi-state modelling applied to hospital
-admission in mexican patients with
-COVID-19} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+\textbf\newline{Multi-level multi-state modelling applied to hospital admission in
+mexican patients with COVID-19} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
 }
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
@@ -332,14 +306,14 @@ for the final outcome of a COVID-19 patient.
 
 There have been many efforts using local data to understand how
 patients' comorbidities are affected by COVID-19; the work by
-Bello-Chavolla et al. {[}9{]} proposed a clinical score to predict
+Bello-Chavolla et al.~{[}9{]} proposed a clinical score to predict
 COVID-19 lethality, including different factors like type 2 diabetes
 mellitus and obesity among confirmed and negative COVID-19 cases in
 Mexico. This work lead to believe that obesity mediates 49.5\% of the
 effect of diabetes on COVID-19 lethality. Also, early-onset diabetes
 conferred an increased risk of hospitalization while obesity increased
 the risk ICU for admission and intubation. Moreover,
-Olivas-Mart\'{i}nez et al. {[}5{]} found that main risk factors
+Olivas-Mart\'{i}nezet al.~{[}5{]} found that main risk factors
 associated with in-hospital death were male sex, obesity and oxygen
 saturation \textless{} 80\% on admission using data from a SARS-CoV-2
 referral center in Mexico City.
@@ -558,7 +532,7 @@ with \texttt{CmdStan} {[}15{]}, using the No-U-Turn sampler {[}16{]}.
 A check on the posterior predictive distributions is essential for
 validating results. Additionaly, to choose the model that best fits the
 data we considered the leave-one-out cross-validation (LOO) proposed by
-Vehtari et al. {[}17{]}, which estimates pointwise out-of-sample
+Vehtari et al.~{[}17{]}, which estimates pointwise out-of-sample
 prediction accuracy, using the log-likelihood evaluated at the posterior
 simulations of the parameter values.
 
@@ -629,7 +603,7 @@ of patients.
 Figure 4 displays evidence that there is a peak on mortality rate 5 days
 after hospitalization, which could be related to the late
 hospitalization of patients with mild symptoms who developed ``happy
-hypoxemia,'\,' that is extremely low blood oxygenation, but without
+hypoxemia,'' that is extremely low blood oxygenation, but without
 sensation of dyspnea {[}18{]}. In Wuhan, within a cohort of patients
 infected with (SARS-COV-2) who did not present dyspnea 62\% showed
 severe disease and 46\% ended up intubated, ventilated or dead {[}19{]}.
@@ -700,152 +674,121 @@ hospitalization.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
 \leavevmode\hypertarget{ref-Carrillo-Vega2020}{}%
-\CSLLeftMargin{1. }
-\CSLRightInline{Carrillo-Vega MF, Salinas-Escudero G, García-Peña C,
-Gutiérrez-Robledo LM, Parra-Rodríguez L. {Early estimation of the risk
-factors for hospitalization and mortality by COVID-19 in Mexico}. PLOS
+1. Carrillo-Vega MF, Salinas-Escudero G, García-Peña C,
+Gutiérrez-Robledo LM, Parra-Rodríguez L. Early estimation of the risk
+factors for hospitalization and mortality by COVID-19 in Mexico. PLOS
 ONE. Public Library of Science; 2020;15: e0238905. Available:
-\url{https://doi.org/10.1371/journal.pone.0238905}}
+\url{https://doi.org/10.1371/journal.pone.0238905}
 
 \leavevmode\hypertarget{ref-OrganizacionPanamericanadelaSalud2021}{}%
-\CSLLeftMargin{2. }
-\CSLRightInline{Organización Panamericana de la Salud O. {Documentos
-t{é}cnicos de la OPS - Enfermedad por el Coronavirus (COVID-19)}
-{[}Internet{]}. 2021. Available:
-\url{https://www.paho.org/es/documentos-tecnicos-ops-enfermedad-por-coronavirus-covid-19}}
+2. Organización Panamericana de la Salud O. Documentos técnicos de la
+OPS - Enfermedad por el Coronavirus (COVID-19) {[}Internet{]}. 2021.
+Available:
+\url{https://www.paho.org/es/documentos-tecnicos-ops-enfermedad-por-coronavirus-covid-19}
 
 \leavevmode\hypertarget{ref-covidgob}{}%
-\CSLLeftMargin{3. }
-\CSLRightInline{Sitio oficial COVID-19 M{é}xico Direcci{ó}n General de
-Epidemiolog{í}a - Gobierno Federal. Available:
-\url{https://covid19.sinave.gob.mx/}}
+3. {[}Internet{]}. Sitio oficial COVID-19 México Dirección General de
+Epidemiología - Gobierno Federal. Available:
+\url{https://covid19.sinave.gob.mx/}
 
 \leavevmode\hypertarget{ref-SEDESA2021}{}%
-\CSLLeftMargin{4. }
-\CSLRightInline{SEDESA. {Base del Sistema Nacional de Vigilancia
-Epidemiologica para el seguimiento a posibles casos de COVID-19 en la
-Ciudad de M{é}xico} {[}Internet{]}. 2021. Available:
-\url{http://sinave.gob.mx/}}
+4. SEDESA. Base del Sistema Nacional de Vigilancia Epidemiologica para
+el seguimiento a posibles casos de COVID-19 en la Ciudad de México
+{[}Internet{]}. 2021. Available: \url{http://sinave.gob.mx/}
 
 \leavevmode\hypertarget{ref-olivas2021hospital}{}%
-\CSLLeftMargin{5. }
-\CSLRightInline{Olivas-Martínez A, Cárdenas-Fragoso JL, Jiménez JV,
-Lozano-Cruz OA, Ortiz-Brizuela E, Tovar-Méndez VH, et al. In-hospital
-mortality from severe COVID-19 in a tertiary care center in mexico city;
-causes of death, risk factors and the impact of hospital saturation.
-Plos one. Public Library of Science San Francisco, CA USA; 2021;16:
-e0245772. }
+5. Olivas-Martínez A, Cárdenas-Fragoso JL, Jiménez JV, Lozano-Cruz OA,
+Ortiz-Brizuela E, Tovar-Méndez VH, et al. In-hospital mortality from
+severe covid-19 in a tertiary care center in mexico city; causes of
+death, risk factors and the impact of hospital saturation. Plos one.
+Public Library of Science San Francisco, CA USA; 2021;16: e0245772.
 
 \leavevmode\hypertarget{ref-OCDE2019}{}%
-\CSLLeftMargin{6. }
-\CSLRightInline{OCDE. {Health at a Glance 2019: OECD Indicators.}
-{[}Internet{]}. OCDE; 2019 p. 4. Available:
-\url{https://www.oecd.org/mexico/health-at-a-glance-mexico-ES.pdf}}
+6. OCDE. Health at a Glance 2019: OECD Indicators. {[}Internet{]}. OCDE;
+2019 p. 4. Available:
+\url{https://www.oecd.org/mexico/health-at-a-glance-mexico-ES.pdf}
 
 \leavevmode\hypertarget{ref-burki2020covid}{}%
-\CSLLeftMargin{7. }
-\CSLRightInline{Burki T. COVID-19 in latin america. The Lancet
-Infectious Diseases. Elsevier; 2020;20: 547--548. }
+7. Burki T. COVID-19 in latin america. The Lancet Infectious Diseases.
+Elsevier; 2020;20: 547--548.
 
 \leavevmode\hypertarget{ref-ji2020potential}{}%
-\CSLLeftMargin{8. }
-\CSLRightInline{Ji Y, Ma Z, Peppelenbosch MP, Pan Q. Potential
-association between COVID-19 mortality and health-care resource
-availability. The Lancet Global Health. Elsevier; 2020;8: e480. }
+8. Ji Y, Ma Z, Peppelenbosch MP, Pan Q. Potential association between
+covid-19 mortality and health-care resource availability. The Lancet
+Global Health. Elsevier; 2020;8: e480.
 
 \leavevmode\hypertarget{ref-Bello-Chavolla2020}{}%
-\CSLLeftMargin{9. }
-\CSLRightInline{Bello-Chavolla OY, Bahena-López JP, Antonio-Villa NE,
-Vargas-Vázquez A, González-Díaz A, Márquez-Salinas A, et al. {Predicting
-Mortality Due to SARS-CoV-2: A Mechanistic Score Relating Obesity and
-Diabetes to COVID-19 Outcomes in Mexico}. Journal of Clinical
-Endocrinology and Metabolism. 2020;105: 2752--2761.
-doi:\href{https://doi.org/10.1210/clinem/dgaa346}{10.1210/clinem/dgaa346}}
+9. Bello-Chavolla OY, Bahena-López JP, Antonio-Villa NE, Vargas-Vázquez
+A, González-Díaz A, Márquez-Salinas A, et al. Predicting Mortality Due
+to SARS-CoV-2: A Mechanistic Score Relating Obesity and Diabetes to
+COVID-19 Outcomes in Mexico. Journal of Clinical Endocrinology and
+Metabolism. 2020;105: 2752--2761.
+doi:\href{https://doi.org/10.1210/clinem/dgaa346}{10.1210/clinem/dgaa346}
 
 \leavevmode\hypertarget{ref-flaxman2020estimating}{}%
-\CSLLeftMargin{10. }
-\CSLRightInline{Flaxman S, Mishra S, Gandy A, Unwin HJT, Mellan TA,
-Coupland H, et al. Estimating the effects of non-pharmaceutical
-interventions on COVID-19 in europe. Nature. Nature Publishing Group;
-2020;584: 257--261. }
+10. Flaxman S, Mishra S, Gandy A, Unwin HJT, Mellan TA, Coupland H, et
+al. Estimating the effects of non-pharmaceutical interventions on
+covid-19 in europe. Nature. Nature Publishing Group; 2020;584: 257--261.
 
 \leavevmode\hypertarget{ref-unwin2020state}{}%
-\CSLLeftMargin{11. }
-\CSLRightInline{Unwin HJT, Mishra S, Bradley VC, Gandy A, Mellan TA,
-Coupland H, et al. State-level tracking of COVID-19 in the united
-states. Nature communications. Nature Publishing Group; 2020;11: 1--9. }
+11. Unwin HJT, Mishra S, Bradley VC, Gandy A, Mellan TA, Coupland H, et
+al. State-level tracking of covid-19 in the united states. Nature
+communications. Nature Publishing Group; 2020;11: 1--9.
 
 \leavevmode\hypertarget{ref-Kirwan}{}%
-\CSLLeftMargin{12. }
-\CSLRightInline{Kirwan PD, Elgohari S, Jackson CH, Tom BDM, Angelis DD,
-Presanis AM. {Trends in risks of severe events and lengths of stay for
-COVID- 19 hospitalisations in England over the pre-vaccination era :
-results from the Public Health England SARI-Watch surveillance scheme}.
-: 1--45. Available:
-\url{https://arxiv.org/ftp/arxiv/papers/2103/2103.04867.pdf}}
+12. Kirwan PD, Elgohari S, Jackson CH, Tom BDM, Angelis DD, Presanis AM.
+Trends in risks of severe events and lengths of stay for COVID- 19
+hospitalisations in England over the pre-vaccination era : results from
+the Public Health England SARI-Watch surveillance scheme.: 1--45.
+Available: \url{https://arxiv.org/ftp/arxiv/papers/2103/2103.04867.pdf}
 
 \leavevmode\hypertarget{ref-stanmanual}{}%
-\CSLLeftMargin{13. }
-\CSLRightInline{Team SD. Stan user's guide {[}Internet{]}. Stan.
-Available:
-\url{https://mc-stan.org/docs/2_26/stan-users-guide/index.html}}
+13. Team SD. Stan user's guide {[}Internet{]}. Stan. Available:
+\url{https://mc-stan.org/docs/2_26/stan-users-guide/index.html}
 
 \leavevmode\hypertarget{ref-papaspiliopoulos2007general}{}%
-\CSLLeftMargin{14. }
-\CSLRightInline{Papaspiliopoulos O, Roberts GO, Sköld M. A general
-framework for the parametrization of hierarchical models. Statistical
-Science. JSTOR; 2007; 59--73. }
+14. Papaspiliopoulos O, Roberts GO, Sköld M. A general framework for the
+parametrization of hierarchical models. Statistical Science. JSTOR;
+2007; 59--73.
 
 \leavevmode\hypertarget{ref-standevelopment}{}%
-\CSLLeftMargin{15. }
-\CSLRightInline{Team SD. CmdStan: The command-line interface to stan
-{[}Internet{]}. CmdStan. Available:
-\url{https://mc-stan.org/users/interfaces/cmdstan}}
+15. Team SD. CmdStan: The command-line interface to stan {[}Internet{]}.
+CmdStan. Available: \url{https://mc-stan.org/users/interfaces/cmdstan}
 
 \leavevmode\hypertarget{ref-hoffman2014no}{}%
-\CSLLeftMargin{16. }
-\CSLRightInline{Hoffman MD, Gelman A. The no-u-turn sampler: Adaptively
-setting path lengths in hamiltonian monte carlo. J Mach Learn Res.
-2014;15: 1593--1623. }
+16. Hoffman MD, Gelman A. The no-u-turn sampler: Adaptively setting path
+lengths in hamiltonian monte carlo. J Mach Learn Res. 2014;15:
+1593--1623.
 
 \leavevmode\hypertarget{ref-Vehtari2017}{}%
-\CSLLeftMargin{17. }
-\CSLRightInline{Vehtari A, Gelman A, Gabry J. {Practical Bayesian model
-evaluation using leave-one-out cross-validation and WAIC}. Statistics
-and Computing. 2017;27: 1413--1432.
-doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}}
+17. Vehtari A, Gelman A, Gabry J. Practical Bayesian model evaluation
+using leave-one-out cross-validation and WAIC. Statistics and Computing.
+2017;27: 1413--1432.
+doi:\href{https://doi.org/10.1007/s11222-016-9696-4}{10.1007/s11222-016-9696-4}
 
 \leavevmode\hypertarget{ref-Gonzalez-Duarte2020}{}%
-\CSLLeftMargin{18. }
-\CSLRightInline{González-Duarte A, Norcliffe-Kaufmann L. {Is 'happy
-hypoxia' in COVID-19 a disorder of autonomic interoception? A
-hypothesis}. Clinical Autonomic Research. Springer Berlin Heidelberg;
-2020;30: 331--333.
-doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}}
+18. González-Duarte A, Norcliffe-Kaufmann L. Is 'happy hypoxia' in
+COVID-19 a disorder of autonomic interoception? A hypothesis. Clinical
+Autonomic Research. Springer Berlin Heidelberg; 2020;30: 331--333.
+doi:\href{https://doi.org/10.1007/s10286-020-00715-z}{10.1007/s10286-020-00715-z}
 
 \leavevmode\hypertarget{ref-Guan2020}{}%
-\CSLLeftMargin{19. }
-\CSLRightInline{Guan W, Ni Z, Hu Y, Liang W, Ou C, He J, et al.
-{Clinical Characteristics of Coronavirus Disease 2019 in China}. New
-England Journal of Medicine. 2020;382: 1708--1720.
-doi:\href{https://doi.org/10.1056/nejmoa2002032}{10.1056/nejmoa2002032}}
+19. Guan W-j, Ni Z-y, Hu Y, Liang W-h, Ou C-q, He J-x, et al. Clinical
+Characteristics of Coronavirus Disease 2019 in China. New England
+Journal of Medicine. 2020;382: 1708--1720.
+doi:\href{https://doi.org/10.1056/nejmoa2002032}{10.1056/nejmoa2002032}
 
 \leavevmode\hypertarget{ref-Mendoza-Popoca2020}{}%
-\CSLLeftMargin{20. }
-\CSLRightInline{Mendoza-Popoca CÚ, Suárez-Morales M. {Hospital
-reconversion in response to the COVID-19 pandemic}. Revista Mexicana de
-Anestesiologia. 2020;43: 151--156.
-doi:\href{https://doi.org/10.35366/92875}{10.35366/92875}}
+20. Mendoza-Popoca CÚ, Suárez-Morales M. Hospital reconversion in
+response to the COVID-19 pandemic. Revista Mexicana de Anestesiologia.
+2020;43: 151--156.
+doi:\href{https://doi.org/10.35366/92875}{10.35366/92875}
 
 \leavevmode\hypertarget{ref-UNAM2021}{}%
-\CSLLeftMargin{21. }
-\CSLRightInline{UNAM LI de TeIE(iSTARL del I de G de la. {Sistema de
-Informaci{ó}n de la Red IRAG} {[}Internet{]}. 2021. Available:
-\url{https://www.gits.igg.unam.mx/red-irag-dashboard/reviewHome}}
-
-\end{CSLReferences}
+21. UNAM LI de T e IE(L del I de G de la. Sistema de Información de la
+Red IRAG {[}Internet{]}. 2021. Available:
+\url{https://www.gits.igg.unam.mx/red-irag-dashboard/reviewHome}
 
 \newpage
 
@@ -869,7 +812,13 @@ Credible Interval)
 \textbf{Figure 4}. Posterior predictive distribution density plot for
 deaths
 
+\begin{center}\includegraphics[width=350px]{beta_intervalsjer2modi} \end{center}
+
+\textbf{Figure 5}. Effect on time from hospitalization to death by
+covariates included in the final model.
+
 \nolinenumbers
 
 
 \end{document}
+

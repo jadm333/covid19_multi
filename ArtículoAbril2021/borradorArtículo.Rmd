@@ -321,6 +321,11 @@ knitr::include_graphics("ppc_plot_modi_mort.png")
 ```
 \textbf{Figure 4}. Posterior predictive distribution density plot for deaths
 
+```{r,out.width="350px", echo =FALSE,fig.align='center'}
+knitr::include_graphics("beta_intervalsjer2modi.png")
+```
+\textbf{Figure 5}. Effect on time from hospitalization to death by covariates included in the final model.
+
 
 
   
