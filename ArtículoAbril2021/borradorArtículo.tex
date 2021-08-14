@@ -169,6 +169,46 @@
 \newcommand{\lorem}{{\bf LOREM}}
 \newcommand{\ipsum}{{\bf IPSUM}}
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % Pandoc citation processing
 
@@ -811,6 +851,266 @@ deaths
 
 \textbf{Figure 4}. Effect on time from hospitalization to death by
 covariates included in the final model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#table_Comorbidites = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)}
+\NormalTok{table_Comorbidities =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../ArtículoAbril2021/tableOne_comorbidities&Times.csv"}\NormalTok{,}\DataTypeTok{row.names=} \DecValTok{1}\NormalTok{)}
+\CommentTok{# tibble::print.tbl_df(table)}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(table_Comorbidities,}
+             \CommentTok{#row.names = T, }
+             \DataTypeTok{caption =} \StringTok{"Comorbidites"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lllllllr@{}}
+\caption{Comorbidites}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+State.managed\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+IMSS\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+ISSSTE\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Private.healthcare.provider\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+SEDENA.SEMAR.PEMEX\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+SSA\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+Missing.data\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+State.managed\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+IMSS\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+ISSSTE\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Private.healthcare.provider\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+SEDENA.SEMAR.PEMEX\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+SSA\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+Missing.data\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+n\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+8,462\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+237,913\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+37,652\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+17,121\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+20,580\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+139,164\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Time from symptoms to hospitalization (median {[}IQR{]})\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+3.10 {[}2.10, 7.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+5.10 {[}2.10, 8.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+5.10 {[}3.10, 7.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+6.10 {[}3.10, 9.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+4.10 {[}2.10, 7.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+5.10 {[}3.10, 7.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Time from hospitalization to death (median {[}IQR{]})\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+154.10 {[}12.10, 316.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+21.10 {[}6.10, 214.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+107.10 {[}8.10, 267.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+197.10 {[}60.10, 322.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+170.10 {[}17.10, 310.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+120.10 {[}8.10, 288.10{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Diabetes = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+5765 (68.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+159325 (67.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+23685 (63.5)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+12621 (74.8)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+14938 (73.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+94834 (68.6)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+COPD = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+8218 (97.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+228676 (96.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+35914 (96.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+16521 (97.7)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+20052 (98.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+134050 (96.8)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Obesity = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+6698 (79.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+190904 (80.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+30346 (81.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+14034 (83.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+15120 (73.8)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+105608 (76.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Hypertension = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+5354 (63.4)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+140079 (58.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+21399 (57.4)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+11497 (68.1)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+14119 (69.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+91925 (66.4)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Female = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+5005 (59.1)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+140865 (59.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+21729 (57.7)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+11385 (66.5)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+12707 (61.7)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+82163 (59.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Chronic Kidney = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+8040 (95.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+222392 (93.6)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+35073 (94.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+16336 (96.7)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+19899 (97.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+133700 (96.6)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Age = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+57.00 {[}46.00, 68.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+60.00 {[}49.00, 70.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+62.00 {[}51.00, 72.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+56.00 {[}45.00, 68.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+59.00 {[}47.00, 70.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+57.00 {[}45.00, 67.00{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Asthma = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+8268 (97.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+233016 (98.1)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+36561 (97.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+16593 (98.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+20128 (98.3)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+135523 (97.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Immunosuppression = NO (\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+8280 (98.1)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+232306 (97.8)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+36541 (98.0)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+16543 (97.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+20223 (98.8)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+135858 (98.1)\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.4\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \nolinenumbers
 

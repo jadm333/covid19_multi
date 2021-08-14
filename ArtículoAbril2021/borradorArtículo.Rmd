@@ -321,7 +321,14 @@ knitr::include_graphics("beta_intervalsjer2modi.png")
 ```
 \textbf{Figure 4}. Effect on time from hospitalization to death by covariates included in the final model.
 
-
+```{r}
+#table_Comorbidites = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
+table_Comorbidities = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
+# tibble::print.tbl_df(table)
+knitr::kable(table_Comorbidities,
+             #row.names = T, 
+             caption = "Comorbidites")
+```
 
   
 
