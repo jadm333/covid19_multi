@@ -325,9 +325,9 @@ knitr::include_graphics("beta_intervalsjer2modi.png")
 #table_Comorbidites = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
 table_Comorbidities = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
 # tibble::print.tbl_df(table)
-knitr::kable(table_Comorbidities,
-             #row.names = T, 
-             caption = "Comorbidites")
+#knitr::kable(table_Comorbidities,
+#             #row.names = T, 
+#             caption = "Comorbidites")
 ```
 
   
