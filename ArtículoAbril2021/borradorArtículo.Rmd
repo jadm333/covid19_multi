@@ -18,6 +18,8 @@ output: rticles::plos_article
 csl: plos.csl
 header-includes:
   - \usepackage{bm}
+  - \usepackage{longtable}
+  - \usepackage{booktabs}
 ---
 
 \newcommand{\N}{\mathbb{N}}
@@ -321,13 +323,22 @@ knitr::include_graphics("beta_intervalsjer2modi.png")
 ```
 \textbf{Figure 4}. Effect on time from hospitalization to death by covariates included in the final model.
 
-```{r}
-#table_Comorbidites = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
+```{r echo=FALSE}
 table_Comorbidities = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
-# tibble::print.tbl_df(table)
-#knitr::kable(table_Comorbidities,
-#             #row.names = T, 
-#             caption = "Comorbidites")
+colnames(table_Comorbidities) = c("State managed",
+                                  "IMSS",
+                                  "ISSSTE",
+                                  "Private",
+                                  "SEDENA-SEMAR-PEMEX",
+                                  "SSA",
+                                  "Missing data")
+for(i in 1:ncol(table_Comorbidities)){
+  table_Comorbidities[,i] =  prettyNum(table_Comorbidities[,i],big.mark = ",",scientific = F)
+}
+
+knitr::kable(table_Comorbidities,
+             #row.names = T, 
+             caption = "Comorbidites")
 ```
 
   

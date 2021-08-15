@@ -31,3 +31,6 @@ df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
                   HIPERTENSION=as.factor(HIPERTENSION),ORIGEN=as.factor(ORIGEN),SEXO=as.factor(SEXO),
                   INTUBADO=as.factor(INTUBADO),RENAL_CRONICA=as.factor(RENAL_CRONICA),
                   SECENT=factor(paste(ENTIDAD_UM,SECTOR,sep = " ")))
+
+rm(df)
+gc()

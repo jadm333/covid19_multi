@@ -2,7 +2,6 @@ source("./helpers/creation_df2.R")
 
 library(tableone)
 
-colnames(df2)
 myVars = c("tiempo_hosp",
            "tiempo_muerte",
            "DIABETES",
@@ -18,8 +17,7 @@ myVars = c("tiempo_hosp",
 
 
 t = CreateTableOne(vars=myVars,strata="SECTOR",data=df2)
-t2 = as.data.frame(print(t, formatOptions = list(big.mark = ","),nonnormal = T,missing=T,)) %>% 
-  select(-c(test,p))
+t2 = as.data.frame(print(t, formatOptions = list(big.mark = ","),nonnormal = T,missing=T,test=F))
 
 colnames(t2) = c("State managed",
                  "IMSS",
@@ -43,4 +41,4 @@ rownames(t2) = c("n",
                  "Immunosuppression = NO (%)"
                  )
 
-#write.csv(t2,"./ArtículoAbril2021/tableOne_comorbidities&Times.csv")
+#write.csv(t2,"./ArtÃ­culoAbril2021/tableOne_comorbidities&Times.csv")
