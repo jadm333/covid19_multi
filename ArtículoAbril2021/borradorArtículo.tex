@@ -327,10 +327,11 @@ services. There are different public institutions which provide care to
 different populations: federal government employees (ISSSTE), the army
 (SEDENA) and navy personnel (SEMAR), workers from the state-owned oil
 company (PEMEX) and private companies employees (IMSS). There are also
-public hospitals for population with no health service coverage (SSA).
-In general, the care within different healthcare providers cannot be
-considered homogeneous, therefore it is likely relevant and informative
-for the final outcome of a COVID-19 patient.
+public hospitals for population with no health service coverage (SSA)
+and healthcare provided by each state (State managed). In general, the
+care within different healthcare providers cannot be considered
+homogeneous, therefore it is likely relevant and informative for the
+final outcome of a COVID-19 patient.
 
 There have been many efforts using local data to understand how
 patients' comorbidities are affected by COVID-19; the work by
@@ -385,10 +386,10 @@ new variants and increased transmission rates are present.
 \subsection{Data Source and Study
 Population}\label{data-source-and-study-population}}
 
-We conducted an observation study using the official database from the
+We conducted an observational study using the official database from the
 Mexican Ministry of Health, these data provide an overview of hospital
 admissions, deaths and the period of time between hospitalizations and
-first COVID-19 symptoms between March and January 2020. The data
+first COVID-19 symptoms between March 2020 and June 2021. The data
 analyzed included confirmed individuals with a positive test for
 SARS-CoV-2 {[}3{]}; in late 2020, the Mexican Ministry of Health change
 its confirmed definition with the objective of including postmortem
@@ -413,7 +414,7 @@ pulmonary disease (COPD), obesity, chronic kidney disease (CKD), asthma
 and immune-suppression. For time from hospitalization to death, we
 included the following variables: presence of type 2 diabetes mellitus,
 COPD, obesity, hypertension, CKD and the interaction between obesity,
-diabetes and hypertension. Both times also included age and sex as
+diabetes and hypertension. Both outcomes also included age and sex as
 predictors.
 
 About 87\% of the population in Mexico is affiliated to some healthcare
@@ -421,9 +422,9 @@ provider, but during this pandemic the mexican government established a
 list of hospitals designated to treat COVID-19 patients without any
 affiliation distinction. In this study we identified 6 different
 healthcare providers which were classified according to their sectors
-IMSS, ISSSTE, SEDENA/SEMAR/PEMEX, SSA, ESTATALES (healthcare provider
-within each state) these five constitute public care providers while the
-sixth sector is private hospitals.
+IMSS, ISSSTE, SEDENA/SEMAR/PEMEX (lumped into only one category), SSA
+State managed (healthcare provider within each state) and finally
+private healthcare providers.
 
 \hypertarget{modelling}{%
 \subsection{Modelling}\label{modelling}}
@@ -438,6 +439,10 @@ We developed four different models for the trajectories of interest,
 
 \vspace{5mm}
 
+Each model captures different levels of information, as more levels were
+included it was possible to differentiate the results according to the
+added information.
+
 We used a \(\mathbf{QR}\) reparameterization for the predictor matrix
 \(\mathbf{X}\), i.e.~\(\mathbf{X}=\mathbf{QR}\) , where \(\mathbf{Q}\)
 is an orthogonal matrix and \(\mathbf{R}\) is an upper triangular
@@ -446,38 +451,37 @@ is available on the location of the predictors' coefficients {[}13{]}.
 Moreover, we used a noncentered parameterization {[}14{]} by shifting
 the data's correlation with the parameters to the hyperparameters.
 
-Each model captures different levels of information, as more levels were
-included it was possible to differentiate the results according to the
-added information.
-
 \hypertarget{model-i-one-level}{%
 \subsubsection{Model I: One level}\label{model-i-one-level}}
 
-Let \(M\) and \(H\) correspond to survival times for deaths and
-hospitalizations, respectively. We assumed that these times are
-observations from two independent Weibull distributions, such that,
+For each observation \(i=1,\dots,n_s\) and predictor
+\(j = 1,\dots,m_p, \space\), let \(M_i\) and \(H_i\) correspond to
+survival times for deaths and hospitalizations, respectively. Given that
+observations and predictors are different between both survival times,
+\(s\) and \(p\) denote this difference, respectively. We assumed that
+these times are observations from two independent Weibull distributions,
+such that,
 
 \[
 \begin{aligned}
- {M}  &\sim Weibull(\alpha,\mathbf{\eta})\\
- {H}  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
- \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right) \\
- \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
- \alpha&=\exp(\alpha_r*10) \\
- \alpha_r&\sim N(0,1) \\
+ {M_i}  &\sim Weibull(\alpha,\eta_i)\\
+ {H_i}  &\sim Weibull(\alpha,\upsilon_i) \\
+ \eta_i &= \exp\left(-\frac{\mu_m+Q_{ij}^*\vartheta_{j}}{\alpha}\right) \\
+ \upsilon_i &= \exp\left(-\frac{\mu_h+Q_{ij}^{**}\theta_{j}}{\alpha}\right) \\
+ \alpha&=\exp(\alpha^r*10) \\
+ \alpha^r&\sim N(0,1) \\
  \mu_m,\mu_h &\sim N(0,10) \\
- \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+ \vartheta_j,\theta_j &\sim U(-\infty,\infty) \\
 \end{aligned}
 \]
 
-where \(\mathbf{Q}^*\) and \(\mathbf{Q}^{**}\) are the orthogonal
-matrices from the \(\mathbf{QR}\) reparameterization,
-\(\mathbf{\theta}\) and \(\mathbf{\vartheta}\) are the coefficient
-vectors for deaths and hospitalizations, \(\mu_m\) and \(\mu_h\)
-represent the global intercepts for deaths and hospitalizations,
-\(alpha\) denotes the shape of the Weibull distribution, and
-\(\alpha_r\) is an extra parameter for the noncentered parameterization
-This part of the model is described in red in Figure 1.
+where \(Q_{ij}^*\) and \(Q_{ij}^{**}\) are the orthogonal matrices from
+the \(\mathbf{QR}\) reparameterization, \(\theta_j\) and \(\vartheta_j\)
+are the coefficient vectors for deaths and hospitalizations, \(\mu_m\)
+and \(\mu_h\) represent the global intercepts for deaths and
+hospitalizations, \(alpha\) denotes the shape of the Weibull
+distribution, and \(\alpha_r\) is an extra parameter for the noncentered
+parameterization This part of the model is described in red in Figure 1.
 
 \hypertarget{model-ii-two-levels}{%
 \subsubsection{Model II: Two levels}\label{model-ii-two-levels}}
@@ -487,47 +491,50 @@ Mexico as a random effect to explain deaths, such that,
 
 \[
 \begin{aligned}
- M_l   &\sim Weibull(\alpha,\mathbf{\eta})\\
- H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
- \mathbf{\eta} &= \exp\left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha}\right),\space\space l=1,...,32\\
- \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
- \mathbf{\mu}_l&=\sigma*\mathbf{\mu}_l^r \\
+ {M_i}  &\sim Weibull(\alpha,\eta_i)\\
+ {H_i}  &\sim Weibull(\alpha,\upsilon_i) \\
+ \eta_i &= \exp\left(-\frac{\mu_m+\mu_l^r+Q_{ij}^*\vartheta_{j}}{\alpha}\right)\space\space l=1,...,32 \\
+ \upsilon_i &= \exp\left(-\frac{\mu_h+Q_{ij}^{**}\theta_{j}}{\alpha}\right) \\
+ \mu_l&=\sigma*\mathbf{\mu}_l^r \\
  \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
  \mu^r_l&\sim N(0,1) \\
  \sigma&\sim t^+_3(0,1) \\
  \mu_m,\mu_h &\sim N(0,10) \\
- \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+ \vartheta_j,\theta_j &\sim U(-\infty,\infty) \\
 \end{aligned}
-\] where \(\mathbf{\mu}_l, \space l=1,...,32\) represents a local
-intercept per state (random effect), \(\mathbf{\mu}^r_l\) denotes the
-extra paramateres for the noncentered parameterization, and \(\sigma\)
-is the dispersion parameter of the local intercepts. This part of the
-model is described in light red in Figure 1.
+\]
+
+where \(\mu_l, \space l=1,...,32\) represents a local intercept per
+state (random effect), \(\mu^r_l\) denotes the extra parameters for the
+noncentered parameterization, and \(\sigma\) is the dispersion parameter
+of the local intercepts. This part of the model is described in light
+red in Figure 1.
 
 \hypertarget{model-iii-three-levels}{%
 \paragraph{Model III: Three levels}\label{model-iii-three-levels}}
 
 Based on Model II, we considered an extra random effect
-\(\mathbf{\mu}_k, \space l=1,...,6\) which takes into account the
-healthcare provider previously described. Because of this, an extra
-dispersion parameter \(\sigma\) is added. This part of the model is
+\(\mu_k, \space k=1,...,6\) which takes into account the healthcare
+provider previously described. Because of this, an extra dispersion
+parameter \(\sigma_o,\space o=1,2\) is added. This part of the model is
 described in light pink in Figure 1.
 
 \[
 \begin{aligned}
- M   &\sim Weibull(\alpha,\mathbf{\eta})\\
- H  &\sim Weibull(\alpha,\mathbf{\upsilon}) \\
- \mathbf{\eta} &= \exp \left(-\frac{\mu_m+\mathbf{\mu}_l^r+\mathbf{\mu}_k^r+\mathbf{Q}^*\mathbf{\vartheta}}{\alpha} \right),\space\space l=1,...,32,\space k=1,...,5\\
- \mathbf{\upsilon} &= \exp\left(-\frac{\mu_h+\mathbf{Q}^{**}\mathbf{\theta}}{\alpha}\right) \\
-  \mathbf{\mu}_l&=\sigma_l*\mathbf{\mu}_l^r, \space\space l=1,2 \\
- \mathbf{\mu}_k&=\sigma_l*\mathbf{\mu}_k^r \\
+ {M_i}  &\sim Weibull(\alpha,\eta_i)\\
+ {H_i}  &\sim Weibull(\alpha,\upsilon_i) \\
+ \eta_i &= \exp\left(-\frac{\mu_m+\mu_l^r+\mu_k^r+Q_{ij}^*\vartheta_{j}}{\alpha}\right)\space\space l=1,...,32,\space k=1,...,6 \\
+ \upsilon_i &= \exp\left(-\frac{\mu_h+Q_{ij}^{**}\theta_{j}}{\alpha}\right) \\
+ \mu_l&=\sigma_o*\mathbf{\mu}_l^r, \space\space o=1,2 \\
+ \mu_k&=\sigma_o*\mathbf{\mu}_k^r \\
+ \mu_l&=\sigma*\mathbf{\mu}_l^r \\
  \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
- \mu^r_l,\mu^r_k &\sim N(0,1) \\
- \sigma_l&\sim t^+_3(0,1) \\
+ \mu^r_l&\sim N(0,1) \\
+ \sigma_o&\sim t^+_3(0,1) \\
  \mu_m,\mu_h &\sim N(0,10) \\
- \mathbf{\vartheta},\mathbf{\theta} &\sim U(-\infty,\infty) \\
+ \vartheta_j,\theta_j &\sim U(-\infty,\infty) \\
 \end{aligned}
 \]
 
