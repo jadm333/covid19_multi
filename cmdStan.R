@@ -1,4 +1,4 @@
-#Aquí se genera df2
+#Aqu? se genera df2
 source("./helpers/creation_df2.R")
 
 library(cmdstanr)
@@ -154,7 +154,6 @@ if(generateFit){
   
   fit_jer2modi$save_object(file = "Fit/random2mod.rds")
 }
-
 
 
 generateLong = F
