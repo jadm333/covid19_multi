@@ -140,6 +140,27 @@ write_stan_json(jer_2modi_h,file = "Cmdstan/jer_2modi.json")
 
 ##### Extras #######
 
+generateFit = T
+
+if(generateFit){
+  
+  mod_jer2modi <- cmdstan_model("../covid19_multi/CC2/jer2modi/ModeloJer2QRhosp_quant.stan")
+  
+  json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
+  
+  fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC2/jer2modi/jer2modi_1.csv","./CC2/jer2modi/jer2modi_2.csv",
+                                                     "./CC2/jer2modi/jer2modi_3.csv"), data = "./Cmdstan/jer_2modi.json",
+                                                   parallel_chains = 3)
+  
+  fit_jer2modi$save_object(file = "Fit/random2mod.rds")
+}
+
+
+
+generateLong = F
+
+
+fitJer2QRmodi_h=readRDS("Fit/fitJer2QRmodi_h.rds")
 
 y_rep_hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
 y_rep_hosp=as_draws_matrix(y_rep_hosp)
@@ -157,7 +178,6 @@ fitJerQR$save_object(file = "Fit/fitJerQR.rds")
 fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
 fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
-fitJer2QRmodi_h=readRDS("Fit/fitJer2QRmodi_h.rds")
 
 longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
 

@@ -1,0 +1,8 @@
+rows
+
+df: 7289606
+df2: 460892
+muerte_na:
+muerte:
+hosp_na:
+hosp:
