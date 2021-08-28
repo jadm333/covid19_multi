@@ -144,7 +144,8 @@ generateFit = T
 
 if(generateFit){
   
-  mod_jer2modi <- cmdstan_model("../covid19_multi/CC2/jer2modi/ModeloJer2QRhosp_quant.stan")
+  library(rjson)
+  mod_jer2modi <- cmdstan_model("./CC2/jer2modi/ModeloJer2QRhosp_quant.stan")
   
   json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
   
@@ -155,37 +156,54 @@ if(generateFit){
   fit_jer2modi$save_object(file = "Fit/random2mod.rds")
 }
 
+saveRDS(fit_jer2modi,"Fit/random2mod.rds")
 
-generateLong = F
+
+generateLong = T
+y_rep__hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
+y_rep__hosp_2modi=fit_jer2modi$draws("y_hosp_tilde")
+
+if(generateLong) {
+  
+  fitJer2QRmodi_h=readRDS("Fit/random2mod.rds")
+  
+  y_rep_hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
+  y_rep_hosp=as_draws_matrix(y_rep_hosp)
+  
+  y_rep_mort=fitJer2QRmodi_h$draws("y_mort_tilde")
+  y_rep_mort=as_draws_matrix(y_rep_mort)
+  
+  longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
+  
+  longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mort_tilde[id]) %>% ungroup()
+  
+  datos=readRDS("Data/datos.rds")
+  mdat=datos$muerte
+  #hdat=datos$hosp
+  
+  Estados <- mdat %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
+  
+  longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id")) %>%
+    #write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_hosp.csv")
+    write_csv("~/Escritorio/covid19_epi/data/longFormat_y_rep_hosp.csv")
+  
+  longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id")) %>%
+    #write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_mort.csv")
+    write_csv("~/Escritorio/covid19_epi/data/longFormat_y_rep_mort.csv")
+}
 
 
-fitJer2QRmodi_h=readRDS("Fit/fitJer2QRmodi_h.rds")
 
-y_rep_hosp=fitJer2QRmodi_h$draws("y_hosp_tilde")
-y_rep_hosp=as_draws_matrix(y_rep_hosp)
 
-y_rep_mort=fitJer2QRmodi_h$draws("y_mort_tilde")
-y_rep_mort=as_draws_matrix(y_rep_mort)
-
-ppc_dens_overlay(jer_2modi_h$y_hosp, y_rep_hosp[1:200, ])
-ppc_dens_overlay(jer_2modi_h$y_mort, y_rep_mort[1:200, ])
+#ppc_dens_overlay(jer_2modi_h$y_hosp, y_rep_hosp[1:200, ])
+#ppc_dens_overlay(jer_2modi_h$y_mort, y_rep_mort[1:200, ])
 
 t=fitJer2QRmodi_h$summary(c("mu_l2_h","mu_raw_hosp"))
 
-fitQR$save_object(file = "Fit/fitQR.rds")
-fitJerQR$save_object(file = "Fit/fitJerQR.rds")
-fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
-fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
+#fitQR$save_object(file = "Fit/fitQR.rds")
+#fitJerQR$save_object(file = "Fit/fitJerQR.rds")
+#fitJer2QR$save_object(file = "Fit/fitJer2QR.rds")
+#fitJer2QRmodi_h$save_object(file = "Fit/fitJer2QRmodi_h.rds")
 
 
-longFormat_y_rep_hosp <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_hosp_tilde[id]) %>% ungroup()
 
-longFormat_y_rep_mort <- gather_draws(as_draws_df(fitJer2QRmodi_h$draws()),y_mort_tilde[id]) %>% ungroup()
-
-Estados <- muerte %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
-
-longFormat_y_rep_hosp <- left_join(Estados,longFormat_y_rep_hosp,by=c("id"="id")) %>%
-  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_hosp.csv")
-
-longFormat_y_rep_mort <- left_join(Estados,longFormat_y_rep_mort,by=c("id"="id")) %>%
-  write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_mort.csv")
