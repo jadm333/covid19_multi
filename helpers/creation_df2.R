@@ -8,8 +8,8 @@ library(lubridate)
 df=read_csv("Data/210617COVID19MEXICO.csv",na=c("","NA","97","98","99","9999-99-99"))
 corte=ymd("2021-06-17")
 
-#df=cambioCVE(df)
-df=cambioCVE_nombreEstado_completo(df)
+df=cambioCVE(df)
+#df=cambioCVE_nombreEstado_completo(df)
 
 df2=df %>% distinct(ID_REGISTRO,.keep_all = T) %>%
   filter(CLASIFICACION_FINAL==1 | CLASIFICACION_FINAL==2 | CLASIFICACION_FINAL==3,
