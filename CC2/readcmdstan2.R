@@ -27,9 +27,48 @@ mod_jer2modi <- cmdstan_model("./CC2/jer2modi/ModeloJer2QRhosp_quant.stan")
 
 json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
 
-fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC2/jer2modi/jer2modi_1.csv","./CC2/jer2modi/jer2modi_2.csv",
-                                                   "./CC2/jer2modi/jer2modi_3.csv"), data = "./Cmdstan/jer_2modi.json",
+fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC2/jer2modi/jer2modi_1.csv"), data = "./Cmdstan/jer_2modi.json",
                                                  parallel_chains = 3)
+  
+
+#############################
+### LongFormat_y_re_mort  ###
+### LongFormat_y_re_hostp ###
+#############################
+
+#Ultima actualizacion: se utilizo solo una cadena para generar los long format, no tres
+
+generateLong_hosp = F
+generateLong_mort = F
+
+if(generateLong_hosp) {
+  
+  df_hosp =as_draws_df(fit_jer2modi$draws("y_hosp_tilde")) %>% group_by(.chain) %>%
+    filter(.draw %in% 1:10) %>% ungroup()
+  
+  longFormat_y_rep_hosp = gather_draws(df_hosp,y_hosp_tilde[id])
+  
+  Estados_h = hdat %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
+  
+  longFormat_y_rep_hosp <- left_join(Estados_h,longFormat_y_rep_hosp,by=c("id"="id")) %>%
+    #write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_hosp.csv")
+    write_csv("~/covid19_epi/data/longFormat_y_rep_hosp.csv")
+  
+}
+
+if(generateLong_mort) {
+  
+  df_mort = as_draws_df(fit_jer2modi$draws("y_mort_tilde")) %>% group_by(.chain) %>%
+    filter(.draw %in% 1:10) %>% ungroup()
+  
+  longFormat_y_rep_mort = gather_draws(df_mort,y_mort_tilde[id])
+  
+  Estados_m = mdat %>% mutate(id=row_number()) %>% select(ENTIDAD_UM,id)
+  
+  longFormat_y_rep_mort <- left_join(Estados_m,longFormat_y_rep_mort,by=c("id"="id")) %>%
+    #write_csv("~/Documents/Github/covid19_epi/data/longFormat_y_rep_mort.csv")
+    write_csv("~/covid19_epi/data/longFormat_y_rep_mort.csv")
+}
 
 
 ##########################
