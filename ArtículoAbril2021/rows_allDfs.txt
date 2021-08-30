@@ -2,7 +2,7 @@ rows
 
 df: 7289606
 df2: 460892
-muerte_na:
-muerte:
-hosp_na:
-hosp:
+muerte_na:42206
+muerte:41851
+hosp_na:82420
+hosp:81824
