@@ -27,7 +27,9 @@ mod_jer2modi <- cmdstan_model("./CC2/jer2modi/ModeloJer2QRhosp_quant.stan")
 
 json_data_jer2modi <- fromJSON(file="./Cmdstan/jer_2modi.json")
 
-fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC2/jer2modi/jer2modi_1.csv"), data = "./Cmdstan/jer_2modi.json",
+fit_jer2modi <- mod_jer2modi$generate_quantities(c("./CC2/jer2modi/jer2modi_1.csv",
+                                                   "./CC2/jer2modi/jer2modi_2.csv",
+                                                   "./CC2/jer2modi/jer2modi_3.csv"), data = "./Cmdstan/jer_2modi.json",
                                                  parallel_chains = 3)
   
 
@@ -75,8 +77,14 @@ if(generateLong_mort) {
 ### plots ppc jer2modi ###
 ##########################
 
-#y_rep_hosp=fit_jer2modi$draws("y_hosp_tilde")
-#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_hosp=fit_jer2modi$draws("y_hosp_tilde")
+y_rep_hosp=as_draws_matrix(y_rep_hosp)
+
+ppc_plot_modi_hosp <- ppc_dens_overlay(json_data_jer2modi$y_hosp,y_rep_hosp[1:200,])
+
+ggsave("./CC2/jer2modi/ppc_plot_modi_hosp.png",ppc_plot_modi_hosp,width = 23.05,height = 17.57,units="cm",bg="white")
+
+
 y_rep_mort=fit_jer2modi$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
@@ -118,6 +126,10 @@ ggsave("./CC2/jer2modi/mu_l_intervalsjer2modi.png",mu_l_intervals_jer2modi,width
 
 #x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
 #                 SEXO+RENAL_CRONICA+EDAD,data=mdat)
+
+###############################
+### Beta intervals jer2modi ###
+###############################
 
 beta_m_jer2modi=as_draws_df(fit_jer2modi$draws("beta"))
 
@@ -364,8 +376,14 @@ fit_jer1<- mod_jer1$generate_quantities(c("./CC2/jer1/jer1_1.csv","./CC2/jer1/je
 ### plots ppc jer1 ###
 ######################
 
-#y_rep_hosp=fit_jer1$draws("y_hosp_tilde")
-#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_hosp=fit_jer1$draws("y_hosp_tilde")
+y_rep_hosp=as_draws_matrix(y_rep_hosp)
+
+ppc_plot_jer1_hosp <- ppc_dens_overlay(json_data_jer1$y_hosp,y_rep_hosp[1:200,])
+
+ggsave("./CC2/jer1/ppc_plot_jer1_hosp.png",ppc_plot_jer1_hosp,width = 23.05,height = 17.57,units="cm", bg = "white")
+
+
 y_rep_mort=fit_jer1$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
@@ -395,6 +413,82 @@ mu_l_intervals_jer1 = mcmc_intervals(int_jer1_post,regex_pars =  "mu_l\\W")+
 ggsave("./CC2/jer1/mu_1_intervalsjer1.png",mu_l_intervals_jer1,width = 23.05,height = 17.57,units="cm",bg="white")
 
 
+###########################
+### Beta intervals jer1 ###
+###########################
+
+beta_m_jer1=fit_jer1$draws("beta",format="df")
+
+out_all_beta_m_jer1 = beta_m_jer1 %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_intervals_jer1 = mcmc_intervals(exp(-beta_m_jer1),regex_pars = "beta",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta[1]"="Diabetes",
+             "beta[2]"="COPD",
+             "beta[3]"="Obesity",
+             "beta[4]"="Hypertension",
+             "beta[5]"="Female",
+             "beta[6]"="Chronic Kidney",
+             "beta[7]"="Age",
+             "beta[8]"="Diabetes : obesity",
+             "beta[9]"="Diabetes : Hypertension",
+             "beta[10]"="Obesity : Hypertension",
+             "beta[11]"="Diabetes : Obesity : Hypertension"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.74,1.5)) +
+  geom_text(
+    data = out_all_beta_m_jer1,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.5),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/jer1/beta_intervalsjer1.png",beta_intervals_jer1,width = 23.05,height = 17.57,units="cm",bg="white")
+
+
+#x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hdat)
+
+beta_h_m_jer1=as_draws_df(fit_jer1$draws("beta_h"))
+
+out_all_beta_h_m_jer1 = beta_h_m_jer1 %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_h_intervals_jer1 = mcmc_intervals(exp(-beta_h_m_jer1),regex_pars = "beta_h",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta_h[1]"="COPD",
+             "beta_h[2]"="Obesity",
+             "beta_h[3]"="Chronic Kidney",
+             "beta_h[4]"="Asthma",
+             "beta_h[5]"="Immunosuppression",
+             "beta_h[6]"="Female",
+             "beta_h[7]"="Age"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.9,1.3)) +
+  geom_text(
+    data = out_all_beta_h_m_jer1,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.3),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/jer1/beta_h_intervalsjer1.png",beta_h_intervals_jer1,width = 23.05,height = 17.57,units="cm",bg = "white")
+
+
 ################
 ### loo jer1 ###
 ################
@@ -422,8 +516,14 @@ fit_sinjer<- mod_sinjer$generate_quantities(c("./CC2/sinjer/sin_jer_1.csv","./CC
 ### plots ppc sinjer ###
 ########################
 
-#y_rep_hosp=fit_sinjer$draws("y_hosp_tilde")
-#y_rep_hosp=as_draws_matrix(y_rep_hosp)
+y_rep_hosp=fit_sinjer$draws("y_hosp_tilde")
+y_rep_hosp=as_draws_matrix(y_rep_hosp)
+
+ppc_plot_sinjer_hosp <- ppc_dens_overlay(json_data_sinjer$y_hosp,y_rep_hosp[1:200,])
+
+ggsave("./CC2/sinjer/ppc_plot_sinjer_hosp.png",ppc_plot_sinjer_hosp,width = 23.05,height = 17.57,units="cm", bg = "white")
+
+
 y_rep_mort=fit_sinjer$draws("y_mort_tilde")
 y_rep_mort=as_draws_matrix(y_rep_mort)
 
@@ -440,6 +540,80 @@ ggsave("./CC2/sinjer/ppc_plot_sinjer_mort.png",ppc_plot_sinjer_mort,width = 23.0
 #                                            "./CC2/sinjer/sin_jer_3.csv"))
 #int_sinjer_post=as_draws_df(intervals_sinjer$post_warmup_draws)
 
+#############################
+### Beta intervals sinjer ###
+#############################
+
+beta_m_sinjer=fit_sinjer$draws("beta",format="df")
+
+out_all_beta_m_sinjer = beta_m_sinjer %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_intervals_sinjer = mcmc_intervals(exp(-beta_m_sinjer),regex_pars = "beta",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta[1]"="Diabetes",
+             "beta[2]"="COPD",
+             "beta[3]"="Obesity",
+             "beta[4]"="Hypertension",
+             "beta[5]"="Female",
+             "beta[6]"="Chronic Kidney",
+             "beta[7]"="Age",
+             "beta[8]"="Diabetes : obesity",
+             "beta[9]"="Diabetes : Hypertension",
+             "beta[10]"="Obesity : Hypertension",
+             "beta[11]"="Diabetes : Obesity : Hypertension"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.74,1.5)) +
+  geom_text(
+    data = out_all_beta_m_sinjer,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.5),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/sinjer/beta_intervalssinjer.png",beta_intervals_sinjer,width = 23.05,height = 17.57,units="cm",bg="white")
+
+
+#x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hdat)
+
+beta_h_m_sinjer=as_draws_df(fit_sinjer$draws("beta_h"))
+
+out_all_beta_h_m_sinjer = beta_h_m_sinjer %>%
+  pivot_longer(cols=-c(".chain",".iteration",".draw"),names_to = "index_beta",values_to = "Value") %>%
+  mutate(Value=exp(-Value)) %>%
+  group_by(index_beta) %>% median_qi(Value) %>% mutate_if(is.numeric, round, 2)
+
+beta_h_intervals_sinjer = mcmc_intervals(exp(-beta_h_m_sinjer),regex_pars = "beta_h",prob_outer = .95) +
+  ggplot2::labs( x="Hazard Ratio",
+                 y="Comorbidity"
+                 #,title = "DS Jer2"
+  ) +
+  scale_y_discrete(#labels=rev(c(colnames(x[,-1]))),
+    labels=c("beta_h[1]"="COPD",
+             "beta_h[2]"="Obesity",
+             "beta_h[3]"="Chronic Kidney",
+             "beta_h[4]"="Asthma",
+             "beta_h[5]"="Immunosuppression",
+             "beta_h[6]"="Female",
+             "beta_h[7]"="Age"
+    ),
+    limits=rev)+
+  geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
+  xlim(c(.9,1.3)) +
+  geom_text(
+    data = out_all_beta_h_m_sinjer,
+    aes(y= index_beta,label = str_glue("[{Value}, {.lower} - {.upper}]"), x = 1.3),
+    hjust = "inward"
+  )
+
+ggsave("./CC2/sinjer/beta_h_intervalssinjer.png",beta_h_intervals_sinjer,width = 23.05,height = 17.57,units="cm",bg = "white")
 
 
 ##################
@@ -459,7 +633,7 @@ loo_mort_sinjer=loo(fit_sinjer$draws("log_lik_mort"), r_eff = NA)
 # loo_mort_jer2modi=readRDS("./CC2/jer2modi/loo_mort_jer2modi.rds")
 # loo_mort_jer2=readRDS("./CC2/jer2/loo_mort_jer2.rds")
 # loo_mort_jer1=readRDS("./CC2/jer1/loo_mort_jer1.rds")
-# loo_mort_sinjer=readRDS("./CC2/jer1/loo_mort_jer1.rds")
+# loo_mort_sinjer=readRDS("./CC2/sinjer/loo_mort_sinjer.rds")
 
 
 loo=loo_compare(loo_mort_jer2modi,loo_mort_jer2,loo_mort_jer1,loo_mort_sinjer)

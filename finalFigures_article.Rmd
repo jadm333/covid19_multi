@@ -26,6 +26,36 @@ knitr::include_graphics("./CC2/sinjer/ppc_plot_sinjer_mort.png")
 <br>
 
 
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/sinjer/ppc_plot_sinjer_hosp.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/sinjer/beta_intervalssinjer.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/sinjer/beta_h_intervalssinjer.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
 ## Model 2
 
 ```{r echo=FALSE}
@@ -38,12 +68,41 @@ knitr::include_graphics("./CC2/jer1/ppc_plot_jer1_mort.png")
 <br>
 <br>
 
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/jer1/ppc_plot_jer1_hosp.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
 
 ```{r echo=FALSE}
 knitr::include_graphics("./CC2/jer1/mu_1_intervalsjer1.png")
 
 ```
 **Figure 3.** Add caption.
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/jer1/beta_intervalsjer1.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/jer1/beta_h_intervalsjer1.png")
+
+```
 <br>
 <br>
 <br>
@@ -120,11 +179,51 @@ knitr::include_graphics("./CC2/jer2modi/beta_h_intervalsjer2modi.png")
 
 ## Model 4
 
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/jer2modi/ppc_plot_modi_mort.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("./CC2/jer2modi/ppc_plot_modi_hosp.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo =FALSE,fig.align='center'}
+knitr::include_graphics("CC2/jer2modi/mu_l_intervalsjer2modi.png")
+
+```
+<br>
+<br>
+<br>
+<br>
+
+
 ```{r echo =FALSE,fig.align='center'}
 knitr::include_graphics("CC2/jer2modi/mu_12_intervalsjer2modi.png")
 
 ```
 **Figure 10.** Log hazard rate for healthcare provider random effect (95% Credible Interval)
+<br>
+<br>
+<br>
+<br>
+
+
+```{r echo =FALSE,fig.align='center'}
+knitr::include_graphics("CC2/jer2modi/beta_intervalsjer2modi.png")
+
+```
 <br>
 <br>
 <br>

@@ -532,6 +532,7 @@ described in light pink in Figure 1.
  \alpha&=\exp(\alpha^r*10) \\
  \alpha^r&\sim N(0,1) \\
  \mu^r_l&\sim N(0,1) \\
+ \mu^r_k&\sim N(0,1) \\
  \sigma_o&\sim t^+_3(0,1) \\
  \mu_m,\mu_h &\sim N(0,10) \\
  \vartheta_j,\theta_j &\sim U(-\infty,\infty) \\
@@ -551,7 +552,7 @@ As mentioned before, we considered a Bayesian approach to fit the model
 to the observed data corresponding to times between symptoms and
 hospitalization, \(H\), and time between hospitalization and death,
 \(M\). The associated model parameters are given by
-\(\bm{\theta}=\{\alpha^r,\mathbf{\eta},\mathbf{\upsilon},\mu_m,\mu_h,\theta,\vartheta,\mu^r_l,\mu^r_k\}\).
+\(\bm{\theta}=\{\alpha^r,\mu_m,\mu_h,\theta,\vartheta,\mu^r_l,\mu^r_k,\sigma_o\}\).
 We form the joint posterior distribution over both the model parameters
 and auxiliary variables, given the observed data:
 
@@ -576,10 +577,10 @@ simulations of the parameter values.
 \begin{tabular}{lcc}
 \hline
 {\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\
-\hline Model I  &  -75473.3 (187.8) & 26.9 (2.2) \\
-Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\
-Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\
-Model IV & -75612.0(194.4) & 239.4(15.0) \\
+\hline Model I    &     -135592.8 (268.2) & 30.4 (2.6) \\
+       Model II   &     -135373.2 (266.8) & 93.1 (7.7)\\
+       Model III  &     -135133.5 (265.0) & 105.6 (9.6)  \\
+       Model IV   &     -135053.1 (262.9) & 247.4 (15.3) \\
 \hline
 \end{tabular}
 \caption{\label{tab:gof} Expected log-pointwise predictive density (ELPD) for a new data set and effective number of parameters (standard deviation).}
@@ -863,20 +864,28 @@ Informaci{ó}n de la Red IRAG} {[}Internet{]}. 2021. Available:
 \textbf{Figure 1}. Graphical representation of the model: directed
 acyclic grph (DAG)
 
-\begin{center}\includegraphics[width=350px]{mu_l_intervalsjer2modi} \end{center}
+\begin{center}\includegraphics[width=350px]{../CC2/jer2modi/mu_l_intervalsjer2modi} \end{center}
 
 \textbf{Figure 2}. Log hazard rate for state random effect (95\%
 Credible Interval)
 
-\begin{center}\includegraphics[width=350px]{ppc_plot_modi_mort} \end{center}
+\begin{center}\includegraphics[width=350px]{../CC2/jer2modi/ppc_plot_modi_mort} \end{center}
 
 \textbf{Figure 3}. Posterior predictive distribution density plot for
 deaths
 
-\begin{center}\includegraphics[width=350px]{beta_intervalsjer2modi} \end{center}
+\begin{center}\includegraphics[width=350px]{../CC2/jer2modi/beta_intervalsjer2modi} \end{center}
 
 \textbf{Figure 4}. Effect on time from hospitalization to death by
 covariates included in the final model.
+
+\begin{center}\includegraphics[width=350px]{../CC2/jer2modi/beta_h_intervalsjer2modi} \end{center}
+
+\textbf{Figure 5}. This is a caption.
+
+\begin{center}\includegraphics[width=350px]{../CC2/jer2modi/mu_12_intervalsjer2modi} \end{center}
+
+\textbf{Figure 6}. This is a caption.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.26}}

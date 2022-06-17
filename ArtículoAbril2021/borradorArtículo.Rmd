@@ -167,15 +167,20 @@ A check on the posterior predictive distributions is essential for validating re
 \begin{tabular}{lcc}
 \hline
 {\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\
-\hline Model I  &  -75473.3 (187.8) & 26.9 (2.2) \\
-Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\
-Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\
-Model IV & -75612.0(194.4) & 239.4(15.0) \\
+\hline Model I    &     -135592.8 (268.2) & 30.4 (2.6) \\
+       Model II   &     -135373.2 (266.8) & 93.1 (7.7)\\
+       Model III  &     -135133.5 (265.0) & 105.6 (9.6)  \\
+       Model IV   &     -135053.1 (262.9) & 247.4 (15.3) \\
 \hline
 \end{tabular}
 \caption{\label{tab:gof} Expected log-pointwise predictive density (ELPD) for a new data set and effective number of parameters (standard deviation).}
 \end{table}
 
+<!-- {\textbf{Model}} & {\textbf{elpd leave one out}} & {\textbf{p leave one out}} \\ -->
+<!-- \hline Model I  &  -75473.3 (187.8) & 26.9 (2.2) \\ -->
+<!-- Model II          &   -75352.2 (186.3) &  84.1 (4.7)\\ -->
+<!-- Model III         &    -75284.9 (186.6) &  92.5 (4.9)  \\ -->
+<!-- Model IV & -75612.0(194.4) & 239.4(15.0) \\ -->
 
 # Results
 
@@ -312,20 +317,39 @@ knitr::include_graphics("JerModCOVID19_ROJO.pdf")
 
 
 ```{r,out.width="350px", echo=FALSE,fig.align='center'}
-knitr::include_graphics("mu_l_intervalsjer2modi.png")
+#knitr::include_graphics("mu_1_intervalsjer2.png")
+knitr::include_graphics("../CC2/jer2modi/mu_l_intervalsjer2modi.png")
 ```
 \textbf{Figure 2}. Log hazard rate for state random effect (95% Credible Interval)
 
 
 ```{r,out.width="350px", echo =FALSE,fig.align='center'}
-knitr::include_graphics("ppc_plot_modi_mort.png")
+#knitr::include_graphics("ppc_plot_jer2_mort.png")
+knitr::include_graphics("../CC2/jer2modi/ppc_plot_modi_mort.png")
+#knitr::include_graphics("../CC2/sinjer/ppc_plot_sinjer_mort.png")
 ```
 \textbf{Figure 3}. Posterior predictive distribution density plot for deaths
 
 ```{r,out.width="350px", echo =FALSE,fig.align='center'}
-knitr::include_graphics("beta_intervalsjer2modi.png")
+#knitr::include_graphics("beta_intervalsjer2.png")
+#knitr::include_graphics("../CC2/sinjer/beta_intervalssinjer.png")
+knitr::include_graphics("../CC2/jer2modi/beta_intervalsjer2modi.png")
 ```
 \textbf{Figure 4}. Effect on time from hospitalization to death by covariates included in the final model.
+
+
+```{r,out.width="350px", echo =FALSE,fig.align='center'}
+#knitr::include_graphics("beta_h_intervalsjer2.png")
+# knitr::include_graphics("../CC2/sinjer/beta_h_intervalssinjer.png")
+knitr::include_graphics("../CC2/jer2modi/beta_h_intervalsjer2modi.png")
+```
+\textbf{Figure 5}. This is a caption.
+
+
+```{r,out.width="350px", echo =FALSE,fig.align='center'}
+knitr::include_graphics("../CC2/jer2modi/mu_12_intervalsjer2modi.png")
+```
+\textbf{Figure 6}. This is a caption.
 
 ```{r echo=FALSE}
 table_Comorbidities = read.csv("../ArtículoAbril2021/tableOne_comorbidities&Times.csv",row.names= 1)
