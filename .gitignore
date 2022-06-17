@@ -24,6 +24,7 @@ ModeloJer2QRhosp_reduce_threads.exe
 !loo_hosp_sinjer.rds
 !loo_mort_sinjer.rds
 data/*.csv
+Data/df2.csv
 
 # Session Data files
 .RData
