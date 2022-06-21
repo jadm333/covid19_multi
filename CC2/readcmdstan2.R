@@ -151,10 +151,11 @@ beta_intervals_jer2modi = mcmc_intervals(exp(-beta_m_jer2modi),regex_pars = "bet
              "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
-             "beta[8]"="Diabetes : obesity",
-             "beta[9]"="Diabetes : Hypertension",
-             "beta[10]"="Obesity : Hypertension",
-             "beta[11]"="Diabetes : Obesity : Hypertension"
+             "beta[8]"="Semaforo",
+             "beta[9]"="Diabetes : obesity",
+             "beta[10]"="Diabetes : Hypertension",
+             "beta[11]"="Obesity : Hypertension",
+             "beta[12]"="Diabetes : Obesity : Hypertension"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -189,7 +190,8 @@ beta_h_intervals_jer2modi = mcmc_intervals(exp(-beta_h_m_jer2modi),regex_pars = 
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
              "beta_h[6]"="Female",
-             "beta_h[7]"="Age"
+             "beta_h[7]"="Age",
+             "beta_h[8]"="Semaforo"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -298,10 +300,11 @@ beta_intervals_jer2 = mcmc_intervals(exp(-beta_m_jer2),regex_pars = "beta",prob_
              "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
-             "beta[8]"="Diabetes : obesity",
-             "beta[9]"="Diabetes : Hypertension",
-             "beta[10]"="Obesity : Hypertension",
-             "beta[11]"="Diabetes : Obesity : Hypertension"
+             "beta[8]"="Semaforo",
+             "beta[9]"="Diabetes : obesity",
+             "beta[10]"="Diabetes : Hypertension",
+             "beta[11]"="Obesity : Hypertension",
+             "beta[12]"="Diabetes : Obesity : Hypertension"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -336,7 +339,8 @@ beta_h_intervals_jer2 = mcmc_intervals(exp(-beta_h_m_jer2),regex_pars = "beta_h"
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
              "beta_h[6]"="Female",
-             "beta_h[7]"="Age"
+             "beta_h[7]"="Age",
+             "beta_h[8]"="Semaforo"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -437,10 +441,11 @@ beta_intervals_jer1 = mcmc_intervals(exp(-beta_m_jer1),regex_pars = "beta",prob_
              "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
-             "beta[8]"="Diabetes : obesity",
-             "beta[9]"="Diabetes : Hypertension",
-             "beta[10]"="Obesity : Hypertension",
-             "beta[11]"="Diabetes : Obesity : Hypertension"
+             "beta[8]"="Semaforo",
+             "beta[9]"="Diabetes : obesity",
+             "beta[10]"="Diabetes : Hypertension",
+             "beta[11]"="Obesity : Hypertension",
+             "beta[12]"="Diabetes : Obesity : Hypertension"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -475,7 +480,8 @@ beta_h_intervals_jer1 = mcmc_intervals(exp(-beta_h_m_jer1),regex_pars = "beta_h"
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
              "beta_h[6]"="Female",
-             "beta_h[7]"="Age"
+             "beta_h[7]"="Age",
+             "beta_h[8]"="Semaforo"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -564,10 +570,11 @@ beta_intervals_sinjer = mcmc_intervals(exp(-beta_m_sinjer),regex_pars = "beta",p
              "beta[5]"="Female",
              "beta[6]"="Chronic Kidney",
              "beta[7]"="Age",
-             "beta[8]"="Diabetes : obesity",
-             "beta[9]"="Diabetes : Hypertension",
-             "beta[10]"="Obesity : Hypertension",
-             "beta[11]"="Diabetes : Obesity : Hypertension"
+             "beta[8]"="Semaforo",
+             "beta[9]"="Diabetes : obesity",
+             "beta[10]"="Diabetes : Hypertension",
+             "beta[11]"="Obesity : Hypertension",
+             "beta[12]"="Diabetes : Obesity : Hypertension"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +
@@ -602,7 +609,8 @@ beta_h_intervals_sinjer = mcmc_intervals(exp(-beta_h_m_sinjer),regex_pars = "bet
              "beta_h[4]"="Asthma",
              "beta_h[5]"="Immunosuppression",
              "beta_h[6]"="Female",
-             "beta_h[7]"="Age"
+             "beta_h[7]"="Age",
+             "beta_h[8]"="Semaforo"
     ),
     limits=rev)+
   geom_vline(xintercept = 1,lty="dashed",alpha=.3) +

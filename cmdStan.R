@@ -16,6 +16,10 @@ library(tidybayes)
 
 set.seed(12345)
 
+#Correr esto si queremos los databases hosp y muerte con la informacion del semaforo
+#de acuerdo a inicio de sintomas
+source("helpers/df2_sem.R")
+#Correr esto si no nos interesa incluir la informacion del semaforo apra hosp y muertes
 hosp=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),!is.na(EDAD),!is.na(SEXO),
                     tiempo_muerte>=0,tiempo_hosp>=0,!is.na(EPOC),!is.na(RENAL_CRONICA),
                     !is.na(SECTOR),!is.na(ASMA),!is.na(INMUSUPR),tiempo_hosp>1) %>% 
@@ -29,8 +33,11 @@ muerte=df2 %>% filter(!is.na(DIABETES),!is.na(OBESIDAD),!is.na(HIPERTENSION),eve
 #saveRDS(list(hosp=hosp,muerte=muerte),"./Data/datos.rds")
 
 x=model.matrix(~DIABETES+EPOC+OBESIDAD+HIPERTENSION+DIABETES*OBESIDAD*HIPERTENSION+
-                 SEXO+RENAL_CRONICA+EDAD,data=muerte)
-x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,data=hosp)
+                 SEXO+RENAL_CRONICA+EDAD,# +sem,
+               data=muerte)
+
+x_hosp=model.matrix(~EPOC+OBESIDAD+RENAL_CRONICA+ASMA+INMUSUPR+SEXO+EDAD,#+sem,
+                    data=hosp)
 
 
 
@@ -135,6 +142,33 @@ jer_2modi_h=list(
 )
 
 write_stan_json(jer_2modi_h,file = "Cmdstan/jer_2modi.json")
+
+############################
+#Con jerarquia 3 modif 
+############################
+
+jer_3modi=list(
+  N=length(muerte$tiempo_muerte),
+  y_mort=as.numeric(muerte$tiempo_muerte),
+  N2=length(hosp$tiempo_hosp),
+  y_hosp=as.numeric(hosp$tiempo_hosp),
+  Gniv1=length(levels(muerte$year)),
+  Gniv2=length(levels(muerte$YEARENT)),
+  Gniv3=length(levels(muerte$YEARSECENT)),
+  Niv1=as.numeric(muerte$year),
+  Niv2=as.numeric(muerte$YEARENT),
+  Niv3=as.numeric(muerte$YEARSECENT),
+  #Gnivh1=length(levels(hosp$ENTIDAD_UM)),
+  #Gnivh2=length(levels(hosp$SECENT)),
+  #Nivh1=as.numeric(hosp$ENTIDAD_UM),
+  #Nivh2=as.numeric(hosp$SECENT),
+  x=x,
+  M=ncol(x),
+  x_hosp=x_hosp,
+  M_hosp=ncol(x_hosp)
+)
+
+write_stan_json(jer_3modi,file = "Cmdstan/jer_3modi.json")
 
 
 

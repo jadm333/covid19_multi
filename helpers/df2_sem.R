@@ -1,5 +1,10 @@
 library(readxl)
 library(lubridate)
+library(readr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
 source("./helpers/cambioCVE.R")
 ### Load in case a version of df2 is available ###
 #df2 = read_csv("Data/df2.csv")
@@ -114,12 +119,65 @@ week_sem_finder = function(date, se_dates = sem_colnames){
 
 hosp = hosp %>% 
   rowwise() %>% 
-  mutate(FECHA_SEM = week_sem_finder(FECHA_INGRESO)) %>% 
+  mutate(FECHA_SEM = week_sem_finder(FECHA_SINTOMAS)) %>% 
   left_join(sem_data_long,by = c("FECHA_SEM","ENTIDAD_UM")) %>% 
-  replace_na(list(sem = 1))
+  replace_na(list(sem = 1)) %>% 
+  mutate(year = factor(format(FECHA_SINTOMAS,format="%Y")),
+         semestre = if_else(month(FECHA_SINTOMAS)<=6,
+                            paste0(year,"-I"),paste0(year,"-II")),
+         semestre = factor(semestre,levels = c("2020-I","2020-II","2021-I")),
+         YEARENT=factor(paste(year,ENTIDAD_UM,sep = " ")),
+         SEMENT=factor(paste(semestre,ENTIDAD_UM,sep = " ")),
+         YEARSECENT=factor(paste(year,ENTIDAD_UM,SECTOR,sep = " ")),
+         SEMSECENT=factor(paste(semestre,ENTIDAD_UM,SECTOR,sep = " ")))
 
 muerte = muerte %>% 
   rowwise() %>% 
-  mutate(FECHA_SEM = week_sem_finder(FECHA_INGRESO)) %>% 
+  mutate(FECHA_SEM = week_sem_finder(FECHA_SINTOMAS)) %>% 
   left_join(sem_data_long,by = c("FECHA_SEM","ENTIDAD_UM")) %>% 
-  replace_na(list(sem = 1))
+  replace_na(list(sem = 1)) %>% 
+  mutate(year = factor(format(FECHA_SINTOMAS,format="%Y")),
+         semestre = if_else(month(FECHA_SINTOMAS)<=6,
+                            paste0(year,"-I"),paste0(year,"-II")),
+         semestre = factor(semestre,levels = c("2020-I","2020-II","2021-I")),
+         YEARENT=factor(paste(year,ENTIDAD_UM,sep = " ")),
+         SEMENT=factor(paste(semestre,ENTIDAD_UM,sep = " ")),
+         YEARSECENT=factor(paste(year,ENTIDAD_UM,SECTOR,sep = " ")),
+         SEMSECENT=factor(paste(SEMENT,SECTOR,sep = " ")))
+
+
+
+# Puede ser util si se quieren ordenar los factores
+# c(
+#   "AS", 
+#   "BC", 
+#   "BS", 
+#   "CC", 
+#   "CH", 
+#   "CL", 
+#   "CM", 
+#   "CS", 
+#   "DF", 
+#   "DG", 
+#   "GR", 
+#   "GT",
+#   "HG", 
+#   "JC",
+#   "MC", 
+#   "MN", 
+#   "MS", 
+#   "NL", 
+#   "NT", 
+#   "OC", 
+#   "PL", 
+#   "QR", 
+#   "QT", 
+#   "SL",
+#   "SP", 
+#   "SR", 
+#   "TC", 
+#   "TL", 
+#   "TS", 
+#   "VZ", 
+#   "YN", 
+#   "ZS")
